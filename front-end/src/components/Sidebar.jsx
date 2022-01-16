@@ -12,7 +12,7 @@ const SidebarContainer = styled.aside`
     z-index: 99999999;
     width: 100%;
     height: 100%;
-    background: linear-gradient(#ffecdaf0, #ffe2cbdf), url(${props=>props.bgImage});
+    background: linear-gradient(#ffecdabe, #ffe2cbdf), url(${props=>props.bgImage});
     display: grid;
     align-items: center;
     left: 0;

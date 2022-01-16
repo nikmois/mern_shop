@@ -179,11 +179,6 @@ const NavLinks = styled(LinkR)`
     height: 100%;
     cursor: pointer;
 
-    &.active {
-        border-bottom: 3px solid #f3ad5e;
-    }
-
-
     @media screen and (max-width: 992px) {
         padding: 0 0.3rem;
     }
@@ -292,7 +287,6 @@ const DropDownLi = styled.div`
     height: 100%;
     cursor: pointer;
     position: relative;
-
     &:hover ${DropDownContent} {
     opacity: 1;
     visibility: visible;
@@ -301,24 +295,29 @@ const DropDownLi = styled.div`
 `;
 
 const DropDownRoute = styled(LinkR)`
+    text-decoration: none;
+    color: black;
     display: flex;
     align-items: center;
     text-decoration: none;
     padding: 0 0.6rem;
     height: 100%;
+`;
+
+const DropDownItem = styled.li`
+    height: 76px;
     cursor: pointer;
     position: relative;
-    color: black;
-
+    
     &:hover ${DropDownContent} {
     opacity: 1;
     visibility: visible;
-  }
- 
+    }
+
 `;
 
 
-const SubA = styled.a`
+const SubA = styled.div`
   color: black;
   padding: 12px 16px;
   text-decoration: none;
@@ -330,7 +329,7 @@ const SubA = styled.a`
   }
 `;
 
-const FlagR = styled.a`
+const FlagR = styled.div`
   text-align: left;
   padding:0 5px;
   @media screen and (max-width: 850px) and (min-width: 550px) {
@@ -463,19 +462,19 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
                 </HoveredMenu>
                 </NavLinks>
             </NavItem>
-            <NavItem>
+            <DropDownItem>
                 <DropDownRoute to='/shop'>
                 <HoveredMenu>
             SHOP
                 </HoveredMenu>
                 <IoIosArrowDown />
+                </DropDownRoute>
                 <DropDownContent>
                     <SubLink to="/products">SILICONE BABY TABLEWARE</SubLink>
                     <SubLink to="/category2">EDUCATIONAL TOYS FOR CHILDREN</SubLink>
                     <SubLink to="/category3">SILICONE TOYS FOR CHILDREN</SubLink>
                 </DropDownContent>
-                </DropDownRoute>  
-            </NavItem>
+            </DropDownItem>
             <NavItem>
                 <NavLinks to='/about'>
                 <HoveredMenu>

@@ -34,7 +34,7 @@ const Button = styled.button`
     align-content: center;
 `;
 
-const Cont = styled.div`
+const Cont = styled(Link)`
     position: relative;
     display: flex;
     object-fit: cover;
@@ -57,12 +57,10 @@ const Cont = styled.div`
 const CategoryItem = ({item}) => {
     return (
         <Container>
-            <Link to={`/products/${item.cat}`}>
-            <Cont>
+            <Cont to={`/products/${item.cat}`}>
             <Image src={item.img}/>
             <Button>{item.title}</Button>
             </Cont>
-            </Link>
         </Container>
     )
 }

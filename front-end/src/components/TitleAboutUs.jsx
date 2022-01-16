@@ -3,6 +3,12 @@ import styled from "styled-components";
 import { Link as LinkR } from 'react-router-dom';
 import image from "../images/about.png";
 
+
+const Cont = styled.div`
+    width: 100vw;
+    background-color: #fcd0b5;
+`;
+
 const Container = styled.div`
     width: 90vw;
     max-width: 1200px;
@@ -10,14 +16,9 @@ const Container = styled.div`
     margin-bottom: 10rem;
     margin-left: auto;
     margin-right: auto;
-    background-color: #ffe4d4;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
-    border-radius: 0.5rem;
-    outline: 5px dashed #fff;
-    outline-offset: -15px;
     @media screen and (max-width: 600px){
         flex-direction: column;
     }
@@ -68,7 +69,6 @@ const Title = styled.h1`
 `;
 const Right = styled.div`
     flex: 1;
-    border-radius: 5%;
 `;
 const Image = styled.img`
     width: 100%;
@@ -88,6 +88,7 @@ const Hr = styled.hr`
 
 const TitleAboutUs = () => {
     return (
+        <Cont>
         <Container>
           <Left>
           <Info>
@@ -104,6 +105,7 @@ const TitleAboutUs = () => {
           <Image src={image}/>
           </Right>
         </Container>
+        </Cont>
     )
 }
 
