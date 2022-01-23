@@ -41,10 +41,24 @@ const Title = styled.h1`
     font-weight: 500;
 `;
 
+const MobileTitle = styled.h1`
+    display: none;
+
+    @media screen and (max-width: 800px) {
+        margin: 25px;
+        font-weight: 500;
+        display: flex;
+    }
+`;
+
 const FilterContainer = styled.div`
     display: flex;
     justify-content: flex-end;
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
 `;
+
 const Filter = styled.div`
     margin: 20px;
 `;
@@ -96,8 +110,6 @@ const Hr = styled.hr`
     width: 90%;
     margin: 20px 0;
 `;
-
-
 
 const Option = styled.option`
 
@@ -160,19 +172,13 @@ const ProductList = () => {
                     <Option>Red</Option>
                     <Option>Black</Option>
                     <Option>Beige</Option>
-                </Select>
-                <Hr />
-                <Title2>FILTER BY BRAND</Title2>
-                <Select name="producer" onChange={handleFilters}>
-                    <Option disabled>Brand</Option>
-                    <Option>Begemot</Option>
-                    <Option>Crocodil</Option>
-                    <Option>Ananas</Option>
-                    <Option>Morkovka</Option>
-                </Select>
+                </Select>           
                 </LeftContent>
             </Left>
             <Right>
+            <MobileTitle>
+                {catName}
+            </MobileTitle>
             <FilterContainer>
                 <Filter><FilterText>Sort Products:</FilterText>
                 <Select onChange={e=>setSort(e.target.value)}>

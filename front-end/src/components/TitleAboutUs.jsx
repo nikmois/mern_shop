@@ -2,11 +2,13 @@ import React from 'react'
 import styled from "styled-components";
 import { Link as LinkR } from 'react-router-dom';
 import image from "../images/about.png";
+import bgPic from "../images/wall.jpg";
 
 
 const Cont = styled.div`
-    width: 100vw;
-    background-color: #fcd0b5;
+    width: 100%;
+    background: linear-gradient(#ffffff92,#ffcdb0a9), url(${props=>props.bgImage});
+    background-size: cover;
 `;
 
 const Container = styled.div`
@@ -88,7 +90,7 @@ const Hr = styled.hr`
 
 const TitleAboutUs = () => {
     return (
-        <Cont>
+        <Cont bgImage={bgPic}>
         <Container>
           <Left>
           <Info>

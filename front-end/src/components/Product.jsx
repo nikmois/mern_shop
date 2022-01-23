@@ -1,6 +1,7 @@
 import { SearchOutlined, ShoppingCartOutlined } from "@material-ui/icons";
 import styled from "styled-components";
-import { Link as LinkR } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import product1 from "../images/product1.png";
 
 const Info = styled.div`
     display: none;
@@ -69,21 +70,23 @@ const Buttons = styled.div`
     }
 `;
 
-const MobileButton1 = styled(LinkR)`
+const MobileButton1 = styled(Link)`
     width: 40%;
     text-align: center;
     box-sizing: border-box;
     margin-right: 0.5rem;
+    z-index: 5;
     text-decoration: none;
     color: #5f5f5f;
     border: 2.5px solid grey;
     padding: 0.2rem 0 0 0;
 `;
 
-const MobileButton2 = styled(LinkR)`
+const MobileButton2 = styled(Link)`
     width: 40%;
     margin-left: 0.5rem;
     text-align: center;
+    z-index: 5;
     text-decoration: none;
     color: #5f5f5f;
     box-sizing: border-box;
@@ -109,7 +112,7 @@ const Image = styled.img`
     object-fit: contain;
 `;
 
-const Icon = styled.div`
+const Icon = styled(Link)`
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -119,6 +122,7 @@ const Icon = styled.div`
     justify-content: center;
     margin: 10px;
     transition: all 0.5s ease;
+    color: black;
     &:hover{
         background-color: #e9f5f5;
         transform: scale(1.1);
@@ -148,18 +152,18 @@ const Product = ({item}) => {
     return (
         <Container>
             <ImgContainer>
-            <Image src={item.img}/>
+            <Image src={product1}/>
             <Buttons>
-            <MobileButton1 to='/'><SearchOutlined/></MobileButton1>
-            <MobileButton2 to='/'><ShoppingCartOutlined/></MobileButton2>
+            <MobileButton1 to={`/product/${item._id}`}><SearchOutlined/></MobileButton1>
+            <MobileButton2 to="/"><ShoppingCartOutlined/></MobileButton2>
             </Buttons>
             </ImgContainer>
             <TextContainer>
             <Info>
-                <Icon>
+                <Icon to="/">
                     <ShoppingCartOutlined/>
                 </Icon>
-                <Icon>
+                <Icon to={`/product/${item._id}`}>
                     <SearchOutlined/>
                 </Icon>
             </Info>
