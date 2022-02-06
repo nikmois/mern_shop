@@ -14,6 +14,7 @@ const Cont = styled.div`
     align-items: flex-start;
     justify-content: center;
     max-width: 1300px;
+    margin-top: 5vh;
     margin-left: auto;
     margin-right: auto;
 `;
@@ -39,6 +40,7 @@ const Title = styled.h1`
     margin: 15px 0 25px;
     display: flex;
     font-weight: 500;
+    font-size: clamp(2rem, 1.5vw, 2.5rem);
 `;
 
 const MobileTitle = styled.h1`
@@ -101,6 +103,7 @@ const Select = styled.select`
     padding: 10px;
     margin-right: 20px;
     min-width: 9rem;
+    transition: all 1s ease-out;
 `;
 
 const Hr = styled.hr`
@@ -112,7 +115,8 @@ const Hr = styled.hr`
 `;
 
 const Option = styled.option`
-
+    transition: all 0.5s ease-in;
+    padding: 0.5rem 0;
 `;
 
 const ProductList = () => {
@@ -146,6 +150,8 @@ const ProductList = () => {
     }else if(cat === "silicone-toys"){
         catName = "SILICONE TOYS FOR CHILDREN"
     }
+
+
 
     return (
         <>    
