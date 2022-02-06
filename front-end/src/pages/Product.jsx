@@ -6,10 +6,11 @@ import Footer from "../components/Footer";
 import NavbarCommon from "../components/NavbarCommon";
 import Newsletter from "../components/Newsletter";
 import Sidebar from "../components/Sidebar";
-import cooltoy from "../images/cooltoy.jpeg";
 import MobileCart from "../components/MobileCart";
 import { useLocation } from "react-router-dom";
 import { publicRequest } from "../requestMethods"; 
+import { addProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 
 const ContentContainer = styled.div`
@@ -66,10 +67,30 @@ const LongDesc = styled.p`
     font-size: clamp(15px, 3vw, 18px);
 `;
 
-const Price = styled.span`
+const PriceContainer = styled.div`
+    display: flex;
+`;
+
+const Price = styled.div`
     font-weight: 100;
     font-size: clamp(25px, 5vw, 33px);
     color: #c9660a;
+`;
+
+const NormalPrice = styled.div`
+    font-weight: 100;
+    font-size: clamp(25px, 5vw, 33px);
+    color: #636363;
+    margin-right: 1rem;
+    position: relative;
+    :before{
+        border-bottom: 3px solid red;
+        position: absolute;
+        content: "";
+        width: 110%;
+        height: 50%;
+        transform: rotate(12deg);
+    }
 `;
 
 const FilterContainer = styled.div`
@@ -142,6 +163,9 @@ const Product = () => {
     const location = useLocation();
     const id = location.pathname.split("/")[2];
     const [product,setProduct] = useState({});
+    const [quantity, setQuantity] = useState(1);
+    const [color, setColor] = useState("");
+    const dispatch = useDispatch();
 
     useEffect(()=>{
         const getProduct = async ()=>{
@@ -159,7 +183,7 @@ const Product = () => {
                     <Filter>
                     <FilterTitle>Color</FilterTitle>
                     { product.color?.map((c) => (
-                    <FilterColor color = {c} key = {c} />
+                    <FilterColor color = {c} key = {c} onClick={()=>setColor(c)}/>
                     ))}
                     </Filter>
                 )
@@ -167,8 +191,36 @@ const Product = () => {
             return;
         }         
     };
-    
 
+    const priceCheck = () => {
+        if (product.oldPrice) {
+            return(
+                <PriceContainer>
+                    <NormalPrice>€{product.oldPrice}</NormalPrice>
+                    <Price>€{product.price}</Price>
+                </PriceContainer>
+            )
+        } else {
+            return(
+                <Price>€{product.price}</Price>
+            )
+        }
+    };
+    
+    const handleQuantity = (type) => {
+        if(type === "dec"){
+            quantity > 1 && setQuantity(quantity - 1)
+        } else {
+            setQuantity(quantity + 1)
+        }
+    }
+
+
+    const handleClick = () =>{
+        dispatch(
+            addProduct({ ...product, quantity, color })
+            );
+    };
 
     return (
         <>
@@ -178,23 +230,23 @@ const Product = () => {
             <ContentContainer>
             <Wrapper>
                 <ImgContainer>
-                <Image src={product.img} />
+                <Image src={product.img1} />
                 </ImgContainer>
                 <InfoContainer>
                     <Title>{product.title}</Title>
                     <Desc>{product.desc}</Desc>
-                    <Price>€{product.price}</Price>
+                    {priceCheck()}
                     <LongDesc>{product.longDesc}</LongDesc>
                     <FilterContainer>
                     {colorCheck()}
                     </FilterContainer>
                     <AddContainer>
                         <AmountContainer>
-                            <Remove/>
-                            <Amount>1</Amount>
-                            <Add/>
+                            <Remove style={{cursor: "pointer"}} onClick={()=>handleQuantity("dec")}/>
+                            <Amount>{quantity}</Amount>
+                            <Add style={{cursor: "pointer"}} onClick={()=>handleQuantity("inc")}/>
                         </AmountContainer>
-                        <Button>ADD TO CART</Button>
+                        <Button onClick={handleClick}>ADD TO CART</Button>
                     </AddContainer>
                 </InfoContainer>
             </Wrapper>

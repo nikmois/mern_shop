@@ -1,7 +1,7 @@
 import { SearchOutlined, ShoppingCartOutlined } from "@material-ui/icons";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
-import product1 from "../images/product1.png";
+
 
 const Info = styled.div`
     display: none;
@@ -144,20 +144,86 @@ const Desc = styled.div`
 const Price = styled.div`
     z-index: 5;
     font-weight: 600;
-    font-size: 20px;
+    font-size: clamp(20px, 5vw, 25px);
     color: rgba(224, 98, 13, 0.911);
 `;
 
+const PriceContainer = styled.div`
+    display: flex;
+`;
+
+const NormalPrice = styled.div`
+    font-weight: 600;
+    font-size: clamp(20px, 5vw, 25px);
+    color: #636363;
+    margin-right: 1rem;
+    position: relative;
+    :before{
+        border-bottom: 3px solid red;
+        position: absolute;
+        content: "";
+        width: 110%;
+        height: 50%;
+        transform: rotate(12deg);
+    }
+`;
+
+const Discount = styled.div`
+    border-radius: 50%;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: 4rem;
+    height: 4rem;
+    background-color: #f57106;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+`;
+
+
 const Product = ({item}) => {
+
+    const priceCheck = () => {
+        if (item.oldPrice) {
+            return(
+                <PriceContainer>
+                    <NormalPrice>€{item.oldPrice}</NormalPrice>
+                    <Price>€{item.price}</Price>
+                </PriceContainer>
+            )
+        } else {
+            return(
+                <Price>€{item.price}</Price>
+            )
+        }
+    };
+
+    const discountCheck = () => {
+        if (item.oldPrice) {
+            return(
+                <Discount>
+                    - {Math.floor(100 - (item.price/item.oldPrice*100))}%
+                </Discount>
+            )
+        }else{
+            return
+        }
+    };
+
     return (
         <Container>
             <ImgContainer>
-            <Image src={product1}/>
+            <Image src={item.img1}/>
             <Buttons>
             <MobileButton1 to={`/product/${item._id}`}><SearchOutlined/></MobileButton1>
             <MobileButton2 to="/"><ShoppingCartOutlined/></MobileButton2>
             </Buttons>
             </ImgContainer>
+            {discountCheck()}
             <TextContainer>
             <Info>
                 <Icon to="/">
@@ -169,7 +235,7 @@ const Product = ({item}) => {
             </Info>
             <Title>{item.title}</Title>
             <Desc>{item.desc}</Desc>
-            <Price>{item.price}€</Price>
+            {priceCheck()}
             </TextContainer>
         </Container>
     )

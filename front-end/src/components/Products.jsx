@@ -42,6 +42,7 @@ const Products = ({cat,filters,sort}) => {
             );
     }, [products, cat, filters]);
 
+
     useEffect(()=>{
         if(sort==="newest"){
             setFilteredProducts(prev=>
@@ -51,12 +52,13 @@ const Products = ({cat,filters,sort}) => {
             setFilteredProducts(prev=>
                 [...prev].sort((a,b)=>a.price - b.price)
                 )
-        } else {
+        } else{
             setFilteredProducts(prev=>
                 [...prev].sort((a,b)=>b.price - a.price)
                 )
         }
-    },[sort])
+    },[sort]);
+
 
     return (
         <Container>

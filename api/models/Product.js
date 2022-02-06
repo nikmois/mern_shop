@@ -8,12 +8,14 @@ const ProductSchema = new mongoose.Schema({
         img2:{type: String},
         img3:{type: String},
         img4:{type: String},
+        img5:{type: String},
+        img6:{type: String},
         category:{type:String},
         color:{type: Array},
         producer:{type: String},
         price:{type:Number, required: true},
-        discountPrice:{type:Number},
-        inStock:{type:Boolean, default: true},
+        oldPrice:{type:Number},
+        inStock:{type:Number, required: true},
 
 },{timestamps: true });
 

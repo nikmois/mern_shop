@@ -32,14 +32,14 @@ const Hr = styled.hr`
 `;
 
 
-const PopularProducts = () => {
+const LatestProducts = () => {
     return (
         <Container>
-            <Title1>Check Our Popular Products</Title1>
-            <Title2>Popular Products</Title2>
+            <Title1>Check Our Latest Products</Title1>
+            <Title2>Latest Products</Title2>
             <Hr />
         </Container>
     )
 }
 
-export default PopularProducts
+export default LatestProducts

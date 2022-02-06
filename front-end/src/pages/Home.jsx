@@ -7,7 +7,7 @@ import { Slider } from '../components/Slider';
 import styled from "styled-components";
 import Footer from '../components/Footer';
 import CategoryTitle from '../components/CategoryTitle';
-import PopularProducts from '../components/PopularProducts';
+import LatestProducts from '../components/LatestProducts';
 import NavbarCommon from '../components/NavbarCommon';
 import Sidebar from '../components/Sidebar';
 import MobileCart from '../components/MobileCart';
@@ -76,7 +76,7 @@ const Home = () => {
       <CategoryTitle/>
       <Container><Categories/></Container>
       <TitleAboutUs />
-      <PopularProducts/>
+      <LatestProducts/>
       <Container><Products/></Container>
       <Newsletter/>
       <Footer/>

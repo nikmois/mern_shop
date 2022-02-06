@@ -11,6 +11,7 @@ import { Link as LinkR } from 'react-router-dom';
 import eng from '../images/eng.svg';
 import rus from '../images/rus.svg';
 import est from '../images/est.svg';
+import { useSelector } from 'react-redux';
 
 const Nav = styled.nav`
     height: 80px;
@@ -440,7 +441,11 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
         }
         
         return dataCollection;
-    }
+    };
+
+    const quantity = useSelector(state=>state.cart.quantity);
+
+    const user = useSelector(state=>state.user.currentUser);
 
   return (
     <Nav scrollNav={scrollNav} scrolled={scrolled}>
@@ -470,9 +475,9 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
                 <IoIosArrowDown />
                 </DropDownRoute>
                 <DropDownContent>
-                    <SubLink to="/products">SILICONE BABY TABLEWARE</SubLink>
-                    <SubLink to="/category2">EDUCATIONAL TOYS FOR CHILDREN</SubLink>
-                    <SubLink to="/category3">SILICONE TOYS FOR CHILDREN</SubLink>
+                    <SubLink to="/products/tableware">SILICONE BABY TABLEWARE</SubLink>
+                    <SubLink to="/products/educational-toys">EDUCATIONAL TOYS FOR CHILDREN</SubLink>
+                    <SubLink to="/products/silicone-toys">SILICONE TOYS FOR CHILDREN</SubLink>
                 </DropDownContent>
             </DropDownItem>
             <NavItem>
@@ -514,6 +519,17 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
                 </Socials>
             </NavItem>
             <Hr />
+            {user 
+            ?
+            <NavItem>
+                <NavLinks to='/cabinet'>
+                <HoveredMenu>
+            CABINET
+                </HoveredMenu>
+                </NavLinks>
+            </NavItem> 
+            :
+            <>
             <NavItem>
                 <NavLinks to='/register'>
                 <HoveredMenu>
@@ -527,11 +543,14 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
             SIGN IN
               </HoveredMenu>
                 </NavLinks>
+            
             </NavItem>
+            </>
+            }
             <Hr />
             <NavItem>
                 <NavLinks to='/cart'>
-                <Badge badgeContent={4} color="primary">
+                <Badge badgeContent={quantity} color="primary">
                     <Cart><ShoppingCartOutlined /></Cart>
                 </Badge>
                 </NavLinks>

@@ -137,6 +137,7 @@ const ProductList = () => {
             [e.target.name]: value,
         })
     }
+
     let catName;
     if (cat === "tableware"){
         catName = "SILICONE BABY TABLEWARE"
@@ -164,8 +165,8 @@ const ProductList = () => {
                 </Categories>
                 <Hr />
                 <Title2>FILTER BY COLOR</Title2>
-                <Select name="color" onChange={handleFilters}>
-                    <Option disabled>Color</Option>
+                <Select name="color" defaultValue={'DEFAULT'} onChange={handleFilters}>
+                    <Option value="DEFAULT" disabled hidden>Color</Option>
                     <Option>White</Option>
                     <Option>Blue</Option>
                     <Option>Green</Option>

@@ -1,6 +1,5 @@
 import { Facebook, Home, Instagram, MailOutline, Phone, WhatsApp } from "@material-ui/icons";
 import styled from "styled-components";
-import payments from "../images/payments.png";
 import logo from "../images/logo-cropped.svg";
 import { Link as LinkR } from 'react-router-dom';
 
@@ -114,12 +113,6 @@ display: flex;
 align-items: center;
 `;
 
-const Payment = styled.img`
-    width: 25rem;
-    @media screen and (max-width: 750px) {
-        width: 15rem;
-    }
-`;
 
 const Image = styled.img`
     width: 250px;
@@ -150,11 +143,6 @@ const Text = styled.div`
     }
 `;
 
-const Cont = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
-`;
 
 const Link = styled.a`
     text-decoration: none;
@@ -213,12 +201,9 @@ const Footer = () => {
         </Container>
         <Hr/>
         <Text>
-        <Link href="babypingviin.ee">BABYPINGVIIN &copy;</Link> 2021 CREATED BY <Link href="https://github.com/nikmois">NIKMOIS</Link><br/>
+        <Link href="babypingviin.ee">BABYPINGVIIN &copy;</Link> 2022 CREATED BY <Link href="https://github.com/nikmois">NIKMOIS</Link><br/>
         Copying or reusing texts, media or any other materials from this website is strictly prohibited.
         </Text>
-        <Cont>
-        <Payment src={payments}/>
-        </Cont>
         </BigContainer>
     )
 }

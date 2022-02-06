@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link as LinkR } from 'react-router-dom';
 import { ShoppingCartOutlined } from "@material-ui/icons";
 import { Badge } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 
 const Car = styled.div`
   display: none;
@@ -56,10 +57,13 @@ const Cart = styled.div`
 `;
 
 const MobileCart = () => {
+
+    const quantity = useSelector(state=>state.cart.quantity)
+
     return (
         <Car>
             <CartButton to='/cart'>
-                <Badge badgeContent={4} color="primary">
+                <Badge badgeContent={quantity} color="primary">
                     <Cart><ShoppingCartOutlined /></Cart>
                 </Badge></CartButton>
             <Checkout to='/checkout'>CHECKOUT</Checkout>

@@ -3,10 +3,9 @@ import styled from 'styled-components'
 import Announcement from '../components/Announcement'
 import Footer from '../components/Footer'
 import NavbarCommon from '../components/NavbarCommon'
-import product1 from '../images/product1.png';
-import product2 from '../images/product2.png';
 import Sidebar from '../components/Sidebar';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 
 const Container = styled.div`
@@ -169,6 +168,8 @@ const Cart = () => {
         setIsOpen(!isOpen)
     };
 
+    const cart = useSelector(state=>state.cart);
+
 
     return (
         <Container>
@@ -187,49 +188,33 @@ const Cart = () => {
                 </Top>
                 <Bottom>
                     <Info>
+                        {cart.products.map(product=>(
                         <Product>
                         <ProductDetail>
-                            <Image src={product1} />
+                            <Image src={product.img} />
                             <Details>
-                                <ProductName><b>Product:</b> VERY COOL TOY</ProductName>
-                                <ProductId><b>ID:</b> 16216512</ProductId>
-                                <ProductColor color="#996633" />
+                                <ProductName><b>Product:</b> {product.title}</ProductName>
+                                <ProductId><b>ID:</b> {product._id}</ProductId>
+                                <ProductColor color={product.color} />
                             </Details>
                         </ProductDetail>
                         <PriceDetails>
                             <ProductAmountContainer>
                                 <Add />
-                                <ProductAmount>2</ProductAmount>
+                                <ProductAmount>{product.quantity}</ProductAmount>
                                 <Remove />
                             </ProductAmountContainer>
-                            <ProductPrice>30$</ProductPrice>
+                            <ProductPrice>€ {product.price * product.quantity}</ProductPrice>
                         </PriceDetails>
                         </Product>
+                        ))}
                         <Hr />
-                        <Product>
-                        <ProductDetail>
-                            <Image src={product2} />
-                            <Details>
-                                <ProductName><b>Product:</b> ANOTHER COOL TOY</ProductName>
-                                <ProductId><b>ID:</b> 1454652</ProductId>
-                                <ProductColor color="#e92626" />
-                            </Details>
-                        </ProductDetail>
-                        <PriceDetails>
-                            <ProductAmountContainer>
-                                <Add />
-                                <ProductAmount>2</ProductAmount>
-                                <Remove />
-                            </ProductAmountContainer>
-                            <ProductPrice>30$</ProductPrice>
-                        </PriceDetails>
-                        </Product>
                     </Info>
                     <Summary>
                         <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                         <SummaryItem>
                             <SummaryItemText>Subtotal</SummaryItemText>
-                            <SummaryItemPrice>60$</SummaryItemPrice>
+                            <SummaryItemPrice>€ {cart.total}</SummaryItemPrice>
                         </SummaryItem>
                         <SummaryItem>
                             <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -241,7 +226,7 @@ const Cart = () => {
                         </SummaryItem>
                         <SummaryItem>
                             <SummaryItemText type="total">Total</SummaryItemText>
-                            <SummaryItemPrice>60$</SummaryItemPrice>
+                            <SummaryItemPrice>€ {cart.total}</SummaryItemPrice>
                         </SummaryItem>
                         <Button>CHECKOUT</Button>
                     </Summary>
