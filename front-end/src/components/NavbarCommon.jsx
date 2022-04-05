@@ -160,6 +160,7 @@ const Right = styled.ul`
     text-align: center;
     align-items: center;
     justify-content: flex-end;
+    margin-right: 1.1rem;
 
     @media screen and (max-width: 850px) {
         display: none;
@@ -238,10 +239,12 @@ border: 0.3px solid grey;
 `;
 
 const Cart = styled.div`
+    position: relative;
     &:hover{
         color: #f7a140;
         transform: scale(1.1);
     }
+    
 `;
 
 const Logo = styled.img`
@@ -354,10 +357,16 @@ const SubLink = styled(LinkR)`
   }
 `;
 
+const Badge1 = styled(Badge)`
+    position: absolute;
+    top: -20px;
+    right: -15px;
+`;
+
 const ChosenLang = styled.div`
 text-decoration: none;
 display: flex;
-`
+`;
 
 const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
 
@@ -443,7 +452,7 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
         return dataCollection;
     };
 
-    const quantity = useSelector(state=>state.cart.quantity);
+    const quantity = useSelector(state=>state.cart.total);
 
     const user = useSelector(state=>state.user.currentUser);
 
@@ -550,9 +559,10 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
             <Hr />
             <NavItem>
                 <NavLinks to='/cart'>
-                <Badge badgeContent={quantity} color="primary">
-                    <Cart><ShoppingCartOutlined /></Cart>
-                </Badge>
+                <Cart>
+                <ShoppingCartOutlined />
+                <Badge1 badgeContent={`${quantity.toFixed(2)}€`} color="primary" />
+                </Cart>
                 </NavLinks>
             </NavItem>
           </Right>

@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { IoHomeOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import regPic from "../images/register.jpg";
 import { login } from "../redux/apiCalls";
+import '../css/auth.css';
 
 const Container = styled.div`
     width: 100vw;
@@ -25,11 +28,12 @@ const Title = styled.h1`
     font-weight: 300;
 `;
 
-const Link = styled.a`
+const Route = styled(Link)`
     margin: 5px 0;
     font-size: 12px;
     text-decoration: underline;
     cursor: pointer;
+    color: black;
 `;
 
 const Form = styled.form`
@@ -58,21 +62,50 @@ const Button = styled.button`
     }
 `;
 
-const Error = styled.span`
-    color: red;
-    margin: 10px 0;
+const Home = styled(Link)`
+    position: absolute;
+    top: 3%;
+    left: 5%;
 `;
+
+const Icon = styled(IoHomeOutline)`
+    color: white;
+    font-size: 6vh;
+`;
+
 
 const Login = () => {
 
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
     const {isFetching,error} = useSelector((state)=>state.user);
+    const [notice, setNotice] = useState()
 
-    const handleClick= (e) => {
+
+    
+
+    function myFunction() {
+
+        if (error){// Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+            
+            // Add the "show" class to DIV
+            x.className = "show";
+            
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            
+            setNotice("Wrong email or password, please try again..")}
+    };
+
+
+    
+
+    const handleClick = (e) => {
         e.preventDefault()
-        login(dispatch, {username,password});
+        login(dispatch, {email,password});
+        myFunction();
     }
 
     return (
@@ -80,14 +113,16 @@ const Login = () => {
         <Wrapper>
             <Title>SIGN IN</Title>
             <Form>
-                <Input placeholder="username" onChange={(e)=>setUsername(e.target.value)} />
-                <Input placeholder="password" type="password" onChange={(e)=>setPassword(e.target.value)}/>          
+                <Input placeholder="e-mail" id="email" type="text" name="email" onChange={(e)=>setEmail(e.target.value)} />
+                <Input placeholder="password" id="password" name="password" type="password" onChange={(e)=>setPassword(e.target.value)}/>          
                 <Button onClick={handleClick} disabled={isFetching}>LOGIN</Button>
-                {error && <Error>Wrong username or password!</Error>}
-                <Link>FORGOT YOUR PASSWORD?</Link>
-                <Link>CREATE A NEW ACCOUNT</Link>
+                <Route to="/register">CREATE A NEW ACCOUNT</Route>
             </Form>
         </Wrapper>
+        <div id="snackbar">{notice}</div>
+        <Home to="/">
+                <Icon />
+        </Home>
     </Container>
     )
 }

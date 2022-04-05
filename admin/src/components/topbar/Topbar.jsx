@@ -1,13 +1,18 @@
 import React from "react";
 import "./topbar.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { logOut } from "../../redux/apiCalls";
+import { useDispatch } from "react-redux";
 
 export default function Topbar() {
 
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const handleClick = (e) => {
     e.preventDefault();
-    logOut();
+    logOut(dispatch);
+    history.push('/login')
   }
   return (
     <div className="topbar">
@@ -22,7 +27,7 @@ export default function Topbar() {
             </Link>
           </div>
           <div className="topbarIconContainer">
-            <button onClick={handleClick}>Logout</button>
+            <a href="/" className="logout" onClick={handleClick}>Logout</a>
           </div>
         </div>
       </div>

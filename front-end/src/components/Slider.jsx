@@ -124,6 +124,7 @@ const InfoContainer = styled.div`
 const Title = styled.h1`
     font-size: clamp(2.3rem, 5vw, 6rem);
     color: white;
+    text-shadow: 2px 2px #000000;
 `;
 
 const Desc = styled.h3`
@@ -132,6 +133,7 @@ const Desc = styled.h3`
     font-weight: 500;
     letter-spacing: 2px;
     color: white;
+    text-shadow: 1px 1px #000000;
 `;
 
 const Button = styled(LinkR)`
@@ -145,6 +147,7 @@ const Button = styled(LinkR)`
     border-radius: 5px;
     cursor: pointer;
     color: white;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
 `;
 
 

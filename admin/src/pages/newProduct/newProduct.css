@@ -2,6 +2,14 @@
   flex: 4;
 }
 
+.loading{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 3rem;
+  color: red;
+}
+
 .addProductForm {
   margin-top: 10px;
 }

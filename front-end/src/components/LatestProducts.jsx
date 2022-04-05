@@ -1,12 +1,11 @@
 import styled from "styled-components"
 
 const Container = styled.div`
-    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin: 15vh 0 0 0;
+    margin: 10vh 0 0 0;
 `;
 
 const Title1 = styled.div`
@@ -17,7 +16,7 @@ const Title1 = styled.div`
 `;
 
 const Title2 = styled.div`
-    font-size: clamp(22px, 5vw, 40px);
+    font-size: clamp(18px, 3vw, 30px);
     font-weight: 600;
     color: #585858;
 `;
@@ -28,16 +27,37 @@ const Hr = styled.hr`
     width: 8vw;
     min-width: 100px;
     padding: 1px;
-    margin: 3rem 0 7rem 0;
+    margin: 1vh 0 2vh 0;
 `;
 
 
-const LatestProducts = () => {
+const LatestProducts = ({latest, popular}) => {
+
+    const checkTitle = () => {
+        if(latest){
+            return(
+                <>
+                <Title1>Check Our Latest Products</Title1>
+                <Title2>Latest Products</Title2>
+                <Hr />
+                </>
+            )
+        } else if (popular){
+            return(
+                <>
+                <Title1>Check Our Most Popular Products</Title1>
+                <Title2>Popular Products</Title2>
+                <Hr />
+                </>
+            ) 
+        } else {
+            return;
+        }
+    }
+
     return (
         <Container>
-            <Title1>Check Our Latest Products</Title1>
-            <Title2>Latest Products</Title2>
-            <Hr />
+            {checkTitle()}
         </Container>
     )
 }

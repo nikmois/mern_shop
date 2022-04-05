@@ -75,9 +75,11 @@ const Home = () => {
       <Slider scrollNav={scrollNav} scrolled={scrolled} isOpen={isOpen}/>
       <CategoryTitle/>
       <Container><Categories/></Container>
-      <TitleAboutUs />
-      <LatestProducts/>
+      <LatestProducts latest={true}/>
       <Container><Products/></Container>
+      <TitleAboutUs />
+      <LatestProducts popular={true}/>
+      <Container><Products popular={true}/></Container>
       <Newsletter/>
       <Footer/>
       <MobileCart />

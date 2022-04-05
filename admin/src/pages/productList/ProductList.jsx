@@ -15,14 +15,14 @@ export default function ProductList() {
   },[dispatch]);
 
   const handleDelete = (id) => {
-    deleteProduct(id, dispatch)
+    deleteProduct(id,dispatch)
   };
 
   const columns = [
     { field: "_id", headerName: "ID", width: 220 },
     {
       field: "product",
-      headerName: "Product",
+      headerName: "Продукт",
       width: 200,
       renderCell: (params) => {
         return (
@@ -33,25 +33,25 @@ export default function ProductList() {
         );
       },
     },
-    { field: "inStock", headerName: "Stock", width: 200 },
+    { field: "inStock", headerName: "На складе", width: 200 },
     {
       field: "price",
-      headerName: "Price",
+      headerName: "Цена",
       width: 160,
     },
     {
       field: "action",
-      headerName: "Action",
+      headerName: "Действие",
       width: 150,
       renderCell: (params) => {
         return (
           <>
             <Link to={"/product/" + params.row._id}>
-              <button className="productListEdit">Edit</button>
+              <button className="productListEdit">Изменить</button>
             </Link>
             <DeleteOutline
               className="productListDelete"
-              onClick={() => handleDelete(params.row._id)}
+              onClick={() => handleDelete(params.id)}
             />
           </>
         );
@@ -60,15 +60,19 @@ export default function ProductList() {
   ];
 
   return (
+    <>
     <div className="productList">
       <DataGrid
         rows={products}
         disableSelectionOnClick
         columns={columns}
         getRowId={(row)=>row._id}
-        pageSize={8}
-        checkboxSelection
+        pageSize={10}
       />
     </div>
+    <Link to="/newproduct">
+    <button className="productAddNewButton">Добавить товар</button>
+    </Link>
+    </>
   );
 }

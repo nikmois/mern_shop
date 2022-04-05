@@ -33,7 +33,6 @@ const Wrapper = styled.div`
 `;
 
 const ImgContainer = styled.div`
-    flex: 1;
 `;
 
 const Image = styled.img`
@@ -43,7 +42,6 @@ const Image = styled.img`
 `;
 
 const InfoContainer = styled.div`
-    flex: 1;
     padding: 0 clamp(6px, 2vw, 50px);
     display: flex;
     flex-direction: column;
@@ -56,9 +54,15 @@ const Title = styled.h1`
 `;
 
 const Desc = styled.p`
-    margin: 20px 0;
+    margin: 0 0 20px 0;
     color: #6d6d6d;
-    font-size: clamp(17px, 3vw, 20px);
+    font-size: clamp(16px, 3vw, 18px);
+`;
+
+const StockText = styled.p`
+    margin: 0 0 20px 0;
+    color: #f30000;
+    font-size: clamp(16px, 3vw, 18px);
 `;
 
 const LongDesc = styled.p`
@@ -73,21 +77,22 @@ const PriceContainer = styled.div`
 
 const Price = styled.div`
     font-weight: 100;
-    font-size: clamp(25px, 5vw, 33px);
+    font-size: clamp(22px, 5vw, 30px);
     color: #c9660a;
+    margin: 5vw 0 1vw 0;
 `;
 
 const NormalPrice = styled.div`
     font-weight: 100;
-    font-size: clamp(25px, 5vw, 33px);
+    font-size: clamp(22px, 5vw, 30px);
     color: #636363;
-    margin-right: 1rem;
+    margin: 5vw 1rem 1vw 0;
     position: relative;
     :before{
         border-bottom: 3px solid red;
         position: absolute;
         content: "";
-        width: 110%;
+        width: 100%;
         height: 50%;
         transform: rotate(12deg);
     }
@@ -102,8 +107,8 @@ const Filter = styled.div`
     align-items: center;
 `;
 const FilterTitle = styled.span`
-    font-weight: 200;
-    font-size: 20px;
+    font-weight: 600;
+    font-size: 1rem;
     margin-right: 10px;
 `;
 const FilterColor = styled.div`
@@ -113,7 +118,11 @@ const FilterColor = styled.div`
     background-color: ${props=>props.color};
     margin: 0 5px;
     cursor: pointer;
-    border: solid grey 1px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.959);
+    transition: all 0.3s ease;
+    &:hover{
+        transform: scale(1.1);
+    }
 `;
 
 const AddContainer = styled.div`
@@ -151,6 +160,20 @@ const Button = styled.button`
     }
 `;
 
+const RemoveBut = styled(Remove)`
+    transition: all 0.5s ease;
+    &:hover{
+        transform: scale(1.2);
+    }
+`;
+
+const AddBut = styled(Add)`
+    transition: all 0.5s ease;
+    &:hover{
+        transform: scale(1.2);
+    }
+`;
+
 const Product = () => {
 
     const [isOpen, setIsOpen] = useState(false);
@@ -165,47 +188,66 @@ const Product = () => {
     const [product,setProduct] = useState({});
     const [quantity, setQuantity] = useState(1);
     const [color, setColor] = useState("");
+    const [dbColor, setDbColor] = useState([]);
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        const getProduct = async ()=>{
+        const getProduct = async ()=>{  
             try{
                 const res = await publicRequest.get("/products/find/"+id)
                 setProduct(res.data);
+                if(product.color.length === 1){
+                    setColor(product?.color[0])
+                }else if(product.color.length > 1){
+                    setDbColor(product.color)
+                }
             }catch {}
         };
         getProduct()
-    },[id]);
+    },[id, product.color]);
 
     const colorCheck = () => {
         if (typeof product.color !== 'undefined' && product.color.length > 0) {
-                return(
-                    <Filter>
-                    <FilterTitle>Color</FilterTitle>
-                    { product.color?.map((c) => (
-                    <FilterColor color = {c} key = {c} onClick={()=>setColor(c)}/>
-                    ))}
-                    </Filter>
-                )
+            
+            return(
+                <Filter>
+                <FilterTitle>Choose color:</FilterTitle>
+                { product.color?.map((c) => (
+                <FilterColor color = {c} key = {c} onClick={()=>setColor(c)}/>
+                ))}
+                </Filter>
+            )        
         } else {
-            return;
-        }         
+            return
+        }        
     };
 
     const priceCheck = () => {
         if (product.oldPrice) {
             return(
                 <PriceContainer>
-                    <NormalPrice>€{product.oldPrice}</NormalPrice>
-                    <Price>€{product.price}</Price>
+                    <NormalPrice>{`${product.oldPrice.toFixed(2)} €`}</NormalPrice>
+                    <Price>{`${product.price.toFixed(2)} €`}</Price>
                 </PriceContainer>
             )
         } else {
             return(
-                <Price>€{product.price}</Price>
+                <Price>{`${product.price?.toFixed(2)} €`}</Price>
             )
         }
     };
+
+    const stockCheck = () => {
+        if (product.inStock < 1) {
+            return(
+                <StockText>
+                    This product is out of stock. Estimated shipping time is 10 days.
+                </StockText>
+            )
+        }else{
+            return
+        }
+    }
     
     const handleQuantity = (type) => {
         if(type === "dec"){
@@ -218,7 +260,7 @@ const Product = () => {
 
     const handleClick = () =>{
         dispatch(
-            addProduct({ ...product, quantity, color })
+            addProduct({ ...product, quantity, color, dbColor })
             );
     };
 
@@ -234,17 +276,18 @@ const Product = () => {
                 </ImgContainer>
                 <InfoContainer>
                     <Title>{product.title}</Title>
-                    <Desc>{product.desc}</Desc>
+                    <Desc><i>{product.desc}</i></Desc>
                     {priceCheck()}
                     <LongDesc>{product.longDesc}</LongDesc>
                     <FilterContainer>
                     {colorCheck()}
                     </FilterContainer>
+                    {stockCheck()}
                     <AddContainer>
                         <AmountContainer>
-                            <Remove style={{cursor: "pointer"}} onClick={()=>handleQuantity("dec")}/>
+                            <RemoveBut style={{cursor: "pointer"}} onClick={()=>handleQuantity("dec")}/>
                             <Amount>{quantity}</Amount>
-                            <Add style={{cursor: "pointer"}} onClick={()=>handleQuantity("inc")}/>
+                            <AddBut style={{cursor: "pointer"}} onClick={()=>handleQuantity("inc")}/>
                         </AmountContainer>
                         <Button onClick={handleClick}>ADD TO CART</Button>
                     </AddContainer>

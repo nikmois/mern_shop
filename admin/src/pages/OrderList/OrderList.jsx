@@ -1,4 +1,4 @@
-import "./userList.css";
+import "./OrderList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -11,38 +11,51 @@ export default function UserList() {
 
   const handleDelete = async (id) => {
     setData(data.filter((item) => item._id !== id));
-    await userRequest.delete(`/users/${id}`)
+    await userRequest.delete(`/orders/${id}`)
   };
 
+
   useEffect(()=>{
-    const getUsers = async ()=>{
+    const getOrders = async ()=>{
       try{
-        const res = await userRequest.get("users")
+        const res = await userRequest.get("orders")
         setData(res.data);
       }
       catch{}
     };
-    getUsers();
+    getOrders();
   }, []);
 
   
   const columns = [
-    { field: "_id", headerName: "ID", width: 250 },
+    { field: "_id", headerName: "Order ID", width: 200 },
+    { 
+      field: "amount", 
+      headerName: "Сумма заказа", 
+      width: 170, 
+      renderCell: (params) => {
+        return (
+          <div className="userListUser">
+            {params.row.amount} €
+          </div>
+        );
+      },
+    },
     {
-      field: "user",
-      headerName: "Пользователь",
+      field: "fullname",
+      headerName: "Покупатель",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="userListUser">
-            <img className="userListImg" src={params.row.img || "https://icon-library.com/images/no-user-image-icon/no-user-image-icon-27.jpg"} alt="" />
             {params.row.fullname}
           </div>
         );
       },
     },
-    { field: "email", headerName: "Email", width: 250 },
-    { field: "phone", headerName: "phone", width: 150 },
+    { field: "email", headerName: "Email", width: 200 },
+    { field: "phone", headerName: "Телефон", width: 150 },
+    { field: "address", headerName: "Адрес доставки", width: 230 },
     {
       field: "status",
       headerName: "Status",
@@ -55,7 +68,7 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/user/" + params.row._id}>
+            <Link to={"/order/" + params.row._id}>
               <button className="userListEdit">Edit</button>
             </Link>
             <DeleteOutline

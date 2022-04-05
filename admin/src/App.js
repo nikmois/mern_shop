@@ -5,23 +5,45 @@ import Home from "./pages/home/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserList from "./pages/userList/UserList";
 import User from "./pages/user/User";
-import NewUser from "./pages/newUser/NewUser";
 import ProductList from "./pages/productList/ProductList";
+import OrderList from "./pages/OrderList/OrderList";
 import Product from "./pages/product/Product";
+import Order from "./pages/order/Order";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
+import { isJwtExpired } from 'jwt-check-expiration';
+import { logOut } from "./redux/apiCalls";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 
 function App() {
   const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
   const currentUser = user && JSON.parse(user).currentUser;
   const admin = currentUser?.isAdmin;
+  const token = currentUser?.accessToken;
+
+  const dispatch = useDispatch();
+
+
+  useEffect(()=>{
+    if (token){
+      if (isJwtExpired(token)){
+        logOut(dispatch);
+      }
+    } else{
+      return
+    }
+  },[token,dispatch]);
+
+
   return (
     <Router>
       <Switch>
       <Route path="/login">
         <Login />
       </Route>
-      {admin ? (
+      {admin && !isJwtExpired(token) ? (
         <>
           <Topbar />
           <div className="container">
@@ -32,11 +54,14 @@ function App() {
             <Route path="/users">
               <UserList />
             </Route>
+            <Route path="/orders">
+              <OrderList />
+            </Route>
             <Route path="/user/:userId">
               <User />
             </Route>
-            <Route path="/newUser">
-              <NewUser />
+            <Route path="/order/:orderId">
+              <Order />
             </Route>
             <Route path="/products">
               <ProductList />

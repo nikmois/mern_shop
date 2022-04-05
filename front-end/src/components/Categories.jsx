@@ -6,6 +6,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     max-width: 1200px;
+    margin-top: 3vh;
     
     @media screen and (max-width: 800px) {
         flex-direction: column;

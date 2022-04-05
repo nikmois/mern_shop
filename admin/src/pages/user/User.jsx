@@ -1,103 +1,98 @@
-import {
-  CalendarToday,
-  LocationSearching,
-  MailOutline,
-  PermIdentity,
-  PhoneAndroid,
-  Publish,
-} from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { userRequest } from "../../requestMethods";
 import "./user.css";
 
 export default function User() {
+
+  const [data, setData] = useState({});
+  const location = useLocation();
+  const userId = location.pathname.split("/")[2];
+  const [inputs, setInputs] = useState({});
+  let user = {};
+
+  const handleChange = (e) => {
+    setInputs(prev=>{
+      return {...prev, [e.target.name]:e.target.value}
+  })
+  }
+
+  useEffect(()=>{
+    const getUsers = async ()=>{
+      try{
+        const res = await userRequest.get("users/find/" + userId)
+        setData(res.data);
+      }
+      catch{}
+    };
+    getUsers();
+  }, [userId]);
+
+  const handleClick = async (e,id) => {
+    e.preventDefault();
+    user = {...inputs};
+    await userRequest.put(`/users/${id}`, user)
+    //updateUser(id,user);
+    alert("Пользователь изменен, чтобы увидеть измененного пользователя обнови страницу")
+  };
+
   return (
     <div className="user">
       <div className="userTitleContainer">
-        <h1 className="userTitle">Edit User</h1>
-        <Link to="/newUser">
-          <button className="userAddButton">Create</button>
-        </Link>
+        <h1 className="userTitle">Изменить пользователя</h1>
       </div>
       <div className="userContainer">
-        <div className="userShow">
-          <div className="userShowTop">
-            <img
-              src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-              alt=""
-              className="userShowImg"
-            />
-            <div className="userShowTopTitle">
-              <span className="userShowUsername">Anna Becker</span>
-              <span className="userShowUserTitle">Software Engineer</span>
-            </div>
-          </div>
-          <div className="userShowBottom">
-            <span className="userShowTitle">Account Details</span>
-            <div className="userShowInfo">
-              <PermIdentity className="userShowIcon" />
-              <span className="userShowInfoTitle">annabeck99</span>
-            </div>
-            <div className="userShowInfo">
-              <CalendarToday className="userShowIcon" />
-              <span className="userShowInfoTitle">10.12.1999</span>
-            </div>
-            <span className="userShowTitle">Contact Details</span>
-            <div className="userShowInfo">
-              <PhoneAndroid className="userShowIcon" />
-              <span className="userShowInfoTitle">+1 123 456 67</span>
-            </div>
-            <div className="userShowInfo">
-              <MailOutline className="userShowIcon" />
-              <span className="userShowInfoTitle">annabeck99@gmail.com</span>
-            </div>
-            <div className="userShowInfo">
-              <LocationSearching className="userShowIcon" />
-              <span className="userShowInfoTitle">New York | USA</span>
-            </div>
-          </div>
-        </div>
         <div className="userUpdate">
-          <span className="userUpdateTitle">Edit</span>
+          <span className="userUpdateTitle">Редактировать</span>
           <form className="userUpdateForm">
             <div className="userUpdateLeft">
               <div className="userUpdateItem">
-                <label>Username</label>
+                <label>Полное имя</label>
                 <input
                   type="text"
-                  placeholder="annabeck99"
+                  placeholder={data.fullname}
                   className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Full Name</label>
-                <input
-                  type="text"
-                  placeholder="Anna Becker"
-                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="fullname"
                 />
               </div>
               <div className="userUpdateItem">
                 <label>Email</label>
                 <input
                   type="text"
-                  placeholder="annabeck99@gmail.com"
+                  placeholder={data.email}
                   className="userUpdateInput"
+                  onChange={handleChange}
+                  name="email"
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Phone</label>
+                <label>Номер телефона</label>
                 <input
                   type="text"
-                  placeholder="+1 123 456 67"
+                  placeholder={data.phone}
                   className="userUpdateInput"
+                  onChange={handleChange}
+                  name="phone"
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Address</label>
+                <label>Адрес</label>
                 <input
                   type="text"
-                  placeholder="New York | USA"
+                  placeholder={data.address || "Не указан"}
                   className="userUpdateInput"
+                  onChange={handleChange}
+                  name="address"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Заказы</label>
+                <input
+                  type="text"
+                  placeholder={data.orders?.length > 1 ? data.orders : "Нет заказов"}
+                  className="userUpdateInput"
+                  name="orders"
                 />
               </div>
             </div>
@@ -105,15 +100,11 @@ export default function User() {
               <div className="userUpdateUpload">
                 <img
                   className="userUpdateImg"
-                  src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                  src={data.img}
                   alt=""
                 />
-                <label htmlFor="file">
-                  <Publish className="userUpdateIcon" />
-                </label>
-                <input type="file" id="file" style={{ display: "none" }} />
               </div>
-              <button className="userUpdateButton">Update</button>
+              <button onClick={(e) => handleClick(e,userId)} className="userUpdateButton">Update</button>
             </div>
           </form>
         </div>

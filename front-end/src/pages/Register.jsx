@@ -1,5 +1,12 @@
+import { useCallback } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import { useHttp } from "../hooks/http.hook";
 import regPic from "../images/register.jpg";
+import { Link, useNavigate } from "react-router-dom";
+import {IoHomeOutline} from 'react-icons/io5';
+import '../css/auth.css';
 
 const Container = styled.div`
     width: 100vw;
@@ -8,6 +15,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 `;
 
 const Wrapper = styled.div`
@@ -16,6 +24,17 @@ const Wrapper = styled.div`
     max-width: 500px;
     max-height: 90vh;
     background-color: white;
+`;
+
+const Home = styled(Link)`
+    position: absolute;
+    top: 3%;
+    left: 5%;
+`;
+
+const Icon = styled(IoHomeOutline)`
+    color: white;
+    font-size: 2rem;
 `;
 
 const Title = styled.h1`
@@ -47,24 +66,112 @@ const Button = styled.button`
     cursor: pointer;
 `;
 
+const Route = styled(Link)`
+    margin: 7px 0;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+    color: black;
+`;
+
+const Text = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`;
+
+const PrivLink = styled.span`
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+`;
+
+
 const Register = () => {
+
+    const {loading, request, error, clearError} = useHttp()
+    
+
+    const [form, setForm] = useState({
+        fullname:'', email: '', phone:'', password:'', pass:''
+    });
+
+    const [notice, setNotice] = useState()
+    
+    const changeHandler = event => {
+        setForm({...form, [event.target.name]: event.target.value })
+    };
+
+    const history = useNavigate()
+    
+
+    const useMessage = () => {
+    return useCallback(text => {
+        if (text) {
+            myFunction(text)
+        }
+    }, [])
+    }
+
+    const message = useMessage()
+
+    
+
+    function myFunction(text) {
+
+        
+        // Get the snackbar DIV
+        var x = document.getElementById("snackbar");
+      
+        // Add the "show" class to DIV
+        x.className = "show";
+      
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        
+        setNotice(text)
+    };
+
+    useEffect(() => {
+        message(error)
+        clearError()
+      }, [error, message, clearError])
+
+    
+
+    const registerHandler = async () => {
+        try {
+            const data = await request('/api/auth/register', 'POST', {...form})
+            message(data.message)
+            history('/signIn')
+        } catch (e) {}
+    };
+
+
     return (
         <Container bgImage={regPic}>
             <Wrapper>
                 <Title>CREATE AN ACCOUNT</Title>
                 <Form>
-                    <Input placeholder="name" />
-                    <Input placeholder="last name" />
-                    <Input placeholder="username" />
-                    <Input placeholder="email" />
-                    <Input placeholder="password" />
-                    <Input placeholder="confirm password" />
-                    <Agreement>By creating an account, I consent to the processing of my personal data 
-                        in accordance with the <b>PRIVACY POLICY</b>
+                    <Input placeholder="Full name" id="fullname" type="text" value={form.fullname} name="fullname" onChange={changeHandler}/>
+                    <Input placeholder="Email" id="email" type="text" value={form.email} name="email" onChange={changeHandler}/>
+                    <Input placeholder="Phone number" id="phone" value={form.phone} type="tel" name="phone" onChange={changeHandler}/>
+                    <Input placeholder="Password" id="pass" value={form.pass} type="password" name="pass" onChange={changeHandler}/>
+                    <Input placeholder="Confirm password" id="confirmedPassword" value={form.password} type="password" name="password" onChange={changeHandler}/>
+                    
+                    <Agreement>By creating an account, I confirm that I read BABYPINGVIIN <PrivLink onClick={()=> window.open("/privacy-policy", "_blank")}>privacy policy</PrivLink> and agree with them.
                     </Agreement>
-                    <Button>CREATE</Button>
+                    <Text>
+                    <Button onClick={registerHandler} disabled={loading}>CREATE</Button>
+                    <Route to="/signIn">I ALREADY HAVE AN ACCOUNT</Route>
+                    </Text>
                 </Form>
             </Wrapper>
+            <div id="snackbar">{notice}</div>
+            <Home to="/">
+                <Icon />
+            </Home>
         </Container>
     )
 }

@@ -6,7 +6,10 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin: 15vh 0 0 0;
+    margin: 9vh 0 0 0;
+    @media screen and (max-width: 600px){
+        margin: 2vh 0 0 0;
+    }
 `;
 
 const Title1 = styled.div`
@@ -16,7 +19,7 @@ const Title1 = styled.div`
 `;
 
 const Title2 = styled.div`
-    font-size: clamp(22px, 5vw, 40px);
+    font-size: clamp(18px, 3vw, 30px);
     font-weight: 600;
     color: #585858;
 `;
@@ -27,7 +30,7 @@ const Hr = styled.hr`
     width: 8vw;
     min-width: 100px;
     padding: 1px;
-    margin: 2rem 0 9rem 0;
+    margin: 1vh 0 2vh 0;
 `;
 
 const CategoryTitle = () => {

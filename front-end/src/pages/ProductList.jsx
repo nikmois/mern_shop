@@ -22,9 +22,9 @@ const Cont = styled.div`
 const Left = styled.div`
     display: flex;
     margin-left: 20px;
+    width: 20%;
     justify-content: flex-start;
     flex-direction: column;
-    flex:1;
     @media screen and (max-width: 800px) {
         display: none;
     }
@@ -33,7 +33,10 @@ const Left = styled.div`
 const Right = styled.div`
     display: flex;
     flex-direction: column;
-    flex: 4;
+    width: 80%;
+    @media screen and (max-width: 800px) {
+        width: 100%;
+    }
 `;
 
 const Title = styled.h1`
@@ -47,6 +50,7 @@ const MobileTitle = styled.h1`
     display: none;
 
     @media screen and (max-width: 800px) {
+        font-size: clamp(1.5rem, 1.5vw, 2.5rem);
         margin: 25px;
         font-weight: 500;
         display: flex;
@@ -136,6 +140,10 @@ const ProductList = () => {
 
     const handleFilters = (e) => {
         const value = e.target.value;
+        if (value === "DEFAULT") {
+            setFilters({});
+            return;
+        }
         setFilters({
             ...filters,
             [e.target.name]: value,
@@ -172,7 +180,7 @@ const ProductList = () => {
                 <Hr />
                 <Title2>FILTER BY COLOR</Title2>
                 <Select name="color" defaultValue={'DEFAULT'} onChange={handleFilters}>
-                    <Option value="DEFAULT" disabled hidden>Color</Option>
+                    <Option value="DEFAULT">All Colors</Option>
                     <Option>White</Option>
                     <Option>Blue</Option>
                     <Option>Green</Option>

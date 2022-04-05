@@ -1,94 +1,106 @@
 import { useState } from "react";
 import "./newProduct.css";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import app from "../../firebase";
+import storage from "../../firebase";
 import { addProduct } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
 
 export default function NewProduct() {
   const [inputs, setInputs] = useState({});
-  const [file, setFile] = useState(null);
-  const [cat, setCat] = useState([]);
+  const [imagePaths, setImagePaths] = useState([]);
+  const [loading,setLoading] = useState(false)
+  const [cat, setCat] = useState("");
+  const [color, setColor] = useState([]);
   const dispatch = useDispatch();
+  let product = {};
+  
 
+  const handleFile = (e) => {
+    var file = e.target.files[0];
+    file = new File([file], file.name + new Date().toLocaleString(), { type: file.type });
+    uploadFiles(file);
+    
+  }
+
+
+  async function uploadFiles(img) {
+    setLoading(true)
+    const storageRef = storage.ref();
+    let fileRef = storageRef.child(img.name);
+    await fileRef.put(img);
+    const singleImgPath = await fileRef.getDownloadURL();
+    var newStateArray = imagePaths.slice()
+    newStateArray.push(singleImgPath);
+    setImagePaths(newStateArray);
+    setLoading(false)
+  }
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    product = {...inputs, category: cat, color: color};
+    
+    for (var i = 0; i < imagePaths.length; i++){
+      product["img" + (i+1)] = imagePaths[i]
+    }
+    addProduct(product,dispatch);
+    alert("Продукт добавлен")
+  }
+  
   const handleChange = (e) => {
     setInputs(prev=>{
       return {...prev, [e.target.name]:e.target.value}
     })
   }
+
+  const handleCheckbox = (e) => {
+    setInputs(prev=>{
+      return {...prev, [e.target.name]:e.target.checked}
+    })
+  }
+
   const handleCat = (e) => {
     setCat(e.target.value)
   }
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    const fileName = new Date().getTime() + file.name;
-    const storage = getStorage(app);
-    const storageRef = ref(storage, fileName);
+  const handleColor = (e) => {
+    setColor(e.target.value.split(","))
+  }
 
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-// Register three observers:
-// 1. 'state_changed' observer, called any time the state changes
-// 2. Error observer, called on failure
-// 3. Completion observer, called on successful completion
-  uploadTask.on('state_changed', 
-    (snapshot) => {
-      // Observe state change events such as progress, pause, and resume
-      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
-      switch (snapshot.state) {
-        case 'paused':
-          console.log('Upload is paused');
-          break;
-        case 'running':
-          console.log('Upload is running');
-          break;
-          default:
-      }
-    }, 
-    (error) => {
-      // Handle unsuccessful uploads
-    }, 
-    () => {
-      // Handle successful uploads on complete
-      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        const product = {...inputs, img1:downloadURL, categories: cat};
-        addProduct(product,dispatch);
-      });
+  const load = () => {
+    if (loading === true){
+      return(
+        <div className="loading">Loading..</div>
+      )
     }
-  );
   }
 
   return (
     <div className="newProduct">
+      {load()}
       <h1 className="addProductTitle">New Product</h1>
       <form className="addProductForm">
         <div className="addProductItem">
           <label>Фото 1</label>
-          <input type="file" id="file" onChange={e=>setFile(e.target.files[0])}/>
+          <input type="file" name="img1" onChange={handleFile}/>
         </div>
         <div className="addProductItem">
           <label>Фото 2</label>
-          <input type="file" id="file" />
+          <input type="file" name="img2" onChange={handleFile}/>
         </div>
         <div className="addProductItem">
           <label>Фото 3</label>
-          <input type="file" id="file" />
+          <input type="file" name="img3" onChange={handleFile}/>
         </div>
         <div className="addProductItem">
           <label>Фото 4</label>
-          <input type="file" id="file" />
+          <input type="file" name="img4" onChange={handleFile}/>
         </div>
         <div className="addProductItem">
           <label>Фото 5</label>
-          <input type="file" id="file" />
+          <input type="file" name="img5" onChange={handleFile}/>
         </div>
         <div className="addProductItem">
           <label>Фото 6</label>
-          <input type="file" id="file" />
+          <input type="file" name="img6" onChange={handleFile}/>
         </div>
         <div className="addProductItem">
           <label>Название</label>
@@ -107,6 +119,10 @@ export default function NewProduct() {
           <input name="longDesc" type="text" placeholder="Длинное описание..." onChange={handleChange}/>
         </div>
         <div className="addProductItem">
+          <label>Цвет (вписывать на английском с большой буквы, через запятую и без пробелов)</label>
+          <input name="color" type="text" placeholder="Цвет" onChange={handleColor}/>
+        </div>
+        <div className="addProductItem">
           <label>Цена на данный момент (со скидкой) (обязательно)</label>
           <input name="price" type="number" placeholder="Цена..." onChange={handleChange}/>
         </div>
@@ -117,6 +133,14 @@ export default function NewProduct() {
         <div className="addProductItem">
           <label>Количество на складе (всегда обновлять)</label>
           <input name="inStock" type="number" placeholder="Кол-во..." onChange={handleChange} />
+        </div>
+        <div className="addProductItem">
+        <label>Размер товара, введи число<br />(от 0 до 33 - S)<br />(от 34 до 66 - М)<br />(от 64 до 100 - L)</label>
+        <input type="number" name="shipping" onChange={handleChange} placeholder="от 0 до 100" />
+        </div>
+        <div className="addProductItem">
+          <label>Выставлять на главную страницу</label>
+          <input name="toHome" type="checkbox" placeholder="Кол-во..." onChange={handleCheckbox} />
         </div>
         <button onClick={handleClick} className="addProductButton">Добавить</button>
       </form>

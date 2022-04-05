@@ -9,37 +9,58 @@ router.post(
     "/register", 
     [
         check('email', 'Wrong email').isEmail(),
-        check('password', 'Password minimal length is 8 symbols')
-        .isLength({min:8})
+        check('password', 'Password minimal length is 6 symbols')
+        .isLength({min:6})
     ],
     async (req,res)=>{
-    const newUser = new User({
-        username: req.body.username,
-        email: req.body.email,
-        password: CryptoJS.AES.encrypt(
-            req.body.password,
-            process.env.PASS_SEC
-        ).toString(),
-    });
 
     try{
         const errors = validationResult(req)
 
+        const regularExpression = /^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/;
+
+        const {email, fullname, password, phone, pass} = req.body
+
+        if (!email || !fullname || !password || !phone || !pass){
+            return res.status(400).json({ message: "Please fill all required fields!"})
+        }
+
         if (!errors.isEmpty()){
             return res.status(400).json({
                 errors: errors.array(),
-                message: 'Invalid data for registration, please try again'
+                message: 'Password minimal length is 6 symbols'
             })
         }
 
-        const candidate = await newUser.findOne({email})
+        const candidate = await User.findOne({email})
         if (candidate) {
             return res.status(400).json({ message: "User with this e-mail already exists!"})
         }
-        const savedUser = await newUser.save();
-        res.status(201).json(savedUser);
-    }catch(err){
-        res.status(500).json(err);
+
+        if (!phone) {
+            return res.status(400).json({ message: "Please enter your phone number!"})
+        }
+
+        if (pass != password) {
+            return res.status(400).json({ message: "Please confirm your password!"})
+        }
+
+        if (regularExpression.test(password) == false){
+            return res.status(400).json({ message: "Password should contain at least one character and one number and be minimum 6 symbols long!"})
+        }
+
+        if (!fullname) {
+            return res.status(400).json({ message: "Please enter your full name!"})
+        }
+
+        const hashedPassword = CryptoJS.AES.encrypt(password,process.env.PASS_SEC).toString()
+
+        const user = new User({ email, fullname, phone, password: hashedPassword })
+
+        await user.save();
+        res.status(201).json({ message: "User created successfully!"});
+    }catch(e){
+        res.status(500).json({ message: "Server error!"});
     }
 });
 
@@ -58,7 +79,7 @@ router.post(
         if (!errors.isEmpty()){
             return res.status(400).json({
                 errors: errors.array(),
-                message: 'Invalid data for registration, please try again'
+                message: 'Wrong email or password, please try again'
             })
         }
 

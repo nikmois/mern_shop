@@ -1,7 +1,7 @@
 import { Facebook, Home, Instagram, MailOutline, Phone, WhatsApp } from "@material-ui/icons";
 import styled from "styled-components";
 import logo from "../images/logo-cropped.svg";
-import { Link as LinkR } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     display: flex;
@@ -88,7 +88,7 @@ const List = styled.ul`
     margin-right: 1rem;
 `;
 
-const ListItem = styled(LinkR)`
+const ListItem = styled(Link)`
     width: 50%;
     margin-bottom: 10px;
     text-decoration: none;
@@ -113,6 +113,10 @@ display: flex;
 align-items: center;
 `;
 
+
+const ImgContainer = styled(Link)`
+
+`;
 
 const Image = styled.img`
     width: 250px;
@@ -144,7 +148,7 @@ const Text = styled.div`
 `;
 
 
-const Link = styled.a`
+const SocLink = styled.a`
     text-decoration: none;
     color: black;
     font-weight: 550;
@@ -156,7 +160,9 @@ const Footer = () => {
         <BigContainer>
         <Container>
             <Left>
+                <ImgContainer to="/">
                 <Image src={logo} />
+                </ImgContainer>
                 <Desc>Сюда надо будет написать короткий текст о компании.</Desc>
                 <SocialContainer>
                     <SocialIcon href="https://www.facebook.com/babypingviin/" color = "3B5999">
@@ -176,11 +182,13 @@ const Footer = () => {
                     <ListItem to='/'>HOME</ListItem>
                     <ListItem to='/cart'>CART</ListItem>
                     <ListItem to='/shop'>SHOP</ListItem>
-                    <ListItem to='/category1'>CATEGORY</ListItem>
-                    <ListItem to='/category1'>CATEGORY</ListItem>
-                    <ListItem to='/category1'>CATEGORY</ListItem>
-                    <ListItem to='/'>MY ACCOUNT</ListItem>
-                    <ListItem to='/'>TERMS AND CONDITIONS</ListItem>
+                    <ListItem to="/products/tableware">SILICONE BABY TABLEWARE</ListItem>
+                    <ListItem to="/products/educational-toys">EDUCATIONAL TOYS FOR CHILDREN</ListItem>
+                    <ListItem to="/products/silicone-toys">SILICONE TOYS FOR CHILDREN</ListItem>
+                    <ListItem to='/cabinet'>MY ACCOUNT</ListItem>
+                    <ListItem to='/terms-and-conditions'>TERMS AND CONDITIONS</ListItem>
+                    <ListItem to='/privacy-policy'>PRIVACY POLICY</ListItem>
+                    <ListItem to='/return-policy'>RETURN POLICY</ListItem>
                 </List>
             </Center>
             <Right>
@@ -201,7 +209,7 @@ const Footer = () => {
         </Container>
         <Hr/>
         <Text>
-        <Link href="babypingviin.ee">BABYPINGVIIN &copy;</Link> 2022 CREATED BY <Link href="https://github.com/nikmois">NIKMOIS</Link><br/>
+        <SocLink href="babypingviin.ee">BABYPINGVIIN &copy;</SocLink> 2022 CREATED BY <SocLink href="https://github.com/nikmois">NIKMOIS</SocLink><br/>
         Copying or reusing texts, media or any other materials from this website is strictly prohibited.
         </Text>
         </BigContainer>

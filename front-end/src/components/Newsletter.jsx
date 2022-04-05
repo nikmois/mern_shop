@@ -10,7 +10,7 @@ const Cont = styled.div`
     align-items: center;
     justify-content: center;
     height: 100%;
-
+    margin-top: 3rem;
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-repeat: no-repeat;

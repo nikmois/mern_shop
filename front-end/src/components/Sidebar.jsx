@@ -6,6 +6,7 @@ import {SiFacebook} from 'react-icons/si';
 import insta from "../images/insta.svg";
 import wapp from "../images/whatsapp.svg";
 import bg from "../images/menubg.jpg";
+import { useSelector } from 'react-redux';
 
 const SidebarContainer = styled.aside`
     position: fixed;
@@ -140,7 +141,11 @@ width: 2rem;
 `;
 
 
+
 const Sidebar = ({isOpen, toggle}) => {
+
+    const user = useSelector(state=>state.user.currentUser);
+
     return (
         <SidebarContainer isOpen={isOpen} onClick={toggle} bgImage={bg}>
             <Icon onClick={toggle}>
@@ -161,10 +166,16 @@ const Sidebar = ({isOpen, toggle}) => {
                         CONTACT
                     </SidebarLink>
                 </SidebarMenu>
+                {!user ?
                 <SideBtnWrap>
                     <LoginRoute to="/signin">SIGN IN</LoginRoute>
                     <RegisterRoute to="/register">REGISTER</RegisterRoute>
                 </SideBtnWrap>
+                :
+                <SideBtnWrap>
+                    <LoginRoute to="/cabinet">CABINET</LoginRoute>
+                </SideBtnWrap>
+                }   
                 <SocialsContainer>
                 <SocialsINST href="https://www.instagram.com/babypingviin/?fbclid=IwAR2rFcMaofIwjZYlZGcOn-Py6FYLiX1Sha-Avzwkrol6xVXQ2HXd1xfxdO0">
                 <Instagram src={insta}/>

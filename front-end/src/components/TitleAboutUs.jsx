@@ -15,7 +15,7 @@ const Container = styled.div`
     width: 90vw;
     max-width: 1200px;
     margin-top: 5rem;
-    margin-bottom: 10rem;
+    margin-bottom: 4vh;
     margin-left: auto;
     margin-right: auto;
     display: flex;

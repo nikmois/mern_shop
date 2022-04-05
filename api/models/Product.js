@@ -15,7 +15,9 @@ const ProductSchema = new mongoose.Schema({
         producer:{type: String},
         price:{type:Number, required: true},
         oldPrice:{type:Number},
+        shipping:{type:Number, required: true},
         inStock:{type:Number, required: true},
+        toHome:{type:Boolean, default: false},
 
 },{timestamps: true });
 

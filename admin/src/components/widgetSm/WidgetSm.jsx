@@ -1,5 +1,4 @@
 import "./widgetSm.css";
-import { Visibility } from "@material-ui/icons";
 import { useState } from "react";
 import { useEffect } from "react";
 import { userRequest } from "../../requestMethods";
@@ -22,7 +21,7 @@ export default function WidgetSm() {
 
   return (
     <div className="widgetSm">
-      <span className="widgetSmTitle">New Join Members</span>
+      <span className="widgetSmTitle">Новые пользователи</span>
       <ul className="widgetSmList">
         {users.map(user=>(
           <li className="widgetSmListItem" key={user._id}>
@@ -32,12 +31,11 @@ export default function WidgetSm() {
             className="widgetSmImg"
           />
           <div className="widgetSmUser">
-            <span className="widgetSmUsername">{user.username}</span>
+            <span className="widgetSmUsername">{user.fullname}</span>
           </div>
-          <button className="widgetSmButton">
-            <Visibility className="widgetSmIcon" />
-            Display
-          </button>
+          <div className="widgetSmUser">
+            <span className="widgetSmUsername">{user.email}</span>
+          </div>
         </li>
         ))}
       </ul>

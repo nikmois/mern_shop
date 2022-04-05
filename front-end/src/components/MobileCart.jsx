@@ -50,23 +50,33 @@ const Checkout = styled(LinkR)`
 const Cart = styled.div`
     color: #f7a140;
     transform: scale(1.4);
+    position: relative;
     &:hover{
         color: #f7a140;
         transform: scale(1.6);
     }
 `;
 
+const Badge1 = styled(Badge)`
+    position: absolute;
+    top: -17px;
+    right: -5px;
+    transform: scale(0.7);
+`;
+
 const MobileCart = () => {
 
-    const quantity = useSelector(state=>state.cart.quantity)
+    const quantity = useSelector(state=>state.cart.total)
 
     return (
         <Car>
-            <CartButton to='/cart'>
-                <Badge badgeContent={quantity} color="primary">
-                    <Cart><ShoppingCartOutlined /></Cart>
-                </Badge></CartButton>
-            <Checkout to='/checkout'>CHECKOUT</Checkout>
+            <CartButton to='/cart'>  
+            <Cart>
+                <ShoppingCartOutlined />
+                <Badge1 badgeContent={`${quantity.toFixed(2)}€`} color="primary" />
+            </Cart>
+            </CartButton>
+            <Checkout to='/shop'>SHOP</Checkout>
         </Car>
     )
 }

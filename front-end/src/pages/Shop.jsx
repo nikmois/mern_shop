@@ -23,7 +23,7 @@ const Advertise = styled.img`
     display: block;
     margin: 2.5vh 0;
     
-    max-width: 2000px; 
+    max-width: 1300px; 
     margin-left: auto;
     margin-right: auto;
 `;
@@ -43,8 +43,10 @@ const Shop = () => {
             <NavbarCommon toggle={toggle} scrolled={scrolled}/>
             <Announcement />
             <Advertise src={advert}/>
-            <Container><CategoryTitle/>
-            <Categories /></Container>
+            <Container>
+                <CategoryTitle/>
+                <Categories />
+            </Container>
             <Footer />
             <MobileCart />
         </>

@@ -8,6 +8,7 @@ const Container = styled.div`
     overflow: hidden;
     margin: 0 10px;
     border-radius: 10px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
 `;
 
 const Image = styled.img`
