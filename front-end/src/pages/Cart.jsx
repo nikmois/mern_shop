@@ -197,13 +197,11 @@ const Button = styled(Link)`
     text-decoration: none;
     padding: 10px;
     background-color: #f08e33;
-    border: 1px solid #c05d00;
-    border-radius: 15px;
+    border: 2px solid #c05d00;
     color: white;
     font-weight: 600;
     position: absolute;
     bottom: 5%;
-    box-shadow: 0 0 10px 0 rgba(252, 113, 0, 0.911);
     transition: 0.4s all ease;
     &:hover{
         background-color: transparent;
