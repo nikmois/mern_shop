@@ -299,14 +299,23 @@ const normalizePhoneNumber = (value) => {
     )
 }
 
+const phoneRegExp = /^([0-9 ]|#|\+|\*)+$/
+
+const countries = ["Estonia", "Latvia", "Lithuania", "Finland"];
+
 const Checkout = () => {
 
     const schema = yup.object().shape({
-        firstName: yup.string().matches(/^([^0-9]*)$/, "First name should not contain numbers").required("First name is a required field"),
-        lastName: yup.string().matches(/^([^0-9]*)$/, "Last name should not contain numbers").required("Last name is a required field"),
+        firstName: yup.string().matches(/^([^0-9]*)$/, "First name should not contain numbers").required("First name is a required field").matches(/^[a-zA-Z]+$/, "First name should only contain Latin alphabet letters"),
+        lastName: yup.string().matches(/^([^0-9]*)$/, "Last name should not contain numbers").required("Last name is a required field").matches(/^[a-zA-Z]+$/, "Last name should only contain Latin alphabet letters"),
         email: yup.string().email("Email is invalid").required("Email is a required field"),
         message: yup.string(),
-        phone: yup.string().required("Phone is a required field"),
+        street: yup.string(),
+        postcode: yup.string(),
+        city: yup.string(),
+        phone: yup.string().required("Phone is a required field").matches(phoneRegExp, 'Phone number is not valid'),
+        country: yup.string().required("Please select a country").oneOf(countries),
+        checkbox: yup.bool().oneOf([true], "You must accept the terms and conditions"),
     });
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -420,6 +429,8 @@ const Checkout = () => {
                                         label="Country"
                                         required
                                         onChange={handleChange}
+                                        error={!!errors.country}
+                                        helperText={errors?.country?.message}
                                     >
                                         <MenuItem value="Estonia">Estonia</MenuItem>
                                         <MenuItem value="Latvia">Latvia</MenuItem>
@@ -429,7 +440,7 @@ const Checkout = () => {
                                 </FormControl>
                                 <Input {...register("city")} id="city" type="text" label="City (optional)" name="city" />
                                 <Input {...register("street")} id="street" type="text" label="Street address (optional)" name="street" />
-                                <Input {...register("postcode")} id="postcode" type="text" label="ZIP / Postcode (optional)" name="postcode" />
+                                <Input {...register("postcode")} id="postcode" type="text" label="ZIP / Postcode (optional)" name="postcode" error={!!errors.postcode} helperText={errors?.postcode?.message} />
                                 <TextField
                                 {...register("message")}
                                 id="outlined-multiline-static"
@@ -530,7 +541,11 @@ const Checkout = () => {
                             <Hr style={{ width: "calc(100% - 4rem)", margin: "1rem 0" }} />
                             <Text style={{ margin: "0" }}>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <PrivLink onClick={() => window.open("/privacy-policy", "_blank")}>privacy policy</PrivLink>.</Text>
                             <Hr style={{ width: "calc(100% - 4rem)", margin: "1rem 0" }} />
-                            <Checkbox><input name="checkbox" {...register("checkbox")} type="checkbox" /><label htmlFor="ckbox" style={{ float: "right", padding: "0 1rem" }}>I have read and agree to the website <PrivLink onClick={() => window.open("/terms-and-conditions", "_blank")}>terms and conditions </PrivLink><span style={{ color: "red" }}>*</span></label></Checkbox>
+                            
+                            {!!errors.checkbox ? 
+                            <div style={{border: "1px solid red"}}><Checkbox><input name="checkbox" {...register("checkbox")} type="checkbox" /><label htmlFor="ckbox" style={{ float: "right", padding: "0 1rem" }}>I have read and agree to the website <PrivLink onClick={() => window.open("/terms-and-conditions", "_blank")}>terms and conditions </PrivLink><span style={{ color: "red" }}>*</span></label></Checkbox><div style={{alignSelf: "start", color: "red", padding: "0 2rem 0 3.8rem"}}>You must accept terms and conditions!</div></div> 
+                            :
+                            <Checkbox><input name="checkbox" {...register("checkbox")} type="checkbox" /><label htmlFor="ckbox" style={{ float: "right", padding: "0 1rem" }}>I have read and agree to the website <PrivLink onClick={() => window.open("/terms-and-conditions", "_blank")}>terms and conditions </PrivLink><span style={{ color: "red" }}>*</span></label></Checkbox>}
                             <Button type="submit">PLACE ORDER</Button>
                         </Right>
                     </Form>
