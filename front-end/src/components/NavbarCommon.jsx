@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {FaBars, } from 'react-icons/fa';
 import {IoIosArrowDown} from 'react-icons/io';
 import {SiInstagram, SiFacebook} from 'react-icons/si';
-import { Badge } from "@material-ui/core";
+import { Badge } from '@mui/material';
 import { ShoppingCartOutlined } from "@material-ui/icons";
 import React from 'react';
 import styled from 'styled-components';

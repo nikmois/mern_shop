@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { BsCartX } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 
+
 const Container = styled.div`
     
 `;
@@ -148,7 +149,7 @@ justify-content: space-between;
 `;
 
 const TotalItem = styled.div`
-margin: 50px 15px 60px 15px;
+margin: 40px 15px 60px 15px;
 display: flex;
 justify-content: space-between;
 font-weight: 600;
@@ -240,6 +241,7 @@ const Icon = styled(BsCartX)`
 `;
 
 const Cart = () => {
+    
 
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled] = useState(true);

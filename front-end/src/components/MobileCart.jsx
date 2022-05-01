@@ -2,7 +2,7 @@ import React from 'react'
 import styled from "styled-components";
 import { Link as LinkR } from 'react-router-dom';
 import { ShoppingCartOutlined } from "@material-ui/icons";
-import { Badge } from '@material-ui/core';
+import { Badge } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 const Car = styled.div`

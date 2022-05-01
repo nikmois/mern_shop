@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import NavbarCommon from '../components/NavbarCommon'
 import Input from '../components/Input'
 import Sidebar from '../components/Sidebar';
+import axios from 'axios';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useForm, Controller } from "react-hook-form";
@@ -15,6 +16,7 @@ import { BsCartX } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
+import FormHelperText from '@mui/material/FormHelperText';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from 'react-router-dom';
 import { FormControl } from '@mui/material';
@@ -22,7 +24,12 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import { TextField } from '@material-ui/core'
+import { TextField } from '@material-ui/core';
+import omnivaLocations from "../locations.json";
+import smartLocations from "../places.json";
+import omniva from "../images/omniva.jpg";
+import smartpost from "../images/smartpost.png";
+import dpd from "../images/dpd.jpg";
 
 
 const Container = styled.div`
@@ -42,6 +49,10 @@ const Form = styled.form`
     }
 `;
 
+const PostLogo = styled.img`
+    width: 5rem;
+    margin-left: 0.5rem;
+`;
 
 const EmptyWrapper = styled.div`
 max-width: 1300px;
@@ -80,33 +91,9 @@ const Billing = styled.div`
 
 
 const Label = styled.label`
+    display: flex;
     margin: 0.6rem;
-    line-height: 1;
-`;
-
-// const Input = styled.input`
-//     height: 2.5rem;
-//     width: 100%;
-//     margin-bottom: 2vh;
-// `;
-
-const Fullname = styled.div`
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 2rem;
-    @media screen and (max-width: 825px){
-    flex-direction: column;
-    gap: 0rem;
-    }
-`;
-
-const NameDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    width: 100%;
 `;
 
 const Shipping = styled.div`
@@ -303,6 +290,7 @@ const phoneRegExp = /^([0-9 ]|#|\+|\*)+$/
 
 const countries = ["Estonia", "Latvia", "Lithuania", "Finland"];
 
+
 const Checkout = () => {
 
     const schema = yup.object().shape({
@@ -313,10 +301,11 @@ const Checkout = () => {
         street: yup.string(),
         postcode: yup.string(),
         city: yup.string(),
-        phone: yup.string().required("Phone is a required field").matches(phoneRegExp, 'Phone number is not valid'),
-        country: yup.string().required("Please select a country").oneOf(countries),
+        phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required("Phone is a required field"),
+        country: yup.string().oneOf(countries).required("Please select a country"),
+        container: yup.string().required("Please select a parcel machine"),
         checkbox: yup.bool().oneOf([true], "You must accept the terms and conditions"),
-    });
+    })
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onBlur",
@@ -328,8 +317,9 @@ const Checkout = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled] = useState(true);
     const [endTotal, setEndTotal] = useState(0);
-    const [post, setPost] = useState("dpd");
+    const [post, setPost] = useState("omniva");
     const [shippingSize, setShippingSize] = useState();
+    const [shippingPrice, setShippingPrice] = useState();
     const cart = useSelector(state => state.cart);
     const toggle = () => {
         setIsOpen(!isOpen)
@@ -345,14 +335,41 @@ const Checkout = () => {
             setEndTotal(cart.total)
         } else {
             if (shippingSize > 0 && shippingSize <= 33) {
-                setEndTotal((Number(cart.total) + 2.99).toFixed(2))
+                if (post==="smartpost"){
+                    setEndTotal((Number(cart.total) + 2.99).toFixed(2))
+                    setShippingPrice(2.99.toFixed(2))
+                }else if(post==="dpd"){
+                    setEndTotal((Number(cart.total) + 2.90).toFixed(2))
+                    setShippingPrice(2.90.toFixed(2))
+                }else if(post==="omniva"){
+                    setEndTotal((Number(cart.total) + 2.95).toFixed(2))
+                    setShippingPrice(2.95.toFixed(2))
+                }
             } else if (33 < shippingSize && shippingSize <= 66) {
-                setEndTotal((Number(cart.total) + 3.99).toFixed(2))
+                if (post==="smartpost"){
+                    setEndTotal((Number(cart.total) + 3.99).toFixed(2))
+                    setShippingPrice(3.99.toFixed(2))
+                }else if(post==="dpd"){
+                    setEndTotal((Number(cart.total) + 3.90).toFixed(2))
+                    setShippingPrice(3.90.toFixed(2))
+                }else if(post==="omniva"){
+                    setEndTotal((Number(cart.total) + 3.95).toFixed(2))
+                    setShippingPrice(3.95.toFixed(2))
+                }
             } else if (shippingSize > 66) {
-                setEndTotal((Number(cart.total) + 4.89).toFixed(2))
+                if (post==="smartpost"){
+                    setEndTotal((Number(cart.total) + 4.89).toFixed(2))
+                    setShippingPrice(4.89.toFixed(2))
+                }else if(post==="dpd"){
+                    setEndTotal((Number(cart.total) + 4.80).toFixed(2))
+                    setShippingPrice(4.80.toFixed(2))
+                }else if(post==="omniva"){
+                    setEndTotal((Number(cart.total) + 4.85).toFixed(2))
+                    setShippingPrice(4.85.toFixed(2))
+                }
             }
         }
-    }, [cart.total, cart.products, shippingSize, endTotal]);
+    }, [cart.total, cart.products, shippingSize, endTotal, post]);
 
 
     const checkShipping = () => {
@@ -360,9 +377,9 @@ const Checkout = () => {
             return (<Subtotal><Free>free</Free></Subtotal>)
         } else {
             return (<Subtotal>
-                {(shippingSize > 0 && shippingSize <= 33) ? <>2,99€</>
-                    : (shippingSize > 33 && shippingSize <= 66) ? <>3,99€</>
-                        : (shippingSize > 66) && <>4,89€</>
+                {(shippingSize > 0 && shippingSize <= 33) ? <>{shippingPrice}€</>
+                    : (shippingSize > 33 && shippingSize <= 66) ? <>{shippingPrice}€</>
+                        : (shippingSize > 66) && <>{shippingPrice}€</>
                 }
             </Subtotal>)
         }
@@ -372,11 +389,21 @@ const Checkout = () => {
         console.log(data)
     }
 
-
+    
     const [country, setCountry] = useState('');
+    const [container, setContainer] = useState('');
+
+    const handlePost = (event) => {
+        setPost(event.target.value);
+        setContainer('');
+    };
 
     const handleChange = (event) => {
         setCountry(event.target.value);
+    };
+
+    const handleContainer = (event) => {
+        setContainer(event.target.value);
     };
 
     const checkCart = () => {
@@ -402,11 +429,7 @@ const Checkout = () => {
                             <Billing>
                                 <Title>BILLING DETAILS</Title>
                                 <Input {...register("firstName")} id="firstName" type="text" label="First Name" name="firstName" required error={!!errors.firstName} helperText={errors?.firstName?.message} />
-                                {/* <Label htmlFor="name">First Name <span style={{color: "red"}}>*</span></Label>
-                            <Input name="name" type="text" required value={name} onChange={(e)=>setName(e.target.value)}/> */}
                                 <Input {...register("lastName")} id="lastName" type="text" label="Last Name" name="lastName" required error={!!errors.lastName} helperText={errors?.lastName?.message} />
-                                {/* <Label htmlFor="lastname">Last Name <span style={{color: "red"}}>*</span></Label>
-                            <Input type="text" name="lastname" required value={lastname} onChange={(e)=>setLastname(e.target.value)}/> */}
                                 <Input {...register("email")} id="email" type="email" label="E-mail" name="email" required error={!!errors.email} helperText={errors?.email?.message} />
                                 <Input {...register("phone")}
                                     id="phone"
@@ -418,7 +441,7 @@ const Checkout = () => {
                                     error={!!errors.phone}
                                     helperText={errors?.phone?.message}
                                 />
-                                <FormControl style={{ margin: "1rem 0 0.6rem 0" }}>
+                                <FormControl style={{ margin: "1rem 0 0.6rem 0" }} error={!!errors.country}>
                                     <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
                                     <Select
                                         {...register("country")}
@@ -429,14 +452,13 @@ const Checkout = () => {
                                         label="Country"
                                         required
                                         onChange={handleChange}
-                                        error={!!errors.country}
-                                        helperText={errors?.country?.message}
                                     >
                                         <MenuItem value="Estonia">Estonia</MenuItem>
                                         <MenuItem value="Latvia">Latvia</MenuItem>
                                         <MenuItem value="Finland">Finland</MenuItem>
                                         <MenuItem value="Lithuania">Lithuania</MenuItem>
                                     </Select>
+                                    {!!errors.country && <FormHelperText>{errors?.country?.message}</FormHelperText>}
                                 </FormControl>
                                 <Input {...register("city")} id="city" type="text" label="City (optional)" name="city" />
                                 <Input {...register("street")} id="street" type="text" label="Street address (optional)" name="street" />
@@ -451,28 +473,33 @@ const Checkout = () => {
                                 variant="outlined"
                                 style={{margin: "1rem 0"}}
                                 />
-                                {/* <Label htmlFor="email">e-mail <span style={{color: "red"}}>*</span></Label>
-                            <Input type="email" name="email" required value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                            <Label htmlFor="phone">Phone number <span style={{color: "red"}}>*</span></Label>
-                            <Input type="tel" name="phone" required value={phone} onChange={(e)=>setPhone(e.target.value)}/>
-                            <Label htmlFor="country">Country <span style={{color: "red"}}>*</span></Label>
-                            <Input type="text" name="country" required value={country} onChange={(e)=>setCountry(e.target.value)}/> */}
                             </Billing>
                             <Shipping>
                                 <Title>SHIPPING DETAILS</Title>
                                 <Ship>
-                                    <p>Select a maintenance drone:</p>
-                                    <Automats onChange={(event) => { setPost(event.target.value) }}>
+                                    <p style={{margin: "1rem 0", fontSize: "1.1rem"}}>Select a parcel machine:</p>
+                                    <Automats onChange={handlePost}>
+                                        <Label>
+                                            <input type="radio"
+                                                id="omniva"
+                                                name="post"
+                                                value="omniva"
+                                                defaultChecked
+                                                style={{ marginRight: "1rem" }}
+                                            />
+                                            <label htmlFor="omniva">Omniva parcel machine</label>
+                                            <PostLogo style={{transform: "scale(1.2)"}} src={omniva}></PostLogo>
+                                        </Label>
                                         <Label>
                                             <input
                                                 type="radio"
                                                 id="dpd"
                                                 name="post"
                                                 value="dpd"
-                                                defaultChecked
                                                 style={{ marginRight: "1rem" }}
                                             />
-                                            <label htmlFor="dpd">DPD</label>
+                                            <label htmlFor="dpd">DPD parcel machine</label>
+                                            <PostLogo src={dpd}></PostLogo>
                                         </Label>
                                         <Label>
                                             <input
@@ -482,19 +509,48 @@ const Checkout = () => {
                                                 value="smartpost"
                                                 style={{ marginRight: "1rem" }}
                                             />
-                                            <label htmlFor="smartpost">SmartPost</label>
-                                        </Label>
-                                        <Label>
-                                            <input type="radio"
-                                                id="omniva"
-                                                name="post"
-                                                value="omniva"
-                                                style={{ marginRight: "1rem" }}
-                                            />
-                                            <label htmlFor="omniva">Omniva</label>
+                                            <label htmlFor="smartpost">SmartPost parcel machine</label>
+                                            <PostLogo src={smartpost}></PostLogo>
                                         </Label>
                                     </Automats>
-                                    {post === "dpd" ? <p>some dpd</p> : post === "omniva" ? <p>some omniva</p> : post === "smartpost" && <p>some smartpost</p>}
+                                    
+                                    <FormControl style={{ margin: "1rem 0 0.6rem 0", width: "100%"}} error={!!errors.container}>
+                                    <InputLabel id="demo-simple-select-helper-label">Parcel Machine</InputLabel>
+                                    <Select
+                                        {...register("container")}
+                                        labelId="demo-simple-select-helper-label"
+                                        id="demo-simple-select"
+                                        name="container"
+                                        value={container}
+                                        label="Parcel Machine"
+                                        required
+                                        onChange={handleContainer}
+                                        MenuProps={{ PaperProps: { sx: { maxHeight: 400 } } }}
+                                    >
+                                    {post === "omniva" ? 
+                                    omnivaLocations.map((location, i) => {
+                                        if (location.A0_NAME === "EE"){
+                                            return(
+                                                <MenuItem key={i} value={location.NAME}>{location.NAME}</MenuItem>
+                                            )
+                                        }
+                                    })
+                                    : post === "dpd" 
+                                    ? smartLocations.map((location, i) => {
+                                            return(
+                                                <MenuItem key={i} value={location.name}>{location.name}</MenuItem>
+                                            )
+                                        
+                                    })
+                                    : post === "smartpost" 
+                                    && smartLocations.map((location, i) => {
+                                            return(
+                                                <MenuItem key={i} value={location.name}>{location.name}</MenuItem>
+                                            )
+                                    })}
+                                    </Select>
+                                    {!!errors.container && <FormHelperText>{errors?.container?.message}</FormHelperText>}
+                                    </FormControl>
                                 </Ship>
                             </Shipping>
                         </Left>
@@ -506,15 +562,15 @@ const Checkout = () => {
                                     <SubTitle>SUBTOTAL</SubTitle>
                                 </Headers>
                                 <Hr />
-                                {cart.products?.map((product) => (
-                                    <>
+                                {cart.products?.map((product, i) => (
+                                    <div style={{width: "100%"}} key={i}>
                                         <Headers>
                                             <Prod style={{ marginRight: "1rem" }}>{product.title}   <b>x {product.quantity}</b>
                                             </Prod>
                                             <Prod style={{ whiteSpace: "nowrap" }}>{(product.price * product.quantity).toFixed(2)} €</Prod>
                                         </Headers>
                                         <Hr />
-                                    </>
+                                    </div>
                                 ))}
                                 <Headers>
                                     <p>Subtotal</p>
