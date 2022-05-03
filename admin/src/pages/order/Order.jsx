@@ -36,7 +36,6 @@ export default function User() {
     alert("Заказ изменен, чтобы увидеть измененный заказ обнови страницу")
   };
 
-  console.log(data.products);
   const productsCheck = () => {
     return(
     data.products?.map((product, i)=>(
@@ -67,6 +66,18 @@ export default function User() {
             className="userUpdateInput"
             onChange={handleChange}
             name="quantity"
+            style={{width: "130px"}}
+          />
+        </div>
+        <div className="userUpdateItem">
+          <label>Цена продукта</label>
+          <input
+            type="text"
+            placeholder={product.price}
+            className="userUpdateInput"
+            onChange={handleChange}
+            name="price"
+            style={{width: "130px"}}
           />
         </div>
         <div className="userUpdateItem">
@@ -77,6 +88,7 @@ export default function User() {
             className="userUpdateInput"
             onChange={handleChange}
             name="color"
+            style={{width: "130px"}}
           />
         </div>
       </div>
@@ -124,10 +136,20 @@ export default function User() {
                 <label>Имя покупателя</label>
                 <input
                   type="text"
-                  placeholder={data.fullname}
+                  placeholder={data.firstName}
                   className="userUpdateInput"
                   onChange={handleChange}
-                  name="fullname"
+                  name="firstName"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Фамилия покупателя</label>
+                <input
+                  type="text"
+                  placeholder={data.lastName}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="lastName"
                 />
               </div>
               <div className="userUpdateItem">
@@ -139,6 +161,56 @@ export default function User() {
                   onChange={handleChange}
                   name="userId"
                 />
+              </div>
+              <div className="userUpdateItem">
+                <label>Страна</label>
+                <input
+                  type="text"
+                  defaultValue={data.country}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="country"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Город</label>
+                <input
+                  type="text"
+                  defaultValue={data.city}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="city"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Адрес</label>
+                <input
+                  type="text"
+                  defaultValue={data.street}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="street"
+                />
+                <div className="userUpdateItem">
+                <label>Посткод</label>
+                <input
+                  type="text"
+                  defaultValue={data.postcode}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="postcode"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Сообщение пользователя</label>
+                <input
+                  type="text"
+                  defaultValue={data.message}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="message"
+                />
+              </div>
               </div>
               <div className="userUpdateItem">
                 <label>Email</label>
@@ -164,10 +236,40 @@ export default function User() {
                 <label>Адрес заказа</label>
                 <input
                   type="text"
-                  placeholder={data.address || "Не указан"}
+                  placeholder={data.container}
                   className="userUpdateInput"
                   onChange={handleChange}
-                  name="address"
+                  name="container"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Фирма доставки</label>
+                <input
+                  type="text"
+                  placeholder={data.shipping}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="shipping"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Цена доставки</label>
+                <input
+                  type="text"
+                  placeholder={data.shippingPrice}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="shippingPrice"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Размер коробки для доставки</label>
+                <input
+                  type="text"
+                  placeholder={data.shippingSize}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="container"
                 />
               </div>
               {productsCheck()}

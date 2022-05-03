@@ -32,6 +32,7 @@ const OrderSchema = new mongoose.Schema({
         postcode: {type:String},
         shipping: {type:String},
         shippingSize: {type:String},
+        shippingPrice: {type:Number},
         container: {type:String, required: true},
         message: {type:String},
         street:{type:String},

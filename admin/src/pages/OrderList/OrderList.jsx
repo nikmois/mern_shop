@@ -48,14 +48,14 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <div className="userListUser">
-            {params.row.fullname}
+            {`${params.row.firstName} ${params.row.lastName}`}
           </div>
         );
       },
     },
     { field: "email", headerName: "Email", width: 200 },
     { field: "phone", headerName: "Телефон", width: 150 },
-    { field: "address", headerName: "Адрес доставки", width: 230 },
+    { field: "container", headerName: "Адрес доставки", width: 230 },
     {
       field: "status",
       headerName: "Status",

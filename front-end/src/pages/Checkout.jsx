@@ -330,6 +330,7 @@ const Checkout = () => {
             checkbox: false,
         }
     })
+    const user = useSelector(state=>state.user.currentUser);
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled] = useState(true);
     const [endTotal, setEndTotal] = useState(0);
@@ -425,9 +426,13 @@ const Checkout = () => {
     const onSubmit = async (data) => {
         setLoading(true)
         disableScroll()
-        data.amount = cart.total
+        data.amount = cart.total.toFixed(2)
         data.products = cart.products
         data.shipping = post
+        data.shippingPrice = shippingPrice
+        if (user){
+            data.userId = user._id;
+        }
         if (shippingSize > 0 || shippingSize <=33){
             data.shippingSize = "S size box"
         } else if (shippingSize > 33 || shippingSize <=66){
