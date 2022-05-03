@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { isJwtExpired } from 'jwt-check-expiration';
 import { logOut } from "./redux/apiCalls";
 import Checkout from "./pages/Checkout";
+import SuccessOrder from "./pages/SuccessOrder";
 
 
 
@@ -46,6 +47,7 @@ function App() {
         <Route path='/product/:id' element={<Product/>}/>
         <Route path='/shop' element={<Shop/>}/>
         <Route path='*' element={<Error404/>}/>
+        <Route path='/successOrder' element={<SuccessOrder/>}/>
       </Routes>
     </Router>
   );

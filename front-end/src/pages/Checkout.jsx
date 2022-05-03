@@ -4,21 +4,14 @@ import Footer from '../components/Footer'
 import NavbarCommon from '../components/NavbarCommon'
 import Input from '../components/Input'
 import Sidebar from '../components/Sidebar';
-import axios from 'axios';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { useForm, Controller } from "react-hook-form";
-import FormLabel from '@mui/material/FormLabel';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
+import { useForm} from "react-hook-form";
 import { useEffect, useState } from 'react';
 import { BsCartX } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
 import FormHelperText from '@mui/material/FormHelperText';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormControl } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -30,7 +23,8 @@ import smartLocations from "../places.json";
 import omniva from "../images/omniva.jpg";
 import smartpost from "../images/smartpost.png";
 import dpd from "../images/dpd.jpg";
-
+import { useHttp } from "../hooks/http.hook";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Container = styled.div`
 
@@ -199,6 +193,28 @@ const Hr = styled.hr`
 const Prod = styled.p`
     color: #696969;
 `;
+  
+const Blurred = styled.div`
+    width: 100vw;
+    z-index: 50;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background-color: #808080b5;
+`;
+
+const Circle = styled(CircularProgress)`
+    transform: scale(2);
+    margin-top: 5vh;
+`;
+
+const BlurredMessage = styled.div`
+    color: white;
+    font-size: clamp(2rem, 3vw, 5rem);
+`;
 
 const Text = styled.p`
     color: #696969;
@@ -307,7 +323,7 @@ const Checkout = () => {
         checkbox: yup.bool().oneOf([true], "You must accept the terms and conditions"),
     })
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, resetField, handleSubmit, formState: { errors } } = useForm({
         mode: "onBlur",
         resolver: yupResolver(schema),
         defaultValues: {
@@ -320,10 +336,28 @@ const Checkout = () => {
     const [post, setPost] = useState("omniva");
     const [shippingSize, setShippingSize] = useState();
     const [shippingPrice, setShippingPrice] = useState();
+    const [loading, setLoading] = useState(false);
+
     const cart = useSelector(state => state.cart);
+
     const toggle = () => {
         setIsOpen(!isOpen)
     };
+
+    function disableScroll() {
+        // Get the current page scroll position
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+            // if any scroll is attempted, set this to the previous value
+            window.onscroll = function() {
+                window.scrollTo(scrollLeft, scrollTop);
+            };
+    }
+      
+    function enableScroll() {
+        window.onscroll = function() {};
+    }
+    
 
     useEffect(() => {
         let shipping = 0;
@@ -385,8 +419,29 @@ const Checkout = () => {
         }
     }
 
-    const onSubmit = (data) => {
-        console.log(data)
+    const history = useNavigate();
+    const {request} = useHttp();
+
+    const onSubmit = async (data) => {
+        setLoading(true)
+        disableScroll()
+        data.amount = cart.total
+        data.products = cart.products
+        data.shipping = post
+        if (shippingSize > 0 || shippingSize <=33){
+            data.shippingSize = "S size box"
+        } else if (shippingSize > 33 || shippingSize <=66){
+            data.shippingSize = "M size box"
+        } else if (shippingSize > 66){
+            data.shippingSize = "L size box"
+        }
+        try {
+            const res = await request('/api/orders', 'POST', {...data})
+            setLoading(false)
+            enableScroll()
+            history('/successOrder')
+            console.log(res.message)
+        } catch (e) {}
     }
 
     
@@ -396,6 +451,7 @@ const Checkout = () => {
     const handlePost = (event) => {
         setPost(event.target.value);
         setContainer('');
+        resetField("container");
     };
 
     const handleChange = (event) => {
@@ -615,7 +671,9 @@ const Checkout = () => {
             <Announcement />
             <Sidebar isOpen={isOpen} toggle={toggle} />
             <NavbarCommon toggle={toggle} scrolled={scrolled} />
-            {checkCart()}
+            {loading ? <Blurred><BlurredMessage>Please wait, order is being processed...</BlurredMessage>
+            <Circle />
+            </Blurred> : <>{checkCart()}</>}
             <Footer />
         </Container>
     )
