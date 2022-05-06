@@ -7,7 +7,7 @@ import Sidebar from '../components/Sidebar';
 import { useForm} from "react-hook-form";
 import { useEffect, useState } from 'react';
 import { BsCartX } from "react-icons/bs";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import FormHelperText from '@mui/material/FormHelperText';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -25,6 +25,7 @@ import smartpost from "../images/smartpost.png";
 import dpd from "../images/dpd.jpg";
 import { useHttp } from "../hooks/http.hook";
 import CircularProgress from '@mui/material/CircularProgress';
+import { emptyAllCart } from "../redux/apiCalls";
 
 const Container = styled.div`
 
@@ -338,6 +339,7 @@ const Checkout = () => {
     const [shippingSize, setShippingSize] = useState();
     const [shippingPrice, setShippingPrice] = useState();
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
 
     const cart = useSelector(state => state.cart);
 
@@ -446,6 +448,7 @@ const Checkout = () => {
             enableScroll()
             history('/successOrder')
             console.log(res.message)
+            emptyAllCart(dispatch)
         } catch (e) {}
     }
 

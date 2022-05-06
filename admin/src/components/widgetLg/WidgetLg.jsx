@@ -9,7 +9,7 @@ export default function WidgetLg() {
   useEffect(()=>{
     const getOrders = async ()=>{
       try{
-        const res = await userRequest.get("orders")
+        const res = await userRequest.get("orders/?new=true")
         setOrders(res.data);
       }
       catch{}
@@ -24,15 +24,15 @@ export default function WidgetLg() {
       <h3 className="widgetLgTitle">Последние заказы</h3>
       <table className="widgetLgTable">
         <tr className="widgetLgTr">
-          <th className="widgetLgTh">Пользователь</th>
-          <th className="widgetLgTh">Date</th>
-          <th className="widgetLgTh">Amount</th>
-          <th className="widgetLgTh">Status</th>
+          <th className="widgetLgTh">Покупатель</th>
+          <th className="widgetLgTh">Дата</th>
+          <th className="widgetLgTh">Сумма</th>
+          <th className="widgetLgTh">Статус</th>
         </tr>
         {orders.map(order=>(
         <tr className="widgetLgTr" key={order._id}>
           <td className="widgetLgUser">
-          <span className="widgetLgName">{order.userId}</span>
+          <span className="widgetLgName">{order.firstName} {order.lastName}</span>
           </td>
           <td className="widgetLgDate">{format(order.createdAt)}</td>
           <td className="widgetLgAmount">€{order.amount}</td>

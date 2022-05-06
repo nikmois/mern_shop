@@ -154,7 +154,8 @@ const Register = () => {
             <Wrapper>
                 <Title>CREATE AN ACCOUNT</Title>
                 <Form>
-                    <Input placeholder="Full name" id="fullname" type="text" value={form.fullname} name="fullname" onChange={changeHandler}/>
+                    <Input placeholder="First name" id="firstName" type="text" value={form.firstName} name="firstName" onChange={changeHandler}/>
+                    <Input placeholder="Last name" id="lastName" type="text" value={form.lastName} name="lastName" onChange={changeHandler}/>
                     <Input placeholder="Email" id="email" type="text" value={form.email} name="email" onChange={changeHandler}/>
                     <Input placeholder="Phone number" id="phone" value={form.phone} type="tel" name="phone" onChange={changeHandler}/>
                     <Input placeholder="Password" id="pass" value={form.pass} type="password" name="pass" onChange={changeHandler}/>

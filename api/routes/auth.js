@@ -19,9 +19,9 @@ router.post(
 
         const regularExpression = /^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/;
 
-        const {email, fullname, password, phone, pass} = req.body
+        const {email, firstName, lastName, password, phone, pass} = req.body
 
-        if (!email || !fullname || !password || !phone || !pass){
+        if (!email || !firstName || !lastName || !password || !phone || !pass){
             return res.status(400).json({ message: "Please fill all required fields!"})
         }
 
@@ -49,13 +49,17 @@ router.post(
             return res.status(400).json({ message: "Password should contain at least one character and one number and be minimum 6 symbols long!"})
         }
 
-        if (!fullname) {
-            return res.status(400).json({ message: "Please enter your full name!"})
+        if (!firstName) {
+            return res.status(400).json({ message: "Please enter your first name!"})
+        }
+
+        if (!lastName) {
+            return res.status(400).json({ message: "Please enter your first name!"})
         }
 
         const hashedPassword = CryptoJS.AES.encrypt(password,process.env.PASS_SEC).toString()
 
-        const user = new User({ email, fullname, phone, password: hashedPassword })
+        const user = new User({ email, firstName, lastName, phone, password: hashedPassword })
 
         await user.save();
         res.status(201).json({ message: "User created successfully!"});

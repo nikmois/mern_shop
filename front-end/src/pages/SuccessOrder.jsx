@@ -18,6 +18,7 @@ const MessageCont = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 0 auto 0 auto;
     width: 100vw;
     height: 60vh;
 `;
@@ -27,6 +28,7 @@ const Message = styled.div`
     color: #00a700;
     font-size: clamp(2rem, 3vw, 5rem);
     margin: 5vh 0 8vh 0;
+    text-align:center ;
 `
 
 const Icon = styled(DoneAllIcon)`

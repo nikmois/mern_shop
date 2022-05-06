@@ -15,6 +15,8 @@ import { isJwtExpired } from 'jwt-check-expiration';
 import { logOut } from "./redux/apiCalls";
 import Checkout from "./pages/Checkout";
 import SuccessOrder from "./pages/SuccessOrder";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 
 
@@ -43,6 +45,8 @@ function App() {
         <Route path='/register' element={user ? <Navigate to = "/" /> : <Register />}/>
         <Route path='/cabinet' element={<Cabinet />}/>
         <Route path='/cart' element={<Cart/>}/>
+        <Route path='/about' element={<About/>}/>
+        <Route path='/contact' element={<Contact/>}/>
         <Route path='/checkout' element={<Checkout/>}/>
         <Route path='/product/:id' element={<Product/>}/>
         <Route path='/shop' element={<Shop/>}/>

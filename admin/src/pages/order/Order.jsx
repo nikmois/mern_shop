@@ -123,7 +123,7 @@ export default function User() {
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Статус заказа (pending, approved, declined)</label>
+                <label>Статус заказа (pending, approved, declined, shipped)</label>
                 <input
                   type="text"
                   placeholder={data.status}

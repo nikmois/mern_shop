@@ -32,11 +32,11 @@ export default function UserList() {
     { 
       field: "amount", 
       headerName: "Сумма заказа", 
-      width: 170, 
+      width: 140, 
       renderCell: (params) => {
         return (
           <div className="userListUser">
-            {params.row.amount} €
+            {`${params.row.amount.toFixed(2)} €`}
           </div>
         );
       },

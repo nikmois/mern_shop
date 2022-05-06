@@ -1,4 +1,5 @@
 import { publicRequest } from "../requestMethods";
+import { emptyCart } from "./cartRedux";
 import { loginFailure, loginStart, loginSuccess, logout } from "./userRedux"
 
 export const login = async (dispatch,user) => {
@@ -12,4 +13,8 @@ export const login = async (dispatch,user) => {
 }
 export const logOut = (dispatch) => {
     dispatch(logout());
+};
+
+export const emptyAllCart = (dispatch) => {
+    dispatch(emptyCart());
 };

@@ -44,6 +44,10 @@
 }
 
 .widgetLgButton.approved{
+    background-color: #fffab6dc;
+    color: #ffb700;
+}
+.widgetLgButton.shipped{
     background-color: #e5faf2;
     color: #3bb077;
 }
