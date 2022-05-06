@@ -11,6 +11,7 @@ import { Link as LinkR } from 'react-router-dom';
 import eng from '../images/eng.svg';
 import rus from '../images/rus.svg';
 import est from '../images/est.svg';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useSelector } from 'react-redux';
 
 const Nav = styled.nav`
@@ -192,9 +193,13 @@ const Socials = styled.a`
     display: flex;
     align-items: center;
     text-decoration: none;
-    padding: 0 0.4rem;
+    padding: 0 0.45rem;
     height: 100%;
     cursor: pointer;
+
+    @media screen and (max-width: 992px) {
+        padding: 0 0.3rem;
+    }
 `;
 
 const HoveredMenu = styled.div`
@@ -240,6 +245,7 @@ border: 0.3px solid grey;
 
 const Cart = styled.div`
     position: relative;
+    transition: all 0.2s ease;
     &:hover{
         color: #f7a140;
         transform: scale(1.1);
@@ -516,14 +522,14 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
             <NavItem>
             <Socials href="https://www.instagram.com/babypingviin/?fbclid=IwAR2rFcMaofIwjZYlZGcOn-Py6FYLiX1Sha-Avzwkrol6xVXQ2HXd1xfxdO0">
                 <Cart>
-            <SiInstagram />
+            <SiInstagram/>
                 </Cart>  
             </Socials>
             </NavItem>
             <NavItem>
                 <Socials href="https://www.facebook.com/babypingviin/">
                 <Cart>
-            <SiFacebook />
+            <SiFacebook/>
                 </Cart>  
                 </Socials>
             </NavItem>
@@ -532,9 +538,9 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
             ?
             <NavItem>
                 <NavLinks to='/cabinet'>
-                <HoveredMenu>
-            CABINET
-                </HoveredMenu>
+                <Cart>
+                <AccountCircleIcon />
+                </Cart>
                 </NavLinks>
             </NavItem> 
             :

@@ -173,7 +173,7 @@ const Sidebar = ({isOpen, toggle}) => {
                 </SideBtnWrap>
                 :
                 <SideBtnWrap>
-                    <LoginRoute to="/cabinet">CABINET</LoginRoute>
+                    <LoginRoute to="/cabinet">MY CABINET</LoginRoute>
                 </SideBtnWrap>
                 }   
                 <SocialsContainer>

@@ -435,9 +435,9 @@ const Checkout = () => {
         if (user){
             data.userId = user._id;
         }
-        if (shippingSize > 0 || shippingSize <=33){
+        if (shippingSize > 0 && shippingSize <=33){
             data.shippingSize = "S size box"
-        } else if (shippingSize > 33 || shippingSize <=66){
+        } else if (shippingSize > 33 && shippingSize <=66){
             data.shippingSize = "M size box"
         } else if (shippingSize > 66){
             data.shippingSize = "L size box"
@@ -551,7 +551,8 @@ const Checkout = () => {
                                                 defaultChecked
                                                 style={{ marginRight: "1rem" }}
                                             />
-                                            <label htmlFor="omniva">Omniva parcel machine</label>
+                                            <label htmlFor="omniva">Omniva parcel machine <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,95</> 
+                                            : (shippingSize > 33 && shippingSize <= 66) ? <>3,95</> : (shippingSize > 66) && <>4,85</>} €)</b></label>
                                             <PostLogo style={{transform: "scale(1.2)"}} src={omniva}></PostLogo>
                                         </Label>
                                         <Label>
@@ -562,7 +563,8 @@ const Checkout = () => {
                                                 value="dpd"
                                                 style={{ marginRight: "1rem" }}
                                             />
-                                            <label htmlFor="dpd">DPD parcel machine</label>
+                                            <label htmlFor="dpd">DPD parcel machine <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,90</> 
+                                            : (shippingSize > 33 && shippingSize <= 66) ? <>3,90</> : (shippingSize > 66) && <>4,80</>} €)</b></label>
                                             <PostLogo src={dpd}></PostLogo>
                                         </Label>
                                         <Label>
@@ -573,7 +575,8 @@ const Checkout = () => {
                                                 value="smartpost"
                                                 style={{ marginRight: "1rem" }}
                                             />
-                                            <label htmlFor="smartpost">SmartPost parcel machine</label>
+                                            <label htmlFor="smartpost">SmartPost parcel machine <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,99</> 
+                                            : (shippingSize > 33 && shippingSize <= 66) ? <>3,99</> : (shippingSize > 66) && <>4,89</>} €)</b></label>
                                             <PostLogo src={smartpost}></PostLogo>
                                         </Label>
                                     </Automats>
