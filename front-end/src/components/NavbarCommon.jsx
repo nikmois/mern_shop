@@ -537,11 +537,11 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
             {user 
             ?
             <NavItem>
-                <NavLinks to='/cabinet'>
+                <Socials href={'/cabinet/' + user._id} >
                 <Cart>
                 <AccountCircleIcon />
                 </Cart>
-                </NavLinks>
+                </Socials>
             </NavItem> 
             :
             <>

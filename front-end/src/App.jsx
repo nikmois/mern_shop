@@ -43,7 +43,7 @@ function App() {
         <Route path='/products/:category' element={<ProductList/>}/>
         <Route path='/signIn' element={user ? <Navigate to = "/" /> : <Login />}/>
         <Route path='/register' element={user ? <Navigate to = "/" /> : <Register />}/>
-        <Route path='/cabinet' element={<Cabinet />}/>
+        <Route path='/cabinet/:userId' element={<Cabinet />}/>
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<Contact/>}/>

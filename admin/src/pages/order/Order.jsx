@@ -32,7 +32,6 @@ export default function User() {
     e.preventDefault();
     order = {...inputs};
     await userRequest.put(`/orders/${id}`, order)
-    //updateUser(id,user);
     alert("Заказ изменен, чтобы увидеть измененный заказ обнови страницу")
   };
 

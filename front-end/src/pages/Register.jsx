@@ -94,7 +94,7 @@ const Register = () => {
     
 
     const [form, setForm] = useState({
-        fullname:'', email: '', phone:'', password:'', pass:''
+        firstName:'', lastName:'', email: '', phone:'', password:'', pass:''
     });
 
     const [notice, setNotice] = useState()

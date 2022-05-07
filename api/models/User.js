@@ -7,6 +7,9 @@ const UserSchema = new mongoose.Schema({
         password:{type:String , required:true},
         phone:{type:String , required:true},
         address:{type:String},
+        city:{type:String},
+        postcode:{type:String},
+        birthdate:{type:String},
         orders: [{ type: mongoose.Types.ObjectId, ref: 'Order'}],
         isAdmin:{
             type:Boolean,
