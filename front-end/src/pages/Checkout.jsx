@@ -600,6 +600,8 @@ const Checkout = () => {
                                             return(
                                                 <MenuItem key={i} value={location.NAME}>{location.NAME}</MenuItem>
                                             )
+                                        } else {
+                                            return(<></>)
                                         }
                                     })
                                     : post === "dpd" 

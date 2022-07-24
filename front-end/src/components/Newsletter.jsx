@@ -1,5 +1,7 @@
 import newsletter from '../images/newsletter.jpg';
 import styled from 'styled-components';
+import { useState } from 'react';
+import { useHttp } from '../hooks/http.hook';
 
 
 const Cont = styled.div`
@@ -61,13 +63,25 @@ const Right = styled.div`
     }
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
     font-size: 50px;
     margin: 10px 15px 10px 15px;
 
     @media screen and (max-width: 850px) {
         font-size: 30px;
         text-align: center;
+        padding-top: 25px;
+    }
+`;
+
+const Message = styled.h2`
+    font-size: 50px;
+    margin: 10px 15px 10px 15px;
+    text-align: center;
+    color: white;
+
+    @media screen and (max-width: 850px) {
+        font-size: 30px;
         padding-top: 25px;
     }
 `;
@@ -143,21 +157,44 @@ const Button = styled.button`
 
 
 const Newsletter = () => {
+    const [pressed, setPressed] = useState(false)
+    const [message, setMessage] = useState("")
+    const [email, setEmail] = useState("")
+    const {request} = useHttp();
+
+    const registerHandler = async () => {
+        setPressed(true)
+        try {
+            const data = await request('/api/newsletter', 'POST', {"email": email})
+            setMessage(data.message)
+        } catch (e) {
+            setMessage(e.message)
+        }
+    };
     return (
         <Cont>
         <Container>
+            {!pressed ?
+            (
+            <>
             <Left>
-            <Title>Subscribe to our newsletter</Title>
-            <Desc>Get timely updates from Your favorite products.</Desc>
+            <Title>Liituge meie uudiskirjaga</Title>
+            <Desc>Hankige õigeaegseid värskendusi oma lemmiktoodetest.</Desc>
             </Left>
             <Right>
             <RightContainer>
             <InputContainer>
-                <Input placeholder="Your e-mail"/>
+                <Input type="email" placeholder="Your e-mail" onChange={(e)=>setEmail(e.target.value)}/>
             </InputContainer>
-            <Button>SUBSCRIBE</Button>
+            <Button onClick={registerHandler}>LIITUDA</Button>
             </RightContainer>
             </Right>
+            </>)
+            :
+            <Message>
+                {message || "Midagi läks valesti palun proovige hiljem uuesti"}
+            </Message>
+            }
         </Container>
         </Cont>
     )

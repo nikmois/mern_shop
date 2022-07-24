@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {FaBars, } from 'react-icons/fa';
 import {IoIosArrowDown} from 'react-icons/io';
 import {SiInstagram, SiFacebook} from 'react-icons/si';
@@ -8,9 +7,6 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from "../images/logo-cropped.svg";
 import { Link as LinkR } from 'react-router-dom';
-import eng from '../images/eng.svg';
-import rus from '../images/rus.svg';
-import est from '../images/est.svg';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useSelector } from 'react-redux';
 
@@ -132,29 +128,6 @@ display: none;
     }
 `;
 
-const Flags = styled.div`
-    display:none;
-
-    @media screen and (max-width: 850px) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        right: 20%;
-        top: 2.1rem;
-        cursor: pointer;
-    }
-    @media screen and (max-width: 380px) and (max-height: 650px){
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        right: 20%;
-        top: 1.4rem;
-        cursor: pointer;
-    }
-`;
-
 const Right = styled.ul`
     display: flex;
     list-style: none;
@@ -235,13 +208,6 @@ const HoveredMenu = styled.div`
    
 `;
 
-const Lang = styled.img`
-width: 20px;
-height: 100%;
-z-index: 10;
-margin-left: 3px;
-border: 0.3px solid grey;
-`;
 
 const Cart = styled.div`
     position: relative;
@@ -289,20 +255,6 @@ const DropDownContent = styled.div`
     transition: opacity .3s ease,visibility .3s ease,transform .3s ease;
 `;
 
-const DropDownLi = styled.div`
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: 0 0.6rem;
-    height: 100%;
-    cursor: pointer;
-    position: relative;
-    &:hover ${DropDownContent} {
-    opacity: 1;
-    visibility: visible;
-  }
- 
-`;
 
 const DropDownRoute = styled(LinkR)`
     text-decoration: none;
@@ -327,28 +279,6 @@ const DropDownItem = styled.li`
 `;
 
 
-const SubA = styled.div`
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-  min-width: 9rem;
-  &:hover {
-    background-color: #f1f1f1;
-  }
-`;
-
-const FlagR = styled.div`
-  text-align: left;
-  padding:0 5px;
-  @media screen and (max-width: 850px) and (min-width: 550px) {
-    padding: 0 15px;
-  }
-`;
-
-
-
 const SubLink = styled(LinkR)`
   color: black;
   padding: 12px 16px;
@@ -369,94 +299,10 @@ const Badge1 = styled(Badge)`
     right: -15px;
 `;
 
-const ChosenLang = styled.div`
-text-decoration: none;
-display: flex;
-`;
-
 const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
 
-    const languages = [
-        {id: 1, name: 'ENGLISH', valueLang: 'en-US', img: eng},
-        {id: 2, name: 'РУССКИЙ', valueLang: 'ru-RU', img: rus},
-        {id: 3, name: 'EESTI', valueLang: 'et-EE', img: est}
-    ]
 
-    const defaultLang = 'en-US';
-
-    let currentLocal = defaultLang;
-
-    const [lan, setLan] = useState('');
-
-    const CurrentLocal = () => {
-        if (!localStorage.getItem('Local')) {
-            localStorage.setItem('Local', defaultLang);
-        } else {
-            currentLocal = localStorage.getItem('Local');
-        }
-    }
-
-    CurrentLocal();
-
-    const handleClick = (e) => {
-        currentLocal = lan;
-        localStorage.setItem('Local', e.target.id);
-    }
-
-    const langCheck = () => {
-        for (let i = 0; i < languages.length; i++) {
-            if (languages[i].valueLang === currentLocal){
-                let a = languages[i].name;
-                let image = languages[i].img;
-                return(
-                <ChosenLang key={languages[i].id}>
-                <HoveredMenu>
-                    {a}
-                </HoveredMenu>  
-                <Lang src={image}/> 
-                </ChosenLang>  
-                )
-            }        
-        }  
-    }
-
-    const langChange = () => {
-        const dataCollection = [];
-        for (let i = 0; i < languages.length; i++) {
-            if (languages[i].valueLang !== currentLocal){
-                let a = languages[i].name;
-                let image = languages[i].img;
-                let alt = languages[i].valueLang;
-                dataCollection.push(
-                <SubA id={alt} onClick={(e) => {handleClick(e); setLan(alt)}} key={languages[i].id}>
-                <HoveredMenu id={alt}>
-                {a}
-                </HoveredMenu> 
-                <Lang src={image} id={alt}/>
-                </SubA>
-                )
-            }
-        }
-        
-        return dataCollection;
-    }
-
-    const langChangeShortNav = () => {
-        const dataCollection = [];
-        for (let i = 0; i < languages.length; i++) {
-            if (languages[i].valueLang !== currentLocal){
-                let image = languages[i].img;
-                let alt = languages[i].valueLang;
-                dataCollection.push(
-                <FlagR id={alt} onClick={(e) => {handleClick(e); setLan(alt)}} key={languages[i].id}>
-                <Lang src={image} id={alt}/>
-                </FlagR>
-                )
-            }
-        }
-        
-        return dataCollection;
-    };
+   
 
     const quantity = useSelector(state=>state.cart.total);
 
@@ -468,9 +314,6 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
           <Left to='/'>
               <Logo src={logo} />
           </Left>
-          <Flags>
-          {langChangeShortNav()}
-          </Flags>
           <MobileIcon onClick={toggle}>
                 <FaBars />
           </MobileIcon>
@@ -508,15 +351,6 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
             CONTACT
                 </HoveredMenu>  
                 </NavLinks>
-            </NavItem>
-            <NavItem>
-                <DropDownLi>
-                {langCheck()}
-                <IoIosArrowDown />
-                <DropDownContent>
-                {langChange()}
-                </DropDownContent>
-                </DropDownLi>  
             </NavItem>
             <Hr />
             <NavItem>
