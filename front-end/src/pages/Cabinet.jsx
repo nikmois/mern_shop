@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import NavbarCommon from '../components/NavbarCommon'
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import parseISO from 'date-fns/parseISO'
 import Sidebar from '../components/Sidebar';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
@@ -14,6 +15,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import format from 'date-fns/format'
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import TextField from '@mui/material/TextField';
 import ShopIcon from '@mui/icons-material/Shop';
@@ -94,8 +96,54 @@ const Hr = styled.hr`
     border: none;
     height: 2px;
     width: 100%;
-    margin: 1rem 2rem 2rem 2rem;
+    margin: 1rem 2rem 1rem 2rem;
     align-self: center;
+`;
+
+const Order = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #f7a64a;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+`;
+
+const OrderInfo = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #a7a7a7;
+  font-weight: 600;
+  background-color: #e0e0e0;
+  border: 1px solid grey;
+  border-bottom: none;
+  padding: 0 0.5rem;
+  @media screen and (max-width: 700px){
+    flex-direction: column;
+  }
+`;
+const Products = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0.5rem;
+  justify-content: center;
+  border: 1px solid grey;
+`;
+
+const Product = styled.div`
+width: 100%;
+display: flex;
+justify-content: space-between;
+font-size: 1.1rem;
+padding: 0.6rem 0;
+@media screen and (max-width: 700px){
+    flex-direction: column;
+  }
 `;
 
 const Header = styled.h2`
@@ -170,6 +218,7 @@ export default function Cabinet() {
   const [city, setCity] = useState('')
   const [address, setAddress] = useState('')
   const [postcode, setPostcode] = useState('')
+  const [userOrders,setUserOrders] = useState([]);
 
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -257,6 +306,17 @@ export default function Cabinet() {
     getUsers();
   }, [userId]);
 
+  useEffect(()=>{
+    const getUserOrders = async () => {
+      try {
+        const res = await userRequest.get("orders/find/" + userId)
+        setUserOrders(res.data)
+      }
+      catch { }
+    };
+    getUserOrders();
+  }, [userId]);
+
   const [inputs, setInputs] = useState({});
   let userdata = {};
   const handleClick = async (e, id) => {
@@ -286,9 +346,9 @@ export default function Cabinet() {
                 variant="fullWidth"
                 aria-label="full width tabs example"
               >
-                <Tab icon={<PersonPinIcon />} label="ACCOUNT" {...a11yProps(0)} />
-                <Tab icon={<ShopIcon />} label="MY ORDERS" {...a11yProps(1)} />
-                <Tab icon={<SettingsIcon />} label="SETTINGS" {...a11yProps(2)} />
+                <Tab icon={<PersonPinIcon />} label="MINU KONTO" {...a11yProps(0)} />
+                <Tab icon={<ShopIcon />} label="MINU TELLIMUSED" {...a11yProps(1)} />
+                <Tab icon={<SettingsIcon />} label="SEADED" {...a11yProps(2)} />
               </Tabs>
             </AppBar>
             <SwipeableViews
@@ -299,7 +359,7 @@ export default function Cabinet() {
               <TabPanel value={value} component="span" index={0} dir={theme.direction}>
                 <First>
                   <Header>
-                    My details
+                    Minu andmed
                   </Header>
                   <Hr />
                   <Inputs>
@@ -381,12 +441,47 @@ export default function Cabinet() {
                     </Right>
                   </Inputs>
                   <Button style={{ marginTop: "2rem" }} size="large" variant="contained" endIcon={<SendIcon />} onClick={(e) => handleClick(e, user._id)}>
-                    SAVE
+                    SALVESTA
                   </Button>
                 </First>
               </TabPanel>
               <TabPanel value={value} index={1} dir={theme.direction}>
-                Item Two
+                <First>
+                  <Header>
+                    Minu tellimused
+                  </Header>
+                  <Hr />
+                  {!userOrders ? 
+                  <Header>
+                    Tellimusi ei ole  
+                  </Header>
+                  :
+                  userOrders.map((order, key)=>{
+                    return(
+                      <Order key={key}>
+                        <h4>Tellimuse ID: {order._id}</h4>
+                        <OrderInfo>
+                          <span>{format(parseISO(order.createdAt), 'yyyy-MM-dd hh:mm')}</span>
+                          <span>{order.status}</span>
+                          <span style={{color: "#f7a64a", fontSize: "1.1rem"}}>{order.amount} €</span>
+                        </OrderInfo>
+                        <Products>
+                        {order.products.map((product, key)=>{
+                          return(
+                            <Product key={key}>
+                            <span>ID: <span style={{fontSize: "0.8rem"}}>{product._id}</span></span>
+                            <span>{product.title.toUpperCase()}</span>
+                            <span>värv: {product.color.toUpperCase() || "STANDARD"}</span>
+                            <span>{product.quantity} tk</span>
+                            <span>{product.price*product.quantity} €</span>
+                            </Product>
+                          )
+                        })}
+                        </Products>
+                      </Order>
+                    )
+                  })}
+                  </First>
               </TabPanel>
               <TabPanel value={value} index={2} dir={theme.direction}>
                 Item Three

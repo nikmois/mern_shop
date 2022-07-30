@@ -184,7 +184,7 @@ const Newsletter = () => {
             <Right>
             <RightContainer>
             <InputContainer>
-                <Input type="email" placeholder="Your e-mail" onChange={(e)=>setEmail(e.target.value)}/>
+                <Input type="email" placeholder="Teie e-mail" onChange={(e)=>setEmail(e.target.value)}/>
             </InputContainer>
             <Button onClick={registerHandler}>LIITUDA</Button>
             </RightContainer>
