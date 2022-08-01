@@ -36,8 +36,8 @@ const Hr = styled.hr`
 const CategoryTitle = () => {
     return (
         <Container>
-            <Title1>Shop our collection</Title1>
-            <Title2>Featured Categoties</Title2>
+            <Title1>Tutvu Meie Toodetega</Title1>
+            <Title2>Kategooriad</Title2>
             <Hr />
         </Container>
     )

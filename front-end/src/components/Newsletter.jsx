@@ -191,9 +191,11 @@ const Newsletter = () => {
             </Right>
             </>)
             :
+            <>
             <Message>
                 {message || "Midagi läks valesti palun proovige hiljem uuesti"}
             </Message>
+            </>
             }
         </Container>
         </Cont>

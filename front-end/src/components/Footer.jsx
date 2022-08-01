@@ -40,10 +40,12 @@ const Desc = styled.p`
     @media screen and (max-width: 830px) {
         margin: 10px 0;
     }
+    color: grey;
 `;
 
 const SocialContainer = styled.div`
     display: flex;
+    margin-bottom: 0.5rem;
 `;
 
 const SocialIcon = styled.a`
@@ -163,7 +165,7 @@ const Footer = () => {
                 <ImgContainer to="/">
                 <Image src={logo} />
                 </ImgContainer>
-                <Desc>Сюда надо будет написать короткий текст о компании.</Desc>
+                <Desc>BabyPingviin on 2021. aastal loodud pereettevõte, mis pakub kvaliteetseid lauanõusid nii beebidele kui ka väikelastele ning arendavaid mänguasju mitmes vanuses mudilastele.</Desc>
                 <SocialContainer>
                     <SocialIcon href="https://www.facebook.com/babypingviin/" color = "3B5999">
                         <Facebook/>
@@ -177,22 +179,22 @@ const Footer = () => {
                 </SocialContainer>
             </Left>
             <Center>
-                <Title>Useful Links</Title>
+                <Title>Kasulikud Lingid</Title>
                 <List>
-                    <ListItem to='/'>HOME</ListItem>
-                    <ListItem to='/cart'>CART</ListItem>
-                    <ListItem to='/shop'>SHOP</ListItem>
-                    <ListItem to="/products/tableware">SILICONE BABY TABLEWARE</ListItem>
-                    <ListItem to="/products/educational-toys">EDUCATIONAL TOYS FOR CHILDREN</ListItem>
-                    <ListItem to="/products/silicone-toys">SILICONE TOYS FOR CHILDREN</ListItem>
-                    <ListItem to='/cabinet'>MY ACCOUNT</ListItem>
-                    <ListItem to='/terms-and-conditions'>TERMS AND CONDITIONS</ListItem>
-                    <ListItem to='/privacy-policy'>PRIVACY POLICY</ListItem>
-                    <ListItem to='/return-policy'>RETURN POLICY</ListItem>
+                    <ListItem to='/'>KODU</ListItem>
+                    <ListItem to='/cart'>KÄRU</ListItem>
+                    <ListItem to='/shop'>POOD</ListItem>
+                    <ListItem to="/products/tableware">SILIKOONIST BEEBI NÕUD</ListItem>
+                    <ListItem to="/products/educational-toys">ARENDAVAD MÄNGUASJAD</ListItem>
+                    <ListItem to="/products/silicone-toys">SILIKOONIST MÄNGUASJAD</ListItem>
+                    <ListItem to='/cabinet'>MINU KONTO</ListItem>
+                    <ListItem to='/terms-and-conditions'>VEEBILEHE TINGIMUSED</ListItem>
+                    <ListItem to='/privacy-policy'>PRIVAATSUSPOLIITIKA</ListItem>
+                    <ListItem to='/return-policy'>TAGASTUSREEGLID</ListItem>
                 </List>
             </Center>
             <Right>
-                <Title>Contact</Title>
+                <Title>Kontaktid</Title>
                 <ContactItem><Home style={{marginRight:"10px"}}/>
                 Eesti, Narva<br/>
                 Arkona Grupp OÜ<br/>
