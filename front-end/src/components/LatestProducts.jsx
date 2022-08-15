@@ -37,16 +37,16 @@ const LatestProducts = ({latest, popular}) => {
         if(latest){
             return(
                 <>
-                <Title1>Check Our Latest Products</Title1>
-                <Title2>Latest Products</Title2>
+                <Title1>Vaadake Meie Uusimaid Tooteid</Title1>
+                <Title2>Uusimaid Tooteid</Title2>
                 <Hr />
                 </>
             )
         } else if (popular){
             return(
                 <>
-                <Title1>Check Our Most Popular Products</Title1>
-                <Title2>Popular Products</Title2>
+                <Title1>Vaadake Meie Kõige Populaarsemaid Tooteid</Title1>
+                <Title2>Kõige Populaarsemaid Tooteid</Title2>
                 <Hr />
                 </>
             ) 

@@ -22,7 +22,7 @@ const Container = styled.div`
 const Announcement = () => {
   return (
     <Container>
-      Super Deal! Free Shipping on Orders Over 35€
+      Super Pakkumine! Tasuta kohaletoimetamine tellimustele üle 35€
     </Container>
   )
 }

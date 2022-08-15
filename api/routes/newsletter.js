@@ -1,12 +1,23 @@
 const Newsletter = require("../models/Newsletter");
+const { check, validationResult} = require('express-validator');
 
 const router = require("express").Router();
 
-router.post("/", async (req,res) => {
+router.post("/",[
+    check('email', 'Palun sisestage olemasolev email').isEmail(),
+], async (req,res) => {
     
     try{
 
+        const errors = validationResult(req)
         const {email} = req.body
+
+        if (!errors.isEmpty()){
+            return res.status(400).json({
+                errors: errors.array(),
+                message: 'Palun sisestage olemasolev email'
+            })
+        }
 
         if (!email){
             return res.status(400).json({ message: "Palun sisestage oma email!"})

@@ -321,34 +321,34 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
             <NavItem>
                 <NavLinks to='/'>
                 <HoveredMenu>
-                    HOME 
+                    KODU
                 </HoveredMenu>
                 </NavLinks>
             </NavItem>
             <DropDownItem>
                 <DropDownRoute to='/shop'>
                 <HoveredMenu>
-            SHOP
+            POOD
                 </HoveredMenu>
                 <IoIosArrowDown />
                 </DropDownRoute>
                 <DropDownContent>
-                    <SubLink to="/products/tableware">SILICONE BABY TABLEWARE</SubLink>
-                    <SubLink to="/products/educational-toys">EDUCATIONAL TOYS FOR CHILDREN</SubLink>
-                    <SubLink to="/products/silicone-toys">SILICONE TOYS FOR CHILDREN</SubLink>
+                    <SubLink to="/products/tableware">SILIKOONIST BEEBI NÕUD</SubLink>
+                    <SubLink to="/products/educational-toys">ARENDAVAD MÄNGUASJAD</SubLink>
+                    <SubLink to="/products/silicone-toys">SILIKOONIST MÄNGUASJAD</SubLink>
                 </DropDownContent>
             </DropDownItem>
             <NavItem>
                 <NavLinks to='/about'>
                 <HoveredMenu>
-            ABOUT US
+            MEIST
                 </HoveredMenu>  
                 </NavLinks>
             </NavItem>
             <NavItem>
                 <NavLinks to='/contact'>
                 <HoveredMenu>
-            CONTACT
+            KONTAKTID
                 </HoveredMenu>  
                 </NavLinks>
             </NavItem>
@@ -382,14 +382,14 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
             <NavItem>
                 <NavLinks to='/register'>
                 <HoveredMenu>
-            REGISTER
+            REGISTREERU
                 </HoveredMenu>
                 </NavLinks>
             </NavItem>
             <NavItem>
                 <NavLinks to='/signIn'>
                 <HoveredMenu>
-            SIGN IN
+            LOGI SISSE
               </HoveredMenu>
                 </NavLinks>
             
