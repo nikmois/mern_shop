@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link as LinkR } from 'react-router-dom';
 import image from "../images/about.png";
 import bgPic from "../images/wall.jpg";
+import {motion} from 'framer-motion/dist/framer-motion';
 
 
 const Cont = styled.div`
@@ -92,20 +93,26 @@ const TitleAboutUs = () => {
     return (
         <Cont bgImage={bgPic}>
         <Container>
+        
           <Left>
           <Info>
+          <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        >
           <Title>BabyPingviin.</Title>
           <Hr />
-          TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT 
-          TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT 
-          TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT 
-          TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT 
+          <h2>BabyPingviin on 2021. aastal loodud pereettevõte, mis pakub kvaliteetseid lauanõusid nii beebidele kui ka väikelastele ning arendavaid mänguasju mitmes vanuses mudilastele. 
+              Meie tooted sobivad ideaalselt teie lastele, sest need on valitud hoolivate ja armastavate vanemate poolt.</h2>
+              </motion.div>
           </Info> 
           <Button to='/about'>SEE MORE</Button> 
           </Left>
           <Right>
           <Image src={image}/>
           </Right>
+          
         </Container>
         </Cont>
     )

@@ -4,6 +4,8 @@ import Footer from '../components/Footer'
 import NavbarCommon from '../components/NavbarCommon'
 import Sidebar from '../components/Sidebar'
 import styled from 'styled-components'
+import {motion} from 'framer-motion/dist/framer-motion';
+
 
 const Container = styled.div`
 
@@ -47,6 +49,10 @@ const About = () => {
         setIsOpen(!isOpen)
     };
   return (
+    <motion.div 
+    initial={{opacity: 0}} 
+    animate={{opacity: 1}} 
+    exit={{opacity: 0, transition: {duration: 0.05}}}> 
     <Container>
         <Announcement />
         <Sidebar isOpen={isOpen} toggle={toggle} />
@@ -62,6 +68,7 @@ const About = () => {
         </Wrapper>
         <Footer/>
     </Container>
+    </motion.div>
   )
 }
 

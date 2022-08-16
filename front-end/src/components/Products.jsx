@@ -12,6 +12,13 @@ const Container = styled.div`
     max-width: 1300px;
 `;
 
+const NoMatchMessage = styled.div`
+    text-align: center;
+    margin: 4rem 0;
+    font-size: 2rem;
+    color: grey;
+`;
+
 const Products = ({cat,filters,sort,popular}) => {
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
@@ -63,10 +70,13 @@ const Products = ({cat,filters,sort,popular}) => {
 
     const productsCheck = () => {
         if (cat){
+            if(filteredProducts.length === 0){
+                return(<NoMatchMessage>Toodet ei leitud...</NoMatchMessage>)
+            } else {
             return(
             filteredProducts.map((item, i) => (
                 <Product item={item} key={i}/>
-            )))
+            )))}
         } else if (popular){
             return(
                 products.slice(0,9).map((item,i) => <Product item={item} key={i}/>

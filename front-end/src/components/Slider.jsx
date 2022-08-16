@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { sliderItems } from "../data";
 import waves from "../images/waves.svg";
 import { Link as LinkR } from 'react-router-dom';
+import {motion} from 'framer-motion/dist/framer-motion';
 
 const Container = styled.div`
     width: 100%;
@@ -171,11 +172,13 @@ export const Slider = ({scrolled, scrollNav, isOpen}) => {
             <Wrapper slideIndex = {slideIndex}>
                 {sliderItems.map((item)=>(
                 <Slide bgImage={item.bgImage} key={item.id}>
+                    <motion.div initial={{x: -1000}} animate={{x: 0}}>
                     <InfoContainer>
                         <Title>{item.title}</Title>
                         <Desc>{item.desc}</Desc>
                         <Button to='/shop'>SHOP NOW</Button>
                     </InfoContainer>
+                    </motion.div>
                     </Slide>
                 ))}
             

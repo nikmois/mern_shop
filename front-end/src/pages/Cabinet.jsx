@@ -27,6 +27,8 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import { userRequest } from "../requestMethods";
 import { useLocation } from 'react-router-dom';
+import {motion} from 'framer-motion/dist/framer-motion';
+
 
 
 const Container = styled.div`
@@ -330,6 +332,10 @@ export default function Cabinet() {
 
 
   return (
+    <motion.div 
+        initial={{opacity: 0}} 
+        animate={{opacity: 1}} 
+        exit={{opacity: 0, transition: {duration: 0.05}}}>
     <Container>
       <Announcement />
       <Sidebar isOpen={isOpen} toggle={toggle} />
@@ -512,5 +518,6 @@ export default function Cabinet() {
       }
       <Footer />
     </Container>
+    </motion.div>
   );
 };

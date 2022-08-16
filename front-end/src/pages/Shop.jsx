@@ -8,6 +8,8 @@ import MobileCart from '../components/MobileCart'
 import NavbarCommon from '../components/NavbarCommon'
 import Sidebar from '../components/Sidebar'
 import advert from "../images/advert.png";
+import {motion} from 'framer-motion/dist/framer-motion';
+
 
 const Container = styled.div`
     display: flex;
@@ -38,7 +40,10 @@ const Shop = () => {
         setIsOpen(!isOpen)
     };
     return (
-        <>
+        <motion.div 
+        initial={{opacity: 0}} 
+        animate={{opacity: 1}} 
+        exit={{opacity: 0, transition: {duration: 0.05}}}>
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <NavbarCommon toggle={toggle} scrolled={scrolled}/>
             <Announcement />
@@ -49,7 +54,7 @@ const Shop = () => {
             </Container>
             <Footer />
             <MobileCart />
-        </>
+        </motion.div>
     )
 }
 

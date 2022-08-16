@@ -12,6 +12,7 @@ import NavbarCommon from '../components/NavbarCommon';
 import Sidebar from '../components/Sidebar';
 import MobileCart from '../components/MobileCart';
 import TitleAboutUs from '../components/TitleAboutUs';
+import {motion} from 'framer-motion/dist/framer-motion';
 
 const Container = styled.div`
     display: flex;
@@ -68,6 +69,10 @@ const Home = () => {
 
 
   return (
+    <motion.div 
+        initial={{opacity: 0}} 
+        animate={{opacity: 1}} 
+        exit={{opacity: 0, transition: {duration: 0.05}}}>
     <div>
       <Announcement/>
       <Sidebar isOpen={isOpen} toggle={toggle}/>
@@ -84,6 +89,7 @@ const Home = () => {
       <Footer/>
       <MobileCart />
     </div>
+    </motion.div>
   )
 }
 

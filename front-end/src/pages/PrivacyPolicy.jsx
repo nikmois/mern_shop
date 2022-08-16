@@ -11,7 +11,7 @@ const Container = styled.div`
 
 `;
 
-const Contact = () => {
+const PrivacyPolicy = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled] = useState(true);
 
@@ -27,11 +27,11 @@ const Contact = () => {
         <Announcement />
         <Sidebar isOpen={isOpen} toggle={toggle} />
         <NavbarCommon toggle={toggle} scrolled={scrolled} />
-        <p>Contact</p>
+        <p>Privacy Politics</p>
         <Footer />
     </Container>
     </motion.div>
   )
 }
 
-export default Contact
+export default PrivacyPolicy

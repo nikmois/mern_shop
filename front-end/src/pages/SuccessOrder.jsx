@@ -8,6 +8,8 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { Button } from '@material-ui/core'
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
+import {motion} from 'framer-motion/dist/framer-motion';
+
 
 const Container = styled.div`
 
@@ -46,6 +48,10 @@ const SuccessOrder = () => {
         setIsOpen(!isOpen)
     };
   return (
+    <motion.div 
+    initial={{opacity: 0}} 
+    animate={{opacity: 1}} 
+    exit={{opacity: 0, transition: {duration: 0.05}}}>
     <Container>
         <Announcement />
         <Sidebar isOpen={isOpen} toggle={toggle} />
@@ -60,6 +66,7 @@ const SuccessOrder = () => {
         </MessageCont>
         <Footer />
     </Container>
+    </motion.div>
   )
 }
 

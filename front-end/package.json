@@ -21,6 +21,7 @@
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "date-fns": "^2.29.1",
+    "framer-motion": "^6.5.1",
     "http-proxy-middleware": "^2.0.6",
     "jwt-check-expiration": "^1.0.5",
     "libphonenumber-js": "^1.9.50",

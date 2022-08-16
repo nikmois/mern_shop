@@ -6,6 +6,8 @@ import styled from "styled-components";
 import regPic from "../images/register.jpg";
 import { login } from "../redux/apiCalls";
 import '../css/auth.css';
+import {motion} from 'framer-motion/dist/framer-motion';
+
 
 const Container = styled.div`
     width: 100vw;
@@ -109,6 +111,10 @@ const Login = () => {
     }
 
     return (
+        <motion.div 
+        initial={{opacity: 0}} 
+        animate={{opacity: 1}} 
+        exit={{opacity: 0, transition: {duration: 0.05}}}>
         <Container bgImage={regPic}>
         <Wrapper>
             <Title>SIGN IN</Title>
@@ -124,6 +130,7 @@ const Login = () => {
                 <Icon />
         </Home>
     </Container>
+    </motion.div>
     )
 }
 

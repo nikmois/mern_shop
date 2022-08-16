@@ -5,6 +5,8 @@ import Announcement from '../components/Announcement'
 import Footer from '../components/Footer'
 import NavbarCommon from '../components/NavbarCommon'
 import Sidebar from '../components/Sidebar';
+import {motion} from 'framer-motion/dist/framer-motion';
+
 
 const Container = styled.div`
 `;
@@ -32,15 +34,20 @@ const Error404 = () => {
     };
 
   return (
+    <motion.div 
+        initial={{opacity: 0}} 
+        animate={{opacity: 1}} 
+        exit={{opacity: 0, transition: {duration: 0.05}}}>
     <Container>
     <Announcement />
     <Sidebar isOpen={isOpen} toggle={toggle}/>
     <NavbarCommon toggle={toggle} scrolled={scrolled}/>
     <TextContainer>
-    <Text>Sorry, no match found for <i>{location.pathname}</i></Text>
+    <Text>Vabandust, lehekülg antud aadressiga ei leitud: <br/><i>{location.pathname}</i></Text>
     </TextContainer>
     <Footer />
     </Container>
+    </motion.div>
   );
 };
 

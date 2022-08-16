@@ -11,6 +11,11 @@ import { useLocation } from "react-router-dom";
 import { publicRequest } from "../requestMethods"; 
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import {motion} from 'framer-motion/dist/framer-motion';
+
 
 
 const ContentContainer = styled.div`
@@ -116,8 +121,8 @@ const FilterColor = styled.div`
     height: 20px;
     border-radius: 50%;
     background-color: ${props=>props.color};
-    margin: 0 5px;
     cursor: pointer;
+    margin: 7px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.959);
     transition: all 0.3s ease;
     &:hover{
@@ -190,6 +195,7 @@ const Product = () => {
     const [color, setColor] = useState("");
     const [dbColor, setDbColor] = useState([]);
     const dispatch = useDispatch();
+    const [open, setOpen] = useState(false);
 
     useEffect(()=>{
         const getProduct = async ()=>{  
@@ -206,14 +212,17 @@ const Product = () => {
         getProduct()
     },[id, product.color]);
 
+
     const colorCheck = () => {
         if (typeof product.color !== 'undefined' && product.color.length > 0) {
             
             return(
                 <Filter>
-                <FilterTitle>Choose color:</FilterTitle>
+                <FilterTitle>Valige toode värv:</FilterTitle>
                 { product.color?.map((c) => (
-                <FilterColor color = {c} key = {c} onClick={()=>setColor(c)}/>
+                <div key = {c} style={{border: color === c ? '2px solid blue' : 'none', borderRadius: '50%', margin: color === c && '-2px'}}>
+                <FilterColor color = {c}  onClick={()=>setColor(c)}/>
+                </div>
                 ))}
                 </Filter>
             )        
@@ -241,7 +250,7 @@ const Product = () => {
         if (product.inStock < 1) {
             return(
                 <StockText>
-                    This product is out of stock. Estimated shipping time is 10 days.
+                    Antud toode on otsas. Eeldatav tarneaeg on 10 päeva.
                 </StockText>
             )
         }else{
@@ -259,13 +268,42 @@ const Product = () => {
 
 
     const handleClick = () =>{
+        if (!color && dbColor?.length > 1){
+            setOpen(true);
+            return
+        }
         dispatch(
             addProduct({ ...product, quantity, color, dbColor })
             );
     };
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+
+    const action = (
+        <React.Fragment>
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </React.Fragment>
+      );
+
     return (
         <>
+        <motion.div 
+        initial={{opacity: 0}} 
+        animate={{opacity: 1}} 
+        exit={{opacity: 0, transition: {duration: 0.05}}}>
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <NavbarCommon toggle={toggle} scrolled={scrolled}/>
             <Announcement />
@@ -289,7 +327,7 @@ const Product = () => {
                             <Amount>{quantity}</Amount>
                             <AddBut style={{cursor: "pointer"}} onClick={()=>handleQuantity("inc")}/>
                         </AmountContainer>
-                        <Button onClick={handleClick}>ADD TO CART</Button>
+                        <Button onClick={handleClick}>LISADA KORVI</Button>
                     </AddContainer>
                 </InfoContainer>
             </Wrapper>
@@ -297,6 +335,15 @@ const Product = () => {
             <Newsletter /> 
             <Footer />
             <MobileCart />
+            <Snackbar
+            open={open}
+            autoHideDuration={5000}
+            onClose={handleClose}
+            message="Palun valige toode värv"
+            action={action}
+            sx={{ bottom: { xs: 90, sm: 50 } }}
+            />
+            </motion.div>
         </>
       
     )

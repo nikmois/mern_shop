@@ -182,7 +182,7 @@ const Footer = () => {
                 <Title>Kasulikud Lingid</Title>
                 <List>
                     <ListItem to='/'>KODU</ListItem>
-                    <ListItem to='/cart'>KÄRU</ListItem>
+                    <ListItem to='/cart'>OSTUKORV</ListItem>
                     <ListItem to='/shop'>POOD</ListItem>
                     <ListItem to="/products/tableware">SILIKOONIST BEEBI NÕUD</ListItem>
                     <ListItem to="/products/educational-toys">ARENDAVAD MÄNGUASJAD</ListItem>

@@ -8,6 +8,8 @@ import Products from '../components/Products';
 import Sidebar from "../components/Sidebar";
 import MobileCart from "../components/MobileCart";
 import { useLocation, Link } from "react-router-dom";
+import {motion} from 'framer-motion/dist/framer-motion';
+
 
 const Cont = styled.div`
     display: flex;
@@ -152,9 +154,9 @@ const ProductList = () => {
 
     let catName;
     if (cat === "tableware"){
-        catName = "SILICONE BABY TABLEWARE"
+        catName = "SILIKOONIST BEEBI NÕUD"
     }else if(cat === "educational-toys"){
-        catName = "EDUCATIONAL TOYS FOR CHILDREN"
+        catName = "ARENDAVAD MÄNGUASJAD"
     }else if(cat === "silicone-toys"){
         catName = "SILICONE TOYS FOR CHILDREN"
     }
@@ -163,6 +165,10 @@ const ProductList = () => {
 
     return (
         <>    
+        <motion.div 
+        initial={{opacity: 0}} 
+        animate={{opacity: 1}} 
+        exit={{opacity: 0, transition: {duration: 0.05}}}>
             <Announcement />
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <NavbarCommon toggle={toggle} scrolled={scrolled}/>
@@ -171,22 +177,24 @@ const ProductList = () => {
                 <Title>{catName}</Title>
                 <Hr />
                 <LeftContent>
-                <Title2>CATEGORIES</Title2>
+                <Title2>KATEGOORIAD</Title2>
                 <Categories>
-                    <Cat to="/products/tableware">Silicone Baby Tableware</Cat>
-                    <Cat to="/products/educational-toys">Educational Toys For Children</Cat>
-                    <Cat to="/products/silicone-toys">Silicone Toys For Children</Cat>
+                    <Cat to="/products/tableware" style={{color: cat === "tableware" && "#ff9d1d"}}>Silikoonist Beebi Nõud</Cat>
+                    <Cat to="/products/educational-toys" style={{color: cat === "educational-toys" && "#ff9d1d"}}>Arendavad Mänguasjad</Cat>
+                    <Cat to="/products/silicone-toys" style={{color: cat === "silicone-toys" && "#ff9d1d"}}>Silikoonist Mänguasjad</Cat>
                 </Categories>
                 <Hr />
                 <Title2>FILTER BY COLOR</Title2>
                 <Select name="color" defaultValue={'DEFAULT'} onChange={handleFilters}>
-                    <Option value="DEFAULT">All Colors</Option>
-                    <Option>White</Option>
-                    <Option>Blue</Option>
-                    <Option>Green</Option>
-                    <Option>Red</Option>
-                    <Option>Black</Option>
-                    <Option>Beige</Option>
+                    <Option value="DEFAULT">Kõik värvid</Option>
+                    <Option value="White">Valge</Option>
+                    <Option value="Blue">Sinine</Option>
+                    <Option value="Green">Roheline</Option>
+                    <Option value="Red">Punane</Option>
+                    <Option value="Black">Must</Option>
+                    <Option value="Beige">Beež</Option>
+                    <Option value="Purple">Lilla</Option>
+                    <Option value="Yellow">Kollane</Option>
                 </Select>           
                 </LeftContent>
             </Left>
@@ -195,11 +203,11 @@ const ProductList = () => {
                 {catName}
             </MobileTitle>
             <FilterContainer>
-                <Filter><FilterText>Sort Products:</FilterText>
+                <Filter><FilterText>Sorteeri tooteid:</FilterText>
                 <Select onChange={e=>setSort(e.target.value)}>
-                 <Option value="newest">Newest</Option>
-                 <Option value="asc">Price (asc)</Option>
-                 <Option value="desc">Price (desc)</Option>
+                 <Option value="newest">Uusimad</Option>
+                 <Option value="asc">Hind (kõrge)</Option>
+                 <Option value="desc">Hind (madal)</Option>
                 </Select>
                 </Filter>
             </FilterContainer>
@@ -209,6 +217,7 @@ const ProductList = () => {
             <Newsletter />
             <Footer />
             <MobileCart />
+            </motion.div>
         </>
     )
 }

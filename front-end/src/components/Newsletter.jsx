@@ -174,8 +174,7 @@ const Newsletter = () => {
     return (
         <Cont>
         <Container>
-            {!pressed ?
-            (
+            {!pressed ? 
             <>
             <Left>
             <Title>Liituge meie uudiskirjaga</Title>
@@ -189,13 +188,11 @@ const Newsletter = () => {
             <Button onClick={registerHandler}>LIITUDA</Button>
             </RightContainer>
             </Right>
-            </>)
+            </>
             :
-            <>
             <Message>
                 {message || "Midagi läks valesti palun proovige hiljem uuesti"}
             </Message>
-            </>
             }
         </Container>
         </Cont>

@@ -293,7 +293,7 @@ const Product = ({item}) => {
         if (item.inStock < 1) {
             return(
                 <Stock>
-                    OUT OF STOCK
+                    LAOS LÕPPENUD
                 </Stock>
             )
         }else{
