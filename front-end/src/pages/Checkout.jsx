@@ -305,23 +305,23 @@ const normalizePhoneNumber = (value) => {
 
 const phoneRegExp = /^([0-9 ]|#|\+|\*)+$/
 
-const countries = ["Estonia", "Latvia", "Lithuania", "Finland"];
+const countries = ["Eesti", "Läti", "Leedu", "Soome"];
 
 
 const Checkout = () => {
 
     const schema = yup.object().shape({
-        firstName: yup.string().matches(/^([^0-9]*)$/, "First name should not contain numbers").required("First name is a required field").matches(/^[a-zA-Z]+$/, "First name should only contain Latin alphabet letters"),
-        lastName: yup.string().matches(/^([^0-9]*)$/, "Last name should not contain numbers").required("Last name is a required field").matches(/^[a-zA-Z]+$/, "Last name should only contain Latin alphabet letters"),
-        email: yup.string().email("Email is invalid").required("Email is a required field"),
+        firstName: yup.string().matches(/^([^0-9]*)$/, "Eesnimi ei pea sisaldama numbreid").required("Eesnimi on kohustuslik väli").matches(/^[a-zA-Z]+$/, "Eesnimi väli peab sisaldama ainult ladina tähestiku tähti"),
+        lastName: yup.string().matches(/^([^0-9]*)$/, "Perekonnanimi ei pea sisaldama numbreid").required("Perekonnanimi on kohustuslik väli").matches(/^[a-zA-Z]+$/, "Perekonnanimi väli peab sisaldama ainult ladina tähestiku tähti"),
+        email: yup.string().email("Palun sisestage korrektne email").required("Email on kohustuslik väli"),
         message: yup.string(),
         street: yup.string(),
         postcode: yup.string(),
         city: yup.string(),
-        phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required("Phone is a required field"),
-        country: yup.string().oneOf(countries).required("Please select a country"),
-        container: yup.string().required("Please select a parcel machine"),
-        checkbox: yup.bool().oneOf([true], "You must accept the terms and conditions"),
+        phone: yup.string().matches(phoneRegExp, 'Palun sisestage korrektne telefoninumber').required("Telefoninumber on kohustuslik väli"),
+        country: yup.string().oneOf(countries).required("Palun valige riik"),
+        container: yup.string().required("Palun valige postiautomaat"),
+        checkbox: yup.bool().oneOf([true], "Palun nõustuge tingimustega"),
     })
 
     const { register, resetField, handleSubmit, formState: { errors } } = useForm({
@@ -331,6 +331,7 @@ const Checkout = () => {
             checkbox: false,
         }
     })
+    
     const user = useSelector(state=>state.user.currentUser);
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled] = useState(true);
@@ -411,7 +412,7 @@ const Checkout = () => {
 
     const checkShipping = () => {
         if (cart.total > 35) {
-            return (<Subtotal><Free>free</Free></Subtotal>)
+            return (<Subtotal><Free>tasuta</Free></Subtotal>)
         } else {
             return (<Subtotal>
                 {(shippingSize > 0 && shippingSize <= 33) ? <>{shippingPrice}€</>
@@ -436,11 +437,11 @@ const Checkout = () => {
             data.userId = user._id;
         }
         if (shippingSize > 0 && shippingSize <=33){
-            data.shippingSize = "S size box"
+            data.shippingSize = "S suuruse pakend"
         } else if (shippingSize > 33 && shippingSize <=66){
-            data.shippingSize = "M size box"
+            data.shippingSize = "M suuruse pakend"
         } else if (shippingSize > 66){
-            data.shippingSize = "L size box"
+            data.shippingSize = "L suuruse pakend"
         }
         try {
             const res = await request('/api/orders', 'POST', {...data})
@@ -475,10 +476,10 @@ const Checkout = () => {
             return (
                 <EmptyWrapper>
                     <Top1>
-                        <TopButton1 to="/products/tableware">CONTINUE SHOPPING</TopButton1>
+                        <TopButton1 to="/products/tableware">JÄTKA OSTLEMIST</TopButton1>
                     </Top1>
                     <EmptyContainer>
-                        <Empty>Your cart is empty</Empty>
+                        <Empty>Teie ostukorv on tühi</Empty>
                         <EmptyIcon>
                             <Icon />
                         </EmptyIcon>
@@ -492,13 +493,13 @@ const Checkout = () => {
                         <Left>
                             <Billing>
                                 <Title>BILLING DETAILS</Title>
-                                <Input {...register("firstName")} id="firstName" type="text" label="First Name" name="firstName" required error={!!errors.firstName} helperText={errors?.firstName?.message} />
-                                <Input {...register("lastName")} id="lastName" type="text" label="Last Name" name="lastName" required error={!!errors.lastName} helperText={errors?.lastName?.message} />
+                                <Input {...register("firstName")} id="firstName" type="text" label="Eesnimi" name="firstName" required error={!!errors.firstName} helperText={errors?.firstName?.message} />
+                                <Input {...register("lastName")} id="lastName" type="text" label="Perekonnanimi" name="lastName" required error={!!errors.lastName} helperText={errors?.lastName?.message} />
                                 <Input {...register("email")} id="email" type="email" label="E-mail" name="email" required error={!!errors.email} helperText={errors?.email?.message} />
                                 <Input {...register("phone")}
                                     id="phone"
                                     type="tel"
-                                    label="Phone number"
+                                    label="Telefoninumber"
                                     name="phone"
                                     onChange={(event) => { event.target.value = normalizePhoneNumber(event.target.value) }}
                                     required
@@ -506,7 +507,7 @@ const Checkout = () => {
                                     helperText={errors?.phone?.message}
                                 />
                                 <FormControl style={{ margin: "1rem 0 0.6rem 0" }} error={!!errors.country}>
-                                    <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
+                                    <InputLabel id="demo-simple-select-helper-label">Riik</InputLabel>
                                     <Select
                                         {...register("country")}
                                         labelId="demo-simple-select-helper-label"
@@ -517,20 +518,20 @@ const Checkout = () => {
                                         required
                                         onChange={handleChange}
                                     >
-                                        <MenuItem value="Estonia">Estonia</MenuItem>
-                                        <MenuItem value="Latvia">Latvia</MenuItem>
-                                        <MenuItem value="Finland">Finland</MenuItem>
-                                        <MenuItem value="Lithuania">Lithuania</MenuItem>
+                                        <MenuItem value="Estonia">Eesti</MenuItem>
+                                        <MenuItem value="Latvia">Läti</MenuItem>
+                                        <MenuItem value="Finland">Soome</MenuItem>
+                                        <MenuItem value="Lithuania">Leedu</MenuItem>
                                     </Select>
                                     {!!errors.country && <FormHelperText>{errors?.country?.message}</FormHelperText>}
                                 </FormControl>
-                                <Input {...register("city")} id="city" type="text" label="City (optional)" name="city" />
-                                <Input {...register("street")} id="street" type="text" label="Street address (optional)" name="street" />
-                                <Input {...register("postcode")} id="postcode" type="text" label="ZIP / Postcode (optional)" name="postcode" error={!!errors.postcode} helperText={errors?.postcode?.message} />
+                                <Input {...register("city")} id="city" type="text" label="Linn (valikuline)" name="city" />
+                                <Input {...register("street")} id="street" type="text" label="Tänava aadress (valikuline)" name="street" />
+                                <Input {...register("postcode")} id="postcode" type="text" label="ZIP / Postiindeks (valikuline)" name="postcode" error={!!errors.postcode} helperText={errors?.postcode?.message} />
                                 <TextField
                                 {...register("message")}
                                 id="outlined-multiline-static"
-                                label="Some additional information about your order (optional)"
+                                label="Täiendav teave teie tellimuse kohta (valikuline)"
                                 name="message"
                                 multiline
                                 minRows={5}
@@ -539,9 +540,9 @@ const Checkout = () => {
                                 />
                             </Billing>
                             <Shipping>
-                                <Title>SHIPPING DETAILS</Title>
+                                <Title>KOHALETOIMETUSE DETAILID</Title>
                                 <Ship>
-                                    <p style={{margin: "1rem 0", fontSize: "1.1rem"}}>Select a parcel machine:</p>
+                                    <p style={{margin: "1rem 0", fontSize: "1.1rem"}}>Valige pakiautomaat:</p>
                                     <Automats onChange={handlePost}>
                                         <Label>
                                             <input type="radio"
@@ -551,7 +552,7 @@ const Checkout = () => {
                                                 defaultChecked
                                                 style={{ marginRight: "1rem" }}
                                             />
-                                            <label htmlFor="omniva">Omniva parcel machine <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,95</> 
+                                            <label htmlFor="omniva">Omniva pakiautomaat <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,95</> 
                                             : (shippingSize > 33 && shippingSize <= 66) ? <>3,95</> : (shippingSize > 66) && <>4,85</>} €)</b></label>
                                             <PostLogo style={{transform: "scale(1.2)"}} src={omniva}></PostLogo>
                                         </Label>
@@ -563,7 +564,7 @@ const Checkout = () => {
                                                 value="dpd"
                                                 style={{ marginRight: "1rem" }}
                                             />
-                                            <label htmlFor="dpd">DPD parcel machine <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,90</> 
+                                            <label htmlFor="dpd">DPD pakiautomaat <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,90</> 
                                             : (shippingSize > 33 && shippingSize <= 66) ? <>3,90</> : (shippingSize > 66) && <>4,80</>} €)</b></label>
                                             <PostLogo src={dpd}></PostLogo>
                                         </Label>
@@ -575,21 +576,21 @@ const Checkout = () => {
                                                 value="smartpost"
                                                 style={{ marginRight: "1rem" }}
                                             />
-                                            <label htmlFor="smartpost">SmartPost parcel machine <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,99</> 
+                                            <label htmlFor="smartpost">SmartPost pakiautomaat <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,99</> 
                                             : (shippingSize > 33 && shippingSize <= 66) ? <>3,99</> : (shippingSize > 66) && <>4,89</>} €)</b></label>
                                             <PostLogo src={smartpost}></PostLogo>
                                         </Label>
                                     </Automats>
                                     
                                     <FormControl style={{ margin: "1rem 0 0.6rem 0", width: "100%"}} error={!!errors.container}>
-                                    <InputLabel id="demo-simple-select-helper-label">Parcel Machine</InputLabel>
+                                    <InputLabel id="demo-simple-select-helper-label">Pakiautomaat</InputLabel>
                                     <Select
                                         {...register("container")}
                                         labelId="demo-simple-select-helper-label"
                                         id="demo-simple-select"
                                         name="container"
                                         value={container}
-                                        label="Parcel Machine"
+                                        label="Pakiautomaat"
                                         required
                                         onChange={handleContainer}
                                         MenuProps={{ PaperProps: { sx: { maxHeight: 400 } } }}
