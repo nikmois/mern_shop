@@ -1,0 +1,39 @@
+{
+  "files": {
+    "main.css": "/static/css/main.eccf0895.chunk.css",
+    "main.js": "/static/js/main.ad9ae963.chunk.js",
+    "main.js.map": "/static/js/main.ad9ae963.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.6ff66047.js",
+    "runtime-main.js.map": "/static/js/runtime-main.6ff66047.js.map",
+    "static/js/2.deec7695.chunk.js": "/static/js/2.deec7695.chunk.js",
+    "static/js/2.deec7695.chunk.js.map": "/static/js/2.deec7695.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.eccf0895.chunk.css.map": "/static/css/main.eccf0895.chunk.css.map",
+    "static/js/2.deec7695.chunk.js.LICENSE.txt": "/static/js/2.deec7695.chunk.js.LICENSE.txt",
+    "static/media/about.1ed4e76e.jpeg": "/static/media/about.1ed4e76e.jpeg",
+    "static/media/about.a57f2588.png": "/static/media/about.a57f2588.png",
+    "static/media/advert.6664eb4c.png": "/static/media/advert.6664eb4c.png",
+    "static/media/cat1.fedac9ad.jpg": "/static/media/cat1.fedac9ad.jpg",
+    "static/media/cat2.44e361ab.jpg": "/static/media/cat2.44e361ab.jpg",
+    "static/media/cat3.66e9c782.jpg": "/static/media/cat3.66e9c782.jpg",
+    "static/media/dpd.3b0d1e99.jpg": "/static/media/dpd.3b0d1e99.jpg",
+    "static/media/image.cfa5c628.jpg": "/static/media/image.cfa5c628.jpg",
+    "static/media/insta.787b1447.svg": "/static/media/insta.787b1447.svg",
+    "static/media/logo-cropped.73d37422.svg": "/static/media/logo-cropped.73d37422.svg",
+    "static/media/menubg.9b2b5350.jpg": "/static/media/menubg.9b2b5350.jpg",
+    "static/media/newsletter.3c8bae21.jpg": "/static/media/newsletter.3c8bae21.jpg",
+    "static/media/omniva.0c7d43a2.jpg": "/static/media/omniva.0c7d43a2.jpg",
+    "static/media/register.06e5e259.jpg": "/static/media/register.06e5e259.jpg",
+    "static/media/slide3.cb7c7199.jpg": "/static/media/slide3.cb7c7199.jpg",
+    "static/media/slide4.b86eef5b.jpg": "/static/media/slide4.b86eef5b.jpg",
+    "static/media/wall.d0ded3d9.jpg": "/static/media/wall.d0ded3d9.jpg",
+    "static/media/waves.4ae987f3.svg": "/static/media/waves.4ae987f3.svg",
+    "static/media/whatsapp.4cffec1a.svg": "/static/media/whatsapp.4cffec1a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6ff66047.js",
+    "static/js/2.deec7695.chunk.js",
+    "static/css/main.eccf0895.chunk.css",
+    "static/js/main.ad9ae963.chunk.js"
+  ]
+}

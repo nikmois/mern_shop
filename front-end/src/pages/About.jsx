@@ -5,6 +5,7 @@ import NavbarCommon from '../components/NavbarCommon'
 import Sidebar from '../components/Sidebar'
 import styled from 'styled-components'
 import {motion} from 'framer-motion/dist/framer-motion';
+import about from "../images/about.jpeg";
 
 
 const Container = styled.div`
@@ -16,7 +17,7 @@ const Wrapper = styled.div`
     margin: 7vh auto 10vh auto;
     display: flex;
     justify-content: space-between;
-    height: 80vh;
+    min-height: 80vh;
     @media screen and (max-width: 850px){
     flex-direction: column;
     margin: 5vh 1.5rem 10vh 1.5rem;
@@ -24,16 +25,25 @@ const Wrapper = styled.div`
     }
 `;
 
-const Text = styled.div`
+const TextCont = styled.div`
     width: 100%;
     margin: 0 3vw;
-    line-height: 2;
     text-align:justify;
+    flex: 1;
+`;
+
+const Text = styled.p`
+    line-height: 2;
+`;
+
+const ImgContainer = styled.div`
+    margin: 0 3vw;
+    flex: 1;
+    width: 100%;
 `;
 
 const Image = styled.img`
     width: 100%;
-    margin: 0 3vw;
 `;
 
 const Header = styled.h1`
@@ -58,13 +68,14 @@ const About = () => {
         <Sidebar isOpen={isOpen} toggle={toggle} />
         <NavbarCommon toggle={toggle} scrolled={scrolled} />
         <Wrapper>
-            <Text>
-                <Header>About BabyPingviin</Header>
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, 
-            discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. 
-            The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+            <TextCont>
+                <Header>BabyPingviin</Header>
+                <Text>BabyPingviin on 2021. aastal loodud pereettevõte, mis pakub kvaliteetseid lauanõusid nii beebidele kui ka väikelastele ning arendavaid mänguasju mitmes vanuses mudilastele. 
+                Meie tooted sobivad ideaalselt teie lastele, sest need on valitud hoolivate ja armastavate vanemate poolt. Meie visiooniks on pakkuda taskukohase hinnaga laste- ja beebitooteid ning erinevaid tarbeid,
+                mis aitaks säästa pere eelarvet jättes seeläbi ruumi tõeliselt suurte unistuste jaoks.
             </Text>
-            <Image></Image>
+            </TextCont>
+            <ImgContainer><Image src={about}></Image></ImgContainer>
         </Wrapper>
         <Footer/>
     </Container>

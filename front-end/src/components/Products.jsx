@@ -28,10 +28,10 @@ const Products = ({cat,filters,sort,popular}) => {
             try{
                 const res = await axios.get(
                     cat
-                    ? `http://localhost:5000/api/products?category=${cat}`
+                    ? `https://baby-pingviin.herokuapp.com/api/products?category=${cat}`
                     : popular
-                    ? "http://localhost:5000/api/products?home=home"
-                    : "http://localhost:5000/api/products?new=new"
+                    ? "https://baby-pingviin.herokuapp.com/api/products?home=home"
+                    : "https://baby-pingviin.herokuapp.com/api/products?new=new"
                     );
                     setProducts(res.data);
             }catch(err){}

@@ -107,7 +107,7 @@ const TitleAboutUs = () => {
               Meie tooted sobivad ideaalselt teie lastele, sest need on valitud hoolivate ja armastavate vanemate poolt.</h2>
               </motion.div>
           </Info> 
-          <Button to='/about'>SEE MORE</Button> 
+          <Button to='/about'>VAATA ROHKEM</Button> 
           </Left>
           <Right>
           <Image src={image}/>

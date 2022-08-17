@@ -27,7 +27,7 @@ const ReturnPolicy = () => {
         <Announcement />
         <Sidebar isOpen={isOpen} toggle={toggle} />
         <NavbarCommon toggle={toggle} scrolled={scrolled} />
-        <p>Return Politics</p>
+        <p style={{margin: "5rem", fontSize: "2rem"}}>TULEB HILJEM</p>
         <Footer />
     </Container>
     </motion.div>

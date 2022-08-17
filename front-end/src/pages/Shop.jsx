@@ -9,6 +9,7 @@ import NavbarCommon from '../components/NavbarCommon'
 import Sidebar from '../components/Sidebar'
 import advert from "../images/advert.png";
 import {motion} from 'framer-motion/dist/framer-motion';
+import { Alert } from '@material-ui/core'
 
 
 const Container = styled.div`
@@ -47,6 +48,9 @@ const Shop = () => {
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <NavbarCommon toggle={toggle} scrolled={scrolled}/>
             <Announcement />
+            <Alert variant="filled" severity="error">
+            Tähelepanu veebileht on testrežiimis. Teie tellimust ei töödelda
+            </Alert>
             <Advertise src={advert}/>
             <Container>
                 <CategoryTitle/>

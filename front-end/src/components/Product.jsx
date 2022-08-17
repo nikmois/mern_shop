@@ -228,7 +228,7 @@ const Stock = styled.div`
     bottom: 2%;
     left: 5%;
     color: #b8b8b8;
-    text-shadow: 1px 1px#00000090;
+    text-shadow: 1px 1px #00000090;
     display: flex;
     justify-content: center;
     align-items: center;

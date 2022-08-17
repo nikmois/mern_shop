@@ -9,6 +9,7 @@ import Sidebar from "../components/Sidebar";
 import MobileCart from "../components/MobileCart";
 import { useLocation, Link } from "react-router-dom";
 import {motion} from 'framer-motion/dist/framer-motion';
+import { Alert } from "@material-ui/core";
 
 
 const Cont = styled.div`
@@ -170,6 +171,9 @@ const ProductList = () => {
         animate={{opacity: 1}} 
         exit={{opacity: 0, transition: {duration: 0.05}}}>
             <Announcement />
+            <Alert variant="filled" severity="error">
+            Tähelepanu veebileht on testrežiimis. Teie tellimust ei töödelda
+            </Alert>
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <NavbarCommon toggle={toggle} scrolled={scrolled}/>
             <Cont>
@@ -184,7 +188,7 @@ const ProductList = () => {
                     <Cat to="/products/silicone-toys" style={{color: cat === "silicone-toys" && "#ff9d1d"}}>Silikoonist Mänguasjad</Cat>
                 </Categories>
                 <Hr />
-                <Title2>FILTER BY COLOR</Title2>
+                <Title2>FILTER VÄRVI JÄRGI</Title2>
                 <Select name="color" defaultValue={'DEFAULT'} onChange={handleFilters}>
                     <Option value="DEFAULT">Kõik värvid</Option>
                     <Option value="White">Valge</Option>
@@ -195,6 +199,8 @@ const ProductList = () => {
                     <Option value="Beige">Beež</Option>
                     <Option value="Purple">Lilla</Option>
                     <Option value="Yellow">Kollane</Option>
+                    <Option value="Orange">Oranž</Option>
+
                 </Select>           
                 </LeftContent>
             </Left>

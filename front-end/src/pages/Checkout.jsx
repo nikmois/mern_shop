@@ -26,6 +26,10 @@ import dpd from "../images/dpd.jpg";
 import { useHttp } from "../hooks/http.hook";
 import CircularProgress from '@mui/material/CircularProgress';
 import { emptyAllCart } from "../redux/apiCalls";
+import {motion} from 'framer-motion/dist/framer-motion';
+import axios from 'axios'
+import Alert from '@mui/material/Alert';
+
 
 const Container = styled.div`
 
@@ -426,7 +430,7 @@ const Checkout = () => {
     const history = useNavigate();
     const {request} = useHttp();
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (data,e) => {
         setLoading(true)
         disableScroll()
         data.amount = cart.total.toFixed(2)
@@ -444,12 +448,16 @@ const Checkout = () => {
             data.shippingSize = "L suuruse pakend"
         }
         try {
-            const res = await request('/api/orders', 'POST', {...data})
+            const res = await request('https://baby-pingviin.herokuapp.com/api/orders', 'POST', {...data})
             setLoading(false)
             enableScroll()
             history('/successOrder')
             console.log(res.message)
+            console.log(res)
             emptyAllCart(dispatch)
+            request("https://baby-pingviin.herokuapp.com/send-mail", 'POST', {
+                name: res.firstName
+            })
         } catch (e) {}
     }
 
@@ -518,10 +526,10 @@ const Checkout = () => {
                                         required
                                         onChange={handleChange}
                                     >
-                                        <MenuItem value="Estonia">Eesti</MenuItem>
-                                        <MenuItem value="Latvia">Läti</MenuItem>
-                                        <MenuItem value="Finland">Soome</MenuItem>
-                                        <MenuItem value="Lithuania">Leedu</MenuItem>
+                                        <MenuItem value="Eesti">Eesti</MenuItem>
+                                        <MenuItem value="Läti">Läti</MenuItem>
+                                        <MenuItem value="Soome">Soome</MenuItem>
+                                        <MenuItem value="Leedu">Leedu</MenuItem>
                                     </Select>
                                     {!!errors.country && <FormHelperText>{errors?.country?.message}</FormHelperText>}
                                 </FormControl>
@@ -625,17 +633,17 @@ const Checkout = () => {
                             </Shipping>
                         </Left>
                         <Right>
-                            <Title>ORDER DETAILS</Title>
+                            <Title>TELLIMUSE ANDMED</Title>
                             <Order>
                                 <Headers>
-                                    <SubTitle>PRODUCT</SubTitle>
-                                    <SubTitle>SUBTOTAL</SubTitle>
+                                    <SubTitle>TOODE</SubTitle>
+                                    <SubTitle>VAHESUMMA</SubTitle>
                                 </Headers>
                                 <Hr />
                                 {cart.products?.map((product, i) => (
-                                    <div style={{width: "100%"}} key={i}>
+                                    <div style={{width: "100%"}} key={i} name="products">
                                         <Headers>
-                                            <Prod style={{ marginRight: "1rem" }}>{product.title}   <b>x {product.quantity}</b>
+                                            <Prod name="product" style={{ marginRight: "1rem" }}>{product.title}   <b>x {product.quantity}</b>
                                             </Prod>
                                             <Prod style={{ whiteSpace: "nowrap" }}>{(product.price * product.quantity).toFixed(2)} €</Prod>
                                         </Headers>
@@ -643,36 +651,36 @@ const Checkout = () => {
                                     </div>
                                 ))}
                                 <Headers>
-                                    <p>Subtotal</p>
+                                    <p>Vahesumma</p>
                                     <Subtotal>{cart.total.toFixed(2)} €</Subtotal>
                                 </Headers>
                                 <Hr />
                                 <Headers>
-                                    <p>Shipping</p>
+                                    <p>Tarne</p>
                                     {checkShipping()}
                                 </Headers>
                                 <Hr />
                                 <Headers style={{ fontSize: "1.2rem" }}>
-                                    <p>Total</p>
+                                    <p>Kokku</p>
                                     <Subtotal>
                                         {Number(endTotal).toFixed(2)} €<br />
                                         <Vat>
-                                            (includes <VatPrice>
-                                                {(Number(endTotal) * 0.2)?.toFixed(2)}€</VatPrice> VAT)
+                                            (sisaldab <VatPrice>
+                                                {(Number(endTotal) * 0.2)?.toFixed(2)}€</VatPrice> KM)
                                         </Vat>
                                     </Subtotal>
                                 </Headers>
                             </Order>
-                            <Text>After placing an order you will receive an email with a pdf file, containing the invoice, to the email you specified in the billing details section.</Text>
+                            <Text>Pärast tellimuse vormistamist saadetakse teile arveldusandmete jaotises märgitud e-posti aadressile tellimuse kinnitus koos arvega.</Text>
                             <Hr style={{ width: "calc(100% - 4rem)", margin: "1rem 0" }} />
-                            <Text style={{ margin: "0" }}>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <PrivLink onClick={() => window.open("/privacy-policy", "_blank")}>privacy policy</PrivLink>.</Text>
+                            <Text style={{ margin: "0" }}>Teie isikuandmeid kasutatakse teie tellimuse töötlemiseks, teie veebilehe kasutamise kogemuse parendamiseks ja muudel meie <PrivLink onClick={() => window.open("/privacy-policy", "_blank")}>privaatsuspoliitikas </PrivLink>kirjeldatud eesmärkidel.</Text>
                             <Hr style={{ width: "calc(100% - 4rem)", margin: "1rem 0" }} />
                             
                             {!!errors.checkbox ? 
-                            <div style={{border: "1px solid red"}}><Checkbox><input name="checkbox" {...register("checkbox")} type="checkbox" /><label htmlFor="ckbox" style={{ float: "right", padding: "0 1rem" }}>I have read and agree to the website <PrivLink onClick={() => window.open("/terms-and-conditions", "_blank")}>terms and conditions </PrivLink><span style={{ color: "red" }}>*</span></label></Checkbox><div style={{alignSelf: "start", color: "red", padding: "0 2rem 0 3.8rem"}}>You must accept terms and conditions!</div></div> 
+                            <div style={{border: "1px solid red"}}><Checkbox><input name="checkbox" {...register("checkbox")} type="checkbox" /><label htmlFor="ckbox" style={{ float: "right", padding: "0 1rem" }}>Olen läbi lugenud ja nõustun veebisaidi <PrivLink onClick={() => window.open("/terms-and-conditions", "_blank")}>tingimustega</PrivLink><span style={{ color: "red" }}>*</span></label></Checkbox><div style={{alignSelf: "start", color: "red", padding: "0 2rem 0 3.8rem"}}>You must accept terms and conditions!</div></div> 
                             :
-                            <Checkbox><input name="checkbox" {...register("checkbox")} type="checkbox" /><label htmlFor="ckbox" style={{ float: "right", padding: "0 1rem" }}>I have read and agree to the website <PrivLink onClick={() => window.open("/terms-and-conditions", "_blank")}>terms and conditions </PrivLink><span style={{ color: "red" }}>*</span></label></Checkbox>}
-                            <Button type="submit">PLACE ORDER</Button>
+                            <Checkbox><input name="checkbox" {...register("checkbox")} type="checkbox" /><label htmlFor="ckbox" style={{ float: "right", padding: "0 1rem" }}>Olen läbi lugenud ja nõustun veebisaidi <PrivLink onClick={() => window.open("/terms-and-conditions", "_blank")}>tingimustega </PrivLink><span style={{ color: "red" }}>*</span></label></Checkbox>}
+                            <Button type="submit">ESITA TELLIMUS</Button>
                         </Right>
                     </Form>
                 </Wrapper>
@@ -681,15 +689,23 @@ const Checkout = () => {
     }
 
     return (
+        <motion.div 
+        initial={{opacity: 0}} 
+        animate={{opacity: 1}} 
+        exit={{opacity: 0, transition: {duration: 0.05}}}>
         <Container>
             <Announcement />
+            <Alert variant="filled" severity="error">
+            Tähelepanu veebileht on testrežiimis. Teie tellimust ei töödelda
+            </Alert>
             <Sidebar isOpen={isOpen} toggle={toggle} />
             <NavbarCommon toggle={toggle} scrolled={scrolled} />
-            {loading ? <Blurred><BlurredMessage>Please wait, order is being processed...</BlurredMessage>
+            {loading ? <Blurred><BlurredMessage>Palun oodake, tellimust töödeldakse...</BlurredMessage>
             <Circle />
             </Blurred> : <>{checkCart()}</>}
             <Footer />
         </Container>
+        </motion.div>
     )
 }
 

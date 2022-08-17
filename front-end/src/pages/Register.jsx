@@ -144,7 +144,7 @@ const Register = () => {
 
     const registerHandler = async () => {
         try {
-            const data = await request('/api/auth/register', 'POST', {...form})
+            const data = await request('https://baby-pingviin.herokuapp.com/api/auth/register', 'POST', {...form})
             message(data.message)
             history('/signIn')
         } catch (e) {}
@@ -158,20 +158,20 @@ const Register = () => {
         exit={{opacity: 0, transition: {duration: 0.05}}}>
         <Container bgImage={regPic}>
             <Wrapper>
-                <Title>CREATE AN ACCOUNT</Title>
+                <Title>LOO UUS KONTO</Title>
                 <Form>
-                    <Input placeholder="First name" id="firstName" type="text" value={form.firstName} name="firstName" onChange={changeHandler}/>
-                    <Input placeholder="Last name" id="lastName" type="text" value={form.lastName} name="lastName" onChange={changeHandler}/>
+                    <Input placeholder="Eesnimi" id="firstName" type="text" value={form.firstName} name="firstName" onChange={changeHandler}/>
+                    <Input placeholder="Perekonnanimi" id="lastName" type="text" value={form.lastName} name="lastName" onChange={changeHandler}/>
                     <Input placeholder="Email" id="email" type="text" value={form.email} name="email" onChange={changeHandler}/>
-                    <Input placeholder="Phone number" id="phone" value={form.phone} type="tel" name="phone" onChange={changeHandler}/>
-                    <Input placeholder="Password" id="pass" value={form.pass} type="password" name="pass" onChange={changeHandler}/>
-                    <Input placeholder="Confirm password" id="confirmedPassword" value={form.password} type="password" name="password" onChange={changeHandler}/>
+                    <Input placeholder="Telefoninumber" id="phone" value={form.phone} type="tel" name="phone" onChange={changeHandler}/>
+                    <Input placeholder="Salasõna" id="pass" value={form.pass} type="password" name="pass" onChange={changeHandler}/>
+                    <Input placeholder="Kinnita salasõna" id="confirmedPassword" value={form.password} type="password" name="password" onChange={changeHandler}/>
                     
-                    <Agreement>By creating an account, I confirm that I read BABYPINGVIIN <PrivLink onClick={()=> window.open("/privacy-policy", "_blank")}>privacy policy</PrivLink> and agree with them.
+                    <Agreement>Konto loomisega kinnitan, et lugesin BABYPINGVIIN <PrivLink onClick={()=> window.open("/privacy-policy", "_blank")}>privaatsuspoliitikat</PrivLink> ja nõustun sellega.
                     </Agreement>
                     <Text>
-                    <Button onClick={registerHandler} disabled={loading}>CREATE</Button>
-                    <Route to="/signIn">I ALREADY HAVE AN ACCOUNT</Route>
+                    <Button onClick={registerHandler} disabled={loading}>LOO KONTO</Button>
+                    <Route to="/signIn">MUL JUBA ON KONTO OLEMAS</Route>
                     </Text>
                 </Form>
             </Wrapper>

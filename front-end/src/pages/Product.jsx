@@ -200,7 +200,7 @@ const Product = () => {
     useEffect(()=>{
         const getProduct = async ()=>{  
             try{
-                const res = await publicRequest.get("/products/find/"+id)
+                const res = await publicRequest.get("https://baby-pingviin.herokuapp.com/products/find/"+id)
                 setProduct(res.data);
                 if(product.color.length === 1){
                     setColor(product?.color[0])
@@ -211,6 +211,7 @@ const Product = () => {
         };
         getProduct()
     },[id, product.color]);
+
 
 
     const colorCheck = () => {
@@ -327,7 +328,7 @@ const Product = () => {
                             <Amount>{quantity}</Amount>
                             <AddBut style={{cursor: "pointer"}} onClick={()=>handleQuantity("inc")}/>
                         </AmountContainer>
-                        <Button onClick={handleClick}>LISADA KORVI</Button>
+                        <Button onClick={handleClick}>LISA KORVI</Button>
                     </AddContainer>
                 </InfoContainer>
             </Wrapper>

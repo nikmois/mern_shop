@@ -176,7 +176,7 @@ export const Slider = ({scrolled, scrollNav, isOpen}) => {
                     <InfoContainer>
                         <Title>{item.title}</Title>
                         <Desc>{item.desc}</Desc>
-                        <Button to='/shop'>SHOP NOW</Button>
+                        <Button to='/shop'>OSTA NÜÜD</Button>
                     </InfoContainer>
                     </motion.div>
                     </Slide>

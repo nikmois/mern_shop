@@ -292,7 +292,7 @@ export default function Cabinet() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const res = await userRequest.get("users/find/" + userId)
+        const res = await userRequest.get("https://baby-pingviin.herokuapp.com/users/find/" + userId)
         setUser(res.data || '');
         setFirstName(res.data.firstName || '')
         setLastName(res.data.lastName || '')
@@ -311,7 +311,7 @@ export default function Cabinet() {
   useEffect(()=>{
     const getUserOrders = async () => {
       try {
-        const res = await userRequest.get("orders/find/" + userId)
+        const res = await userRequest.get("https://baby-pingviin.herokuapp.com/orders/find/" + userId)
         setUserOrders(res.data)
       }
       catch { }
@@ -324,7 +324,7 @@ export default function Cabinet() {
   const handleClick = async (e, id) => {
     e.preventDefault();
     userdata = { ...inputs };
-    await userRequest.put(`/users/${id}`, userdata)
+    await userRequest.put(`https://baby-pingviin.herokuapp.com/users/${id}`, userdata)
 
     //updateUser(id,user);
     handleOpen();
@@ -372,7 +372,7 @@ export default function Cabinet() {
                     <Left>
                       <TextField
                         variant="outlined"
-                        label="First name"
+                        label="Eesnimi"
                         name="firstName"
                         InputLabelProps={{ shrink: true }}
                         value={firstName}
@@ -381,7 +381,7 @@ export default function Cabinet() {
                       />
                       <TextField
                         variant="outlined"
-                        label="Last name"
+                        label="Perekonnanimi"
                         name="lastName"
                         value={lastName}
                         onChange={handleLastName}
@@ -410,7 +410,7 @@ export default function Cabinet() {
                     <Right>
                       <TextField
                         variant="outlined"
-                        label="Phone number"
+                        label="Telefoninumber"
                         name="phone"
                         value={phone}
                         onChange={handlePhone}
@@ -419,7 +419,7 @@ export default function Cabinet() {
                       />
                       <TextField
                         variant="outlined"
-                        label="City"
+                        label="Linn"
                         name="city"
                         value={city}
                         onChange={handleCity}
@@ -428,7 +428,7 @@ export default function Cabinet() {
                       />
                       <TextField
                         variant="outlined"
-                        label="Address"
+                        label="Aadress"
                         name="address"
                         value={address}
                         onChange={handleAddress}
@@ -437,7 +437,7 @@ export default function Cabinet() {
                       />
                       <TextField
                         variant="outlined"
-                        label="Postcode"
+                        label="Postiindeks"
                         name="postcode"
                         value={postcode}
                         onChange={handlePostcode}
@@ -502,18 +502,18 @@ export default function Cabinet() {
           >
             <Box sx={style}>
               <Typography id="modal-modal-title" style={{color: "green"}} variant="h6" component="h2">
-                Your personal information has been successfully changed
+              Teie isikuandmeid on edukalt muudetud
                 <DoneAllIcon style={{marginLeft: "1rem"}}/>
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Please refresh the page to see changes
+              Muudatuste nägemiseks värskendage lehte
               </Typography>
             </Box>
           </Modal>
         </Wrapper>
         :
         <NoUser>
-          <Message>Please sign in to your account or create one if you still don't have it</Message>
+          <Message>Logige oma kontole sisse või registreerige, kui teil pole kontod</Message>
         </NoUser>
       }
       <Footer />

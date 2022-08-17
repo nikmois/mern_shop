@@ -21,6 +21,7 @@
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "date-fns": "^2.29.1",
+    "emailjs-com": "^3.2.0",
     "framer-motion": "^6.5.1",
     "http-proxy-middleware": "^2.0.6",
     "jwt-check-expiration": "^1.0.5",
@@ -54,7 +55,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://127.0.0.1:5000",
   "browserslist": {
     "production": [
       ">0.2%",

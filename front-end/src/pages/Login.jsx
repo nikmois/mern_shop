@@ -117,12 +117,12 @@ const Login = () => {
         exit={{opacity: 0, transition: {duration: 0.05}}}>
         <Container bgImage={regPic}>
         <Wrapper>
-            <Title>SIGN IN</Title>
+            <Title>LOGI SISSE</Title>
             <Form>
                 <Input placeholder="e-mail" id="email" type="text" name="email" onChange={(e)=>setEmail(e.target.value)} />
                 <Input placeholder="password" id="password" name="password" type="password" onChange={(e)=>setPassword(e.target.value)}/>          
-                <Button onClick={handleClick} disabled={isFetching}>LOGIN</Button>
-                <Route to="/register">CREATE A NEW ACCOUNT</Route>
+                <Button onClick={handleClick} disabled={isFetching}>LOGI SISSE</Button>
+                <Route to="/register">LOO UUS KONTO</Route>
             </Form>
         </Wrapper>
         <div id="snackbar">{notice}</div>

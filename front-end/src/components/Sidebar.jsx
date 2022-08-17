@@ -154,26 +154,26 @@ const Sidebar = ({isOpen, toggle}) => {
             <SidebarWrapper>
                 <SidebarMenu>
                     <SidebarLink to="/">
-                        HOME
+                        KODU
                     </SidebarLink>
                     <SidebarLink to="/shop">
-                        SHOP
+                        POOD
                     </SidebarLink>
                     <SidebarLink to="/about">
-                        ABOUT US
+                        MEIST
                     </SidebarLink>
                     <SidebarLink to="/contact">
-                        CONTACT
+                        KONTAKTID
                     </SidebarLink>
                 </SidebarMenu>
                 {!user ?
                 <SideBtnWrap>
-                    <LoginRoute to="/signin">SIGN IN</LoginRoute>
-                    <RegisterRoute to="/register">REGISTER</RegisterRoute>
+                    <LoginRoute to="/signin">LOGI SISSE</LoginRoute>
+                    <RegisterRoute to="/register">LOO KONTO</RegisterRoute>
                 </SideBtnWrap>
                 :
                 <SideBtnWrap>
-                    <LoginRoute to="/cabinet">MY CABINET</LoginRoute>
+                    <LoginRoute to="/cabinet">MINU KONTO</LoginRoute>
                 </SideBtnWrap>
                 }   
                 <SocialsContainer>

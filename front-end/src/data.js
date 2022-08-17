@@ -3,28 +3,29 @@ import cat1 from "./images/cat1.jpg";
 import cat2 from "./images/cat2.jpg";
 import cat3 from "./images/cat3.jpg";
 import slide1 from "./images/slide3.jpg";
+import slide3 from "./images/slide4.jpg";
 
 export const sliderItems = [
     {
         id: 1,
         image: sliderPic1,
-        title: "ДЕТСКАЯ ПОСУДА",
-        desc: "Изготовленная из 100% пищевого силикона посуда для малышей является отличным выбором для введения первого прикорма", 
+        title: "ARENDAVAD MÄNGUASJAD",
+        desc: "Arendab visuaal-motoorset koordinatsiooni, kujutlusvõimet ja matemaatika põhitõdesid.", 
         bgImage: slide1,
     },
     {
         id: 2,
         image:  sliderPic1,
-        title: "YOUR TEXT 1 BLA BLA BLA",
-        desc: "BEST QUALITY KID'S TOYS AND DISHES", 
+        title: "LASTENÕUD",
+        desc: "100% toidukvaliteediga silikoonist valmistatud beebiriistad on suurepärane valik esimeste toitude tutvustamiseks.", 
         bgImage: cat1,
     },
     {
         id: 3,
         image:  sliderPic1,
-        title: "YOUR TEXT 2",
-        desc: "BEST QUALITY KID'S TOYS AND DISHES", 
-        bgImage: cat1,
+        title: "SILIKOONIST MÄNGUASJAD",
+        desc: "Silikoonist mänguasjad on 100% keemiavabad ning disainitud kahes osas, et mänguasjad oleks hügieenilised, hästi puhastatavad ja hallitusvabad.", 
+        bgImage: slide3,
     },
 ]
 
@@ -32,19 +33,19 @@ export const categories = [
     {
         id: 1,
         img: cat1,
-        title: "SILICONE BABY TABLEWARE",
+        title: "SILIKOONIST BEEBI NÕUD",
         cat:"tableware",
     },
     {
         id: 2,
         img: cat2,
-        title: "EDUCATIONAL TOYS FOR CHILDREN",
+        title: "ARENDAVAD MÄNGUASJAD",
         cat: "educational-toys",
     },
     {
         id: 3,
         img: cat3,
-        title: "SILICONE TOYS FOR CHILDREN",
+        title: "SILIKOONIST MÄNGUASJAD",
         cat: "silicone-toys",
     },
 ]

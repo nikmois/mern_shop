@@ -8,8 +8,8 @@ const { check, validationResult} = require('express-validator');
 router.post(
     "/register", 
     [
-        check('email', 'Wrong email').isEmail(),
-        check('password', 'Password minimal length is 6 symbols')
+        check('email', 'Palun sisestage kehtiv email').isEmail(),
+        check('password', 'Parooli minimaalne pikkus on 6 sümbolit')
         .isLength({min:6})
     ],
     async (req,res)=>{
@@ -22,39 +22,40 @@ router.post(
         const {email, firstName, lastName, password, phone, pass} = req.body
 
         if (!email || !firstName || !lastName || !password || !phone || !pass){
-            return res.status(400).json({ message: "Please fill all required fields!"})
+            return res.status(400).json({ message: "Palun täitke kõik nõutud väljad!"})
         }
 
         if (!errors.isEmpty()){
             return res.status(400).json({
                 errors: errors.array(),
-                message: 'Password minimal length is 6 symbols'
+                message: 'Parooli minimaalne pikkus on 6 sümbolit'
             })
         }
 
         const candidate = await User.findOne({email})
         if (candidate) {
-            return res.status(400).json({ message: "User with this e-mail already exists!"})
+            return res.status(400).json({ message: "Selle e-postiga kasutaja on juba olemas!"})
         }
 
         if (!phone) {
-            return res.status(400).json({ message: "Please enter your phone number!"})
+            return res.status(400).json({ message: "Palun sisesta oma telefoninumber!"})
         }
 
         if (pass != password) {
-            return res.status(400).json({ message: "Please confirm your password!"})
+            return res.status(400).json({ message: "Palun kinnitage oma parool!"})
         }
 
         if (regularExpression.test(password) == false){
-            return res.status(400).json({ message: "Password should contain at least one character and one number and be minimum 6 symbols long!"})
+            return res.status(400)
+            .json({ message: "Parool peab sisaldama vähemalt ühte tähemärki ja ühte numbrit ning olema vähemalt 6 sümbolit pikk!"})
         }
 
         if (!firstName) {
-            return res.status(400).json({ message: "Please enter your first name!"})
+            return res.status(400).json({ message: "Palun sisesta oma eesnimi!"})
         }
 
         if (!lastName) {
-            return res.status(400).json({ message: "Please enter your first name!"})
+            return res.status(400).json({ message: "Palun sisesta oma perekonnanimi!"})
         }
 
         const hashedPassword = CryptoJS.AES.encrypt(password,process.env.PASS_SEC).toString()
@@ -62,7 +63,7 @@ router.post(
         const user = new User({ email, firstName, lastName, phone, password: hashedPassword })
 
         await user.save();
-        res.status(201).json({ message: "User created successfully!"});
+        res.status(201).json({ message: "Kasutaja loomine õnnestus!"});
     }catch(e){
         res.status(500).json({ message: "Server error!"});
     }

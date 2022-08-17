@@ -76,7 +76,7 @@ const MobileCart = () => {
                 <Badge1 badgeContent={`${quantity.toFixed(2)}€`} color="primary" />
             </Cart>
             </CartButton>
-            <Checkout to='/shop'>SHOP</Checkout>
+            <Checkout to='/shop'>POOD</Checkout>
         </Car>
     )
 }

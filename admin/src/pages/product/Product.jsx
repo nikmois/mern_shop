@@ -48,7 +48,6 @@ export default function Product() {
   }
 
   const handleFile = (e) => {
-    console.log("tam", e.target.id);
     var file = e.target.files[0];
     file = new File([file], file.name + new Date().toLocaleString(), { type: file.type });
     uploadFiles(file,e.target);
@@ -60,13 +59,7 @@ export default function Product() {
     let fileRef = storageRef.child(img.name);
     await fileRef.put(img);
     const singleImgPath = await fileRef.getDownloadURL();
-    // var newStateArray = imagePaths.slice();
     const name = e.name;
-    // var obj = {};
-    // obj[name] = singleImgPath
-    // newStateArray.push(obj);
-    // setImagePaths(newStateArray);
-    // console.log(newStateArray);
     setInputs(prev=>{
       return {...prev, [name]:singleImgPath}
     });

@@ -5,7 +5,7 @@ import NavbarCommon from '../components/NavbarCommon'
 import Sidebar from '../components/Sidebar'
 import styled from 'styled-components'
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import { Button } from '@material-ui/core'
+import { Alert, Button } from '@material-ui/core'
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
 import {motion} from 'framer-motion/dist/framer-motion';
@@ -54,14 +54,17 @@ const SuccessOrder = () => {
     exit={{opacity: 0, transition: {duration: 0.05}}}>
     <Container>
         <Announcement />
+        <Alert variant="filled" severity="error">
+            Tähelepanu veebileht on testrežiimis. Teie tellimust ei töödelda
+        </Alert>
         <Sidebar isOpen={isOpen} toggle={toggle} />
         <NavbarCommon toggle={toggle} scrolled={scrolled} />
         <MessageCont>
-            <Message><Icon />Your order has been succesfully received</Message>
+            <Message><Icon />Teie tellimus on edukalt vastu võetud</Message>
             <Stack spacing={3} direction="column">
-            <Button component={Link} to="/shop" variant="contained" color="primary">Continue shopping</Button>
-            <p style={{alignSelf: "center"}}>OR</p>
-            <Button component={Link} to="/" variant="outlined" color="primary">Go to home page</Button>
+            <Button component={Link} to="/shop" variant="contained" color="primary">Jätka ostlemist</Button>
+            <p style={{alignSelf: "center"}}>VÕI</p>
+            <Button component={Link} to="/" variant="outlined" color="primary">Mine kodulehele</Button>
             </Stack>
         </MessageCont>
         <Footer />

@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { BsCartX } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import {motion} from 'framer-motion/dist/framer-motion';
+import { Alert } from '@material-ui/core'
 
 
 const Container = styled.div`
@@ -281,10 +282,10 @@ const Cart = () => {
             return(
                 <>
                 <EstShipping>
-                    <ShippingItemText>Estimated Shipping <br />
-                        {(shippingSize > 0 && shippingSize <= 33) ? <b>(S size box)</b>
-                        : (shippingSize > 33 && shippingSize <= 66) ? <b>(M size box)</b>
-                        : (shippingSize > 66) && <b>(L size box)</b>
+                    <ShippingItemText>Arvestatav saatmise hind <br />
+                        {(shippingSize > 0 && shippingSize <= 33) ? <b>(S suuruse pakend)</b>
+                        : (shippingSize > 33 && shippingSize <= 66) ? <b>(M suuruse pakend)</b>
+                        : (shippingSize > 66) && <b>(L suuruse pakend)</b>
                         }
                     </ShippingItemText>
                     {(shippingSize > 0 && shippingSize <= 33) ? <ShippingItemPrice>2,99€</ShippingItemPrice>
@@ -293,7 +294,7 @@ const Cart = () => {
                         }
                 </EstShipping>
                 <ShippingMessage>
-                    <ShippingItemText>Shipping Discount</ShippingItemText>
+                    <ShippingItemText>Saatmise allahindlus</ShippingItemText>
                     {(shippingSize > 0 && shippingSize <= 33) ? <>- 2,99€</>
                         : (shippingSize > 33 && shippingSize <= 66) ? <>- 3,99€</>
                         : (shippingSize > 66) && <>- 4,89€</>
@@ -305,10 +306,10 @@ const Cart = () => {
             return(
                 <>
                 <EstShipping>
-                <ShippingItemText>Estimated Shipping <br />
-                        {(shippingSize > 0 && shippingSize <= 33) ? <b>(S size box)</b>
-                        : (shippingSize > 33 && shippingSize <= 66) ? <b>(M size box)</b>
-                        : (shippingSize > 66) && <b>(L size box)</b>
+                <ShippingItemText>Arvestatav saatmise hind <br />
+                        {(shippingSize > 0 && shippingSize <= 33) ? <b>(S suuruse pakend)</b>
+                        : (shippingSize > 33 && shippingSize <= 66) ? <b>(M suuruse pakend)</b>
+                        : (shippingSize > 66) && <b>(L suuruse pakend)</b>
                         }
                     </ShippingItemText>
                     {(shippingSize > 0 && shippingSize <= 33) ? <ShippingItemPrice>2,99€</ShippingItemPrice>
@@ -317,7 +318,7 @@ const Cart = () => {
                     }
                 </EstShipping>
                 <ShippingMessage>
-                    <ShippingItemText>Add to your cart more products worth at least <b>{(35 - cart.total).toFixed(2)}€</b> to receive free shipping!</ShippingItemText>
+                    <ShippingItemText>Tasuta kohaletoimetamise saamiseks lisage ostukorvi rohkem tooteid vähemalt <b>{(35 - cart.total).toFixed(2)}€</b> väärtuses!</ShippingItemText>
                 </ShippingMessage>
                 </>
             )
@@ -329,10 +330,10 @@ const Cart = () => {
             return(
                 <Wrapper>
                 <Top1>
-                <TopButton1 to="/products/tableware">CONTINUE SHOPPING</TopButton1>
+                <TopButton1 to="/products/tableware">JÄTKA OSTLEMIST</TopButton1>
                 </Top1>
                 <EmptyContainer>
-                <Empty>Your cart is empty</Empty>
+                <Empty>Teie ostukorv on tühi</Empty>
                 <EmptyIcon>
                 <Icon />
                 </EmptyIcon>
@@ -343,11 +344,11 @@ const Cart = () => {
             return(
             <Wrapper>
             <Top>
-                <TopButton1 to="/products/tableware">CONTINUE SHOPPING</TopButton1>
-                <TopButton2 to="/checkout">CHECKOUT NOW</TopButton2>
+                <TopButton1 to="/products/tableware">JÄTKA OSTLEMIST</TopButton1>
+                <TopButton2 to="/checkout">JÄTKA BRONEERINGUGA</TopButton2>
             </Top>
             <TextCont>
-                <Title>YOUR BAG ({quantity})</Title>
+                <Title>TEIE KORV ({quantity})</Title>
                 </TextCont>
             <Bottom>
             <Info>
@@ -356,24 +357,24 @@ const Cart = () => {
                     ))}
             </Info>
                 <Summary>
-                    <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                    <SummaryTitle>OSTUKORVI SUMMAD</SummaryTitle>
                     <SummaryItem>
-                        <SummaryItemText>Subtotal</SummaryItemText>
+                        <SummaryItemText>Vahesumma</SummaryItemText>
                         <SummaryItemPrice>{cart.total.toFixed(2)} €</SummaryItemPrice>
                     </SummaryItem>
                     {checkShipping()}
                     <TotalItem>
-                        <SummaryItemText>Total</SummaryItemText>
+                        <SummaryItemText>Kokku</SummaryItemText>
                         <SummaryItemPrice>
                             {Number(endTotal).toFixed(2)} €<br />
                             <Vat>
-                                (includes <SummaryItemPrice>
-                                    {(Number(endTotal)*0.2)?.toFixed(2)}€</SummaryItemPrice> VAT)
+                                (sisaldab <SummaryItemPrice>
+                                    {(Number(endTotal)*0.2)?.toFixed(2)}€</SummaryItemPrice> KM)
                             </Vat>
                         </SummaryItemPrice>
                     </TotalItem>
                     <ButtonCont>
-                    <Button to="/checkout">CHECKOUT</Button>
+                    <Button to="/checkout">JÄTKA BRONEERINGUGA</Button>
                     </ButtonCont>
                 </Summary>
             </Bottom>
@@ -390,6 +391,9 @@ const Cart = () => {
         exit={{opacity: 0, transition: {duration: 0.05}}}>
         <Container>
             <Announcement />
+            <Alert variant="filled" severity="error">
+            Tähelepanu veebileht on testrežiimis. Teie tellimust ei töödelda
+            </Alert>
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <NavbarCommon toggle={toggle} scrolled={scrolled}/>
             {checkCart()}

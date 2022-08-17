@@ -165,7 +165,7 @@ const Newsletter = () => {
     const registerHandler = async () => {
         setPressed(true)
         try {
-            const data = await request('/api/newsletter', 'POST', {"email": email})
+            const data = await request('https://baby-pingviin.herokuapp.com/api/newsletter', 'POST', {"email": email})
             setMessage(data.message)
         } catch (e) {
             setMessage(e.message)

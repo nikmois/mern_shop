@@ -154,7 +154,7 @@ const CartItem = ({product}) => {
     useEffect(()=>{
         const getProduct = async ()=>{  
             try{
-                const res = await publicRequest.get("/products/find/"+product._id)
+                const res = await publicRequest.get("https://baby-pingviin.herokuapp.com/products/find/"+product._id)
                 setDbProduct(res.data);
             }catch {}
         };
@@ -186,15 +186,15 @@ const CartItem = ({product}) => {
     const colorCheck = () => {
         if(product.color){
             return(
-                <ProductColorSpan><b>Choosed color: </b>
+                <ProductColorSpan><b>Valitud värv: </b>
                 <ProductColor color={product.color} />
                 </ProductColorSpan>
             )
         }else if(!product.color && dbProduct.color && dbProduct.color.length > 1){
             return(
-                <ProductColorSpan><b>Please pick a color: </b>
+                <ProductColorSpan><b>Palun valige värv: </b>
                     <Select name="color" onChange={(e)=>handleColor(product,e)}>
-                        <Option defaultValue hidden>Choose color</Option>
+                        <Option defaultValue hidden>Valige värv</Option>
                     { dbProduct.color?.map((color, i) =>(
                         <Option key={i}>{color}</Option>
                         ))}
