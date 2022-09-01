@@ -21,6 +21,9 @@ const Cont = styled.div`
     @media screen and (max-width: 850px) {
         height: 70vh;
     }
+    @media only screen and (max-width:749px) {
+    background-attachment: inherit;
+}
 `;
 
 const Container = styled.div`

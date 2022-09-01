@@ -77,7 +77,28 @@ margin: 1rem 0;
 gap: 0.7rem;
 `;
 
-const LoginRoute = styled(LinkR)`
+const LoginRoute = styled.a`
+    border-radius: 50px;
+    background-color: #e2921a;
+    white-space: nowrap;
+    padding: 10px 42px;
+    color: white;
+    font-size: 1.3rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+
+    &:hover{
+        transition: all 0.2s ease-in-out;
+        background-color: #e2921a;
+        color: white;
+        transform: scale(1.05);
+    }
+`;
+
+const LoginR = styled(LinkR)`
     border-radius: 50px;
     background-color: #e2921a;
     white-space: nowrap;
@@ -168,12 +189,12 @@ const Sidebar = ({isOpen, toggle}) => {
                 </SidebarMenu>
                 {!user ?
                 <SideBtnWrap>
-                    <LoginRoute to="/signin">LOGI SISSE</LoginRoute>
+                    <LoginR to="/signin">LOGI SISSE</LoginR>
                     <RegisterRoute to="/register">LOO KONTO</RegisterRoute>
                 </SideBtnWrap>
                 :
                 <SideBtnWrap>
-                    <LoginRoute to="/cabinet">MINU KONTO</LoginRoute>
+                    <LoginRoute href={'/cabinet/' + user._id}>MINU KONTO</LoginRoute>
                 </SideBtnWrap>
                 }   
                 <SocialsContainer>

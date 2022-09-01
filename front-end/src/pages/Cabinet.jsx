@@ -6,9 +6,11 @@ import NavbarCommon from '../components/NavbarCommon'
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import parseISO from 'date-fns/parseISO'
+import { useNavigate } from "react-router-dom";
 import Sidebar from '../components/Sidebar';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
@@ -18,8 +20,8 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import format from 'date-fns/format'
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import TextField from '@mui/material/TextField';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ShopIcon from '@mui/icons-material/Shop';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -28,7 +30,8 @@ import DatePicker from '@mui/lab/DatePicker';
 import { userRequest } from "../requestMethods";
 import { useLocation } from 'react-router-dom';
 import {motion} from 'framer-motion/dist/framer-motion';
-
+import { useDispatch } from 'react-redux';
+import { logOut } from '../redux/apiCalls';
 
 
 const Container = styled.div`
@@ -206,9 +209,12 @@ export default function Cabinet() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled] = useState(true);
   const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
   const handleOpen = () => setOpen(true);
+  const handleOpen2 = () => setOpen2(true);
   const handleClose = () => setOpen(false);
-
+  const handleClose2 = () => setOpen2(false);
+  const dispatch = useDispatch();
   const location = useLocation('');
   const userId = location.pathname.split("/")[2];
   const [user, setUser] = useState({});
@@ -225,6 +231,7 @@ export default function Cabinet() {
   const toggle = () => {
     setIsOpen(!isOpen)
   };
+  const history = useNavigate();
 
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -291,8 +298,9 @@ export default function Cabinet() {
 
   useEffect(() => {
     const getUsers = async () => {
+      if(userId){
       try {
-        const res = await userRequest.get("https://baby-pingviin.herokuapp.com/users/find/" + userId)
+        const res = await userRequest.get("users/find/" + userId)
         setUser(res.data || '');
         setFirstName(res.data.firstName || '')
         setLastName(res.data.lastName || '')
@@ -304,30 +312,48 @@ export default function Cabinet() {
         setPostcode(res.data.postcode || '')
       }
       catch { }
+    }
     };
     getUsers();
   }, [userId]);
 
   useEffect(()=>{
     const getUserOrders = async () => {
+      if(userId){
       try {
-        const res = await userRequest.get("https://baby-pingviin.herokuapp.com/orders/find/" + userId)
+        const res = await userRequest.get("orders/find/" + userId)
         setUserOrders(res.data)
       }
       catch { }
+    }
     };
     getUserOrders();
   }, [userId]);
 
   const [inputs, setInputs] = useState({});
   let userdata = {};
+
   const handleClick = async (e, id) => {
     e.preventDefault();
     userdata = { ...inputs };
-    await userRequest.put(`https://baby-pingviin.herokuapp.com/users/${id}`, userdata)
+    await userRequest.put(`users/${id}`, userdata)
 
     //updateUser(id,user);
     handleOpen();
+  };
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    logOut(dispatch);
+    history('/')
+  };
+
+  const handleDelete = async (e, id) => {
+    e.preventDefault();
+    await userRequest.delete(`users/${id}`)
+    logOut(dispatch);
+    //updateUser(id,user);
+    handleOpen2();
   };
 
 
@@ -354,7 +380,6 @@ export default function Cabinet() {
               >
                 <Tab icon={<PersonPinIcon />} label="MINU KONTO" {...a11yProps(0)} />
                 <Tab icon={<ShopIcon />} label="MINU TELLIMUSED" {...a11yProps(1)} />
-                <Tab icon={<SettingsIcon />} label="SEADED" {...a11yProps(2)} />
               </Tabs>
             </AppBar>
             <SwipeableViews
@@ -449,6 +474,13 @@ export default function Cabinet() {
                   <Button style={{ marginTop: "2rem" }} size="large" variant="contained" endIcon={<SendIcon />} onClick={(e) => handleClick(e, user._id)}>
                     SALVESTA
                   </Button>
+                  <Hr style={{marginTop: "3rem"}}/>
+                  <Button style={{ marginTop: "1rem" }} variant="outlined" endIcon={<LogoutIcon />} onClick={handleLogout}>
+                    LOGI VÄLJA
+                  </Button>
+                  <Button style={{ marginTop: "2rem", marginBottom: "1rem"}} variant="contained" color="inherit" endIcon={<DeleteIcon />} onClick={(e) => handleDelete(e, user._id)}>
+                    KUSTUTADA KONTO
+                  </Button>
                 </First>
               </TabPanel>
               <TabPanel value={value} index={1} dir={theme.direction}>
@@ -457,7 +489,7 @@ export default function Cabinet() {
                     Minu tellimused
                   </Header>
                   <Hr />
-                  {!userOrders ? 
+                  {userOrders?.length < 1 ? 
                   <Header>
                     Tellimusi ei ole  
                   </Header>
@@ -489,9 +521,6 @@ export default function Cabinet() {
                   })}
                   </First>
               </TabPanel>
-              <TabPanel value={value} index={2} dir={theme.direction}>
-                Item Three
-              </TabPanel>
             </SwipeableViews>
           </Box>
           <Modal
@@ -507,6 +536,19 @@ export default function Cabinet() {
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Muudatuste nägemiseks värskendage lehte
+              </Typography>
+            </Box>
+          </Modal>
+          <Modal
+            open={open2}
+            onClose={handleClose2}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" style={{color: "green"}} variant="h6" component="h2">
+              Teie konto on kustutatud
+                <DoneAllIcon style={{marginLeft: "1rem"}}/>
               </Typography>
             </Box>
           </Modal>

@@ -1,0 +1,81 @@
+<!-- template.ejs --!>
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>My Table</title>
+  </head>
+  <body>
+    <div width: 100%; padding: 15px;>
+    <p style="font-size: 12px; text-align: right;">
+      Arve koostaja: BabyPingviin OÜ   Registrikood: 9999999 KMKR: 9999999
+    </p>
+    </div>
+    <div style="width: 100%; padding: 20px; font-size: 10px; text-align: left; margin-bottom: 2rem; display: flex; flex-direction: column; line-height: 0.5;">
+      <h2 style="font-weight: 700; font-size: 20px;">Arve nr. <%= arveId %> </h2>
+      <p>Arve kuupäev: <%= today %> </p>
+      <p>Arve saaja: </p>
+      <p><%= name + " " + lastname %></p>
+      <p><%= street %> </p>
+      <p><%= city %> </p>
+    </div>
+    
+    <table style="width: 100%; border: 1px solid black; padding: 5px; font-size: 10px;">
+      <tr style="font-size: 14px;">
+        <th style="text-align: center;">Kauba nimetus</th>
+        <th style="text-align: center;">Kogus</th>
+        <th style="text-align: center;">Summa km-ta</th>
+        <th style="text-align: center;">Käibemaks</th>
+        <th style="text-align: center;">Summa km-ga</th>
+      </tr>
+        <% products.forEach(function (product) { %>
+        <tr style="border-top: 1px solid black;">
+        <td style="text-align: center;" id="quantity"><%= product.title %></td>
+        <td style="text-align: center;" id="quantity"><%= product.quantity %></td>
+        <td style="text-align: center;" id="unitPrice"><%= (product.price*product.quantity*0.8).toFixed(2) %></td>
+        <td style="text-align: center;" id="totalPrice">20%</td>
+        <td style="text-align: center;" id="totalPrice"><%= product.price*product.quantity.toFixed(2) %> EUR</td>
+        </tr>
+        <% }) %>
+    </table>
+    <div style="background-color: lightgrey; padding: 5px; text-align: right;">Kokku kuulub tasumisele: <%= total %> EUR</div>
+    <div style="margin-top: 1.5rem;">Pangaandmed:</div>
+        <table style="border: 1px solid black; margin-top: 1.5rem; width: 100%; font-size: 12px;">
+        <tr>
+        <td>
+        Saaja nimi:
+        </td>
+        <td>
+        BabyPingviin OÜ
+        </td>
+        </tr>
+        <tr>
+        <td>
+        Panganumber:
+        </td>
+        <td>
+        EE11111111111111111
+        </td>
+        </tr>
+        <tr>
+        <td>
+        Maksma:
+        </td>
+        <td>
+          <%= total %> €
+        </td>
+        </tr>
+        </table>
+        <div style="display: flex; justify-content: space-between; font-size: 11px;">
+          <div style="margin-top: 5rem; display: flex; flex: 1; flex-direction: column; padding: 15px;">
+          <p>BabyPingviin OÜ</p>
+          <p>Kerese 5-29, 99999999, Narva</p>
+          <p>tel.99999999, www.babypingviin.ee</p>
+          </div>
+          <div style="flex: 1; justify-content: finish;">
+          <img width="180" src="https://firebasestorage.googleapis.com/v0/b/babypingviin-51fca.appspot.com/o/logo-cropped.svg?alt=media&token=1dfce191-c4c5-4bb6-8161-8f6e883829db" >
+          </div>
+        </div>
+  </body>
+</html>

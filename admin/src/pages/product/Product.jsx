@@ -1,18 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
 import "./product.css";
-import Chart from "../../components/chart/Chart"
 import storage from "../../firebase";
 import { Publish } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useMemo, useState } from "react";
-import { userRequest } from "../../requestMethods";
+import { useEffect, useState } from "react";
 import { getProducts, updateProduct } from "../../redux/apiCalls";
 
 export default function Product() {
   const location = useLocation();
   const productId = location.pathname.split("/")[2];
-  const [pStats, setPStats] = useState([]);
   const dispatch = useDispatch();
+  const [color, setColor] = useState([]);
   const [inputs, setInputs] = useState({});
   const [loading,setLoading] = useState(false);
   let product = {};
@@ -22,29 +20,14 @@ export default function Product() {
     getProducts(dispatch);
   },[dispatch]);
 
- 
-  const MONTHS = useMemo(
-    () => [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec"
-    ],
-    []
-  );
-
   const handleChange = (e) => {
     setInputs(prev=>{
       return {...prev, [e.target.name]:e.target.value}
   })
+  }
+
+  const handleColor = (e) => {
+    setColor(e.target.value.split(","))
   }
 
   const handleFile = (e) => {
@@ -74,23 +57,6 @@ export default function Product() {
     }
   }
 
-  useEffect(()=>{
-    const getStats = async () => {
-      try{
-        const res = await userRequest.get("orders/income?pid=" + productId);
-        const list = res.data.sort((a,b)=>{
-            return a._id - b._id
-        })
-        list.map((item)=>
-          setPStats((prev)=>[
-            ...prev,
-            {name:MONTHS[item._id-1], Продажи: item.total},
-          ])
-        );
-      }catch{}
-    };
-    getStats();
-  },[productId,MONTHS]);
 
   const prevProduct = useSelector((state)=> 
     state.product.products.find((product)=>product._id === productId)
@@ -98,7 +64,7 @@ export default function Product() {
 
   const handleClick = (e,id) => {
     e.preventDefault();
-    product = {...inputs};
+    product = {...inputs, color: color};
     updateProduct(id,product,dispatch);
     alert("Продукт изменен, чтобы увидеть измененный продукт обнови страницу")
   };
@@ -121,9 +87,9 @@ export default function Product() {
         </Link>
       </div>
       <div className="productTop">
-          <div className="productTopLeft">
+          {/*<div className="productTopLeft">
               <Chart data={pStats} dataKey="Продажи" title="Продажи"/>
-          </div>
+            </div>*/}
           <div className="productTopRight">
               <div className="productInfoTop">
                   <img src={prevProduct.img1} alt="" className="productInfoImg" />
@@ -152,6 +118,8 @@ export default function Product() {
                   <input type="text" name="longDesc" onChange={handleChange} placeholder={prevProduct.longDesc} />
                   <label>Категория</label>
                   <input type="text" name="category" onChange={handleChange} placeholder={prevProduct.category} />
+                  <label>Цвета</label>
+                  <input type="text" name="color" onChange={handleColor} placeholder={prevProduct.color} />
                   <label>Цена в данный момент (обязательно)</label>
                   <input type="double" name="price" onChange={handleChange} placeholder={prevProduct.price} />
                   <label>Цена перед уценкой (не обязательно)</label>

@@ -8,13 +8,17 @@ import Newsletter from "../components/Newsletter";
 import Sidebar from "../components/Sidebar";
 import MobileCart from "../components/MobileCart";
 import { useLocation } from "react-router-dom";
-import { publicRequest } from "../requestMethods"; 
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import {motion} from 'framer-motion/dist/framer-motion';
+import { Alert } from "@material-ui/core";
+import axios from "axios";
+import BeatLoader from "react-spinners/BeatLoader";
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from "react-image-gallery";
 
 
 
@@ -28,27 +32,39 @@ const ContentContainer = styled.div`
     margin-right: auto;
 `;
 
+const Spinner = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20vh;
+    width: 90vw;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+`;
+
 const Wrapper = styled.div`
     padding: 7vh clamp(6px, 2vw, 50px) 10vh clamp(6px, 2vw, 50px);
     display: flex;
     width: 100%;
     @media screen and (max-width: 850px) {
         flex-direction: column;
+        padding-top: 0;
     }
 `;
 
 const ImgContainer = styled.div`
+flex: 1;
 `;
 
-const Image = styled.img`
+const Image = styled.div`
     width: 100%;
-    height: 60vh;
-    object-fit: cover;
 `;
 
 const InfoContainer = styled.div`
     padding: 0 clamp(6px, 2vw, 50px);
     display: flex;
+    flex: 1;
     flex-direction: column;
     position: relative;
 `;
@@ -193,24 +209,104 @@ const Product = () => {
     const [product,setProduct] = useState({});
     const [quantity, setQuantity] = useState(1);
     const [color, setColor] = useState("");
+    const [loading, setLoading] = useState(false);
     const [dbColor, setDbColor] = useState([]);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
+    const [images, setImages] = useState(null);
 
-    useEffect(()=>{
-        const getProduct = async ()=>{  
-            try{
-                const res = await publicRequest.get("https://baby-pingviin.herokuapp.com/products/find/"+id)
-                setProduct(res.data);
-                if(product.color.length === 1){
-                    setColor(product?.color[0])
-                }else if(product.color.length > 1){
-                    setDbColor(product.color)
-                }
-            }catch {}
-        };
-        getProduct()
-    },[id, product.color]);
+    useEffect(() => {
+      const controller = new AbortController();
+      let fetchApi = true;
+      const getProduct = async () => {
+        if (fetchApi) {
+            if(id){
+          try {
+              setLoading(true)
+            const res = await axios.get(
+              "https://baby-pingviin.herokuapp.com/api/products/find/" + id,
+              {
+                signal: controller.signal,
+              }
+            );
+            setProduct(res.data);
+            
+            setLoading(false)
+            
+          } catch (err) {
+            if (axios.isCancel(err)) {
+              console.log("caught cancel");
+            } else {
+              throw err;
+            }
+          }
+        }
+        } else {
+          return;
+        }
+      };
+      getProduct();
+      return () => {
+        controller.abort();
+        fetchApi = false;
+      };
+    }, [id]);
+    
+
+    useEffect(() => {
+        if (product.color?.length === 1) {
+            setColor(product?.color[0]);
+          } else if (product.color?.length > 1) {
+            setDbColor(product?.color);
+          }
+    }, [product.color])
+
+    useEffect(() => {
+    if(product){
+        setImages([{
+            original: product.img1,
+            thumbnail: product.img1,
+            loading: "lazy"
+        }]);
+        if(product.img2){
+            setImages((images)=>[...images,{
+                original: product.img2,
+                thumbnail: product.img2,
+                loading: "lazy"
+            }])
+        }
+        if(product.img3){
+            setImages((images)=>[...images,{
+                original: product.img3,
+                thumbnail: product.img3,
+                loading: "lazy"
+            }])
+        }
+        if(product.img4){
+            setImages((images)=>[...images,{
+                original: product.img4,
+                thumbnail: product.img4,
+                loading: "lazy"
+            }])
+        }
+        if(product.img5){
+            setImages((images)=>[...images,{
+                original: product.img5,
+                thumbnail: product.img5,
+                loading: "lazy"
+            }])
+        }
+        if(product.img6){
+            setImages((images)=>[...images,{
+                original: product.img6,
+                thumbnail: product.img6,
+                loading: "lazy"
+            }])
+        }
+    }
+    }, [product])
+    
 
 
 
@@ -276,9 +372,18 @@ const Product = () => {
         dispatch(
             addProduct({ ...product, quantity, color, dbColor })
             );
+            setOpen2(true)
     };
 
     const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+
+      const handleClose2 = (event, reason) => {
         if (reason === 'clickaway') {
           return;
         }
@@ -299,6 +404,19 @@ const Product = () => {
         </React.Fragment>
       );
 
+      const action2 = (
+        <React.Fragment>
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose2}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </React.Fragment>
+      );
+
     return (
         <>
         <motion.div 
@@ -308,10 +426,21 @@ const Product = () => {
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <NavbarCommon toggle={toggle} scrolled={scrolled}/>
             <Announcement />
+            {loading ? 
+            <Spinner>
+            <BeatLoader 
+            color="#f4a216"
+            margin={2}
+            size={25}
+            />
+            </Spinner>
+            :
             <ContentContainer>
             <Wrapper>
                 <ImgContainer>
-                <Image src={product.img1} />
+                <Image>
+                {images && <ImageGallery items={images} showFullscreenButton={false} lazyLoad={true} showPlayButton={false} />}
+                </Image>
                 </ImgContainer>
                 <InfoContainer>
                     <Title>{product.title}</Title>
@@ -333,6 +462,7 @@ const Product = () => {
                 </InfoContainer>
             </Wrapper>
             </ContentContainer>
+            }
             <Newsletter /> 
             <Footer />
             <MobileCart />
@@ -340,10 +470,24 @@ const Product = () => {
             open={open}
             autoHideDuration={5000}
             onClose={handleClose}
-            message="Palun valige toode värv"
             action={action}
             sx={{ bottom: { xs: 90, sm: 50 } }}
-            />
+            >
+            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            Palun valige toode värv!
+            </Alert>
+            </Snackbar>
+            <Snackbar
+            open={open2}
+            autoHideDuration={5000}
+            onClose={handleClose2}
+            action={action2}
+            sx={{ bottom: { xs: 90, sm: 50 } }}
+            >
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            Toode on edukalt lisatud korvi!
+            </Alert>
+            </Snackbar>
             </motion.div>
         </>
       

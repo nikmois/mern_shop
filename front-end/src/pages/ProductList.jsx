@@ -10,6 +10,8 @@ import MobileCart from "../components/MobileCart";
 import { useLocation, Link } from "react-router-dom";
 import {motion} from 'framer-motion/dist/framer-motion';
 import { Alert } from "@material-ui/core";
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
 const Cont = styled.div`
@@ -28,7 +30,7 @@ const Left = styled.div`
     width: 20%;
     justify-content: flex-start;
     flex-direction: column;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 900px) {
         display: none;
     }
 `;
@@ -37,7 +39,7 @@ const Right = styled.div`
     display: flex;
     flex-direction: column;
     width: 80%;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 900px) {
         width: 100%;
     }
 `;
@@ -49,27 +51,49 @@ const Title = styled.h1`
     font-size: clamp(2rem, 1.5vw, 2.5rem);
 `;
 
-const MobileTitle = styled.h1`
+const MobileCategories = styled.div`
     display: none;
 
-    @media screen and (max-width: 800px) {
-        font-size: clamp(1.5rem, 1.5vw, 2.5rem);
-        margin: 25px;
-        font-weight: 500;
+    @media screen and (max-width: 900px) {
         display: flex;
+        flex-direction: column;
+        
+        font-size: 2rem;
+        margin: 0 25px 20px 25px;
+        padding-left: 10px;
+        font-weight: 500;
+        border-left: 4px solid #ff9d1d;
+        
+    }
+`;
+
+const MobileFilters = styled.div`
+    display: none;
+
+    @media screen and (max-width: 900px) {
+        display: flex;
+        width: 90vw;
+        margin: 0 auto 2rem auto;
+        
     }
 `;
 
 const FilterContainer = styled.div`
     display: flex;
     justify-content: flex-end;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 900px) {
         display: none;
     }
 `;
 
 const Filter = styled.div`
     margin: 20px;
+    @media screen and (max-width: 900px) {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
 `;
 
 const FilterText = styled.span`
@@ -103,6 +127,10 @@ const Cat = styled(Link)`
         transform: scale(1.1);
         color: black;
 
+    }
+    @media screen and (max-width: 900px) {
+        font-size: 1.4rem;
+        margin: 8px 0;
     }
 `;
 
@@ -159,73 +187,156 @@ const ProductList = () => {
     }else if(cat === "educational-toys"){
         catName = "ARENDAVAD MÄNGUASJAD"
     }else if(cat === "silicone-toys"){
-        catName = "SILICONE TOYS FOR CHILDREN"
+        catName = "SILIKOONIST MÄNGUASJAD"
     }
 
 
 
     return (
-        <>    
-        <motion.div 
-        initial={{opacity: 0}} 
-        animate={{opacity: 1}} 
-        exit={{opacity: 0, transition: {duration: 0.05}}}>
-            <Announcement />
-            <Alert variant="filled" severity="error">
+      <>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: 0.05 } }}
+        >
+          <Announcement />
+          <Alert variant="filled" severity="error">
             Tähelepanu veebileht on testrežiimis. Teie tellimust ei töödelda
-            </Alert>
-            <Sidebar isOpen={isOpen} toggle={toggle}/>
-            <NavbarCommon toggle={toggle} scrolled={scrolled}/>
-            <Cont>
+          </Alert>
+          <Sidebar isOpen={isOpen} toggle={toggle} />
+          <NavbarCommon toggle={toggle} scrolled={scrolled} />
+          <Cont>
             <Left>
-                <Title>{catName}</Title>
-                <Hr />
-                <LeftContent>
+              <Title>{catName}</Title>
+              <Hr />
+              <LeftContent>
                 <Title2>KATEGOORIAD</Title2>
                 <Categories>
-                    <Cat to="/products/tableware" style={{color: cat === "tableware" && "#ff9d1d"}}>Silikoonist Beebi Nõud</Cat>
-                    <Cat to="/products/educational-toys" style={{color: cat === "educational-toys" && "#ff9d1d"}}>Arendavad Mänguasjad</Cat>
-                    <Cat to="/products/silicone-toys" style={{color: cat === "silicone-toys" && "#ff9d1d"}}>Silikoonist Mänguasjad</Cat>
+                  <Cat
+                    to="/products/tableware"
+                    style={{ color: cat === "tableware" && "#ff9d1d" }}
+                  >
+                    Silikoonist Beebi Nõud
+                  </Cat>
+                  <Cat
+                    to="/products/educational-toys"
+                    style={{ color: cat === "educational-toys" && "#ff9d1d" }}
+                  >
+                    Arendavad Mänguasjad
+                  </Cat>
+                  <Cat
+                    to="/products/silicone-toys"
+                    style={{ color: cat === "silicone-toys" && "#ff9d1d" }}
+                  >
+                    Silikoonist Mänguasjad
+                  </Cat>
                 </Categories>
                 <Hr />
                 <Title2>FILTER VÄRVI JÄRGI</Title2>
-                <Select name="color" defaultValue={'DEFAULT'} onChange={handleFilters}>
-                    <Option value="DEFAULT">Kõik värvid</Option>
-                    <Option value="White">Valge</Option>
-                    <Option value="Blue">Sinine</Option>
-                    <Option value="Green">Roheline</Option>
-                    <Option value="Red">Punane</Option>
-                    <Option value="Black">Must</Option>
-                    <Option value="Beige">Beež</Option>
-                    <Option value="Purple">Lilla</Option>
-                    <Option value="Yellow">Kollane</Option>
-                    <Option value="Orange">Oranž</Option>
-
-                </Select>           
-                </LeftContent>
+                <Select
+                  name="color"
+                  defaultValue={"DEFAULT"}
+                  onChange={handleFilters}
+                >
+                  <Option value="DEFAULT">Kõik värvid</Option>
+                  <Option value="White">Valge</Option>
+                  <Option value="Blue">Sinine</Option>
+                  <Option value="Green">Roheline</Option>
+                  <Option value="Red">Punane</Option>
+                  <Option value="Black">Must</Option>
+                  <Option value="Beige">Beež</Option>
+                  <Option value="Purple">Lilla</Option>
+                  <Option value="Yellow">Kollane</Option>
+                  <Option value="Orange">Oranž</Option>
+                </Select>
+              </LeftContent>
             </Left>
             <Right>
-            <MobileTitle>
-                {catName}
-            </MobileTitle>
-            <FilterContainer>
-                <Filter><FilterText>Sorteeri tooteid:</FilterText>
-                <Select onChange={e=>setSort(e.target.value)}>
-                 <Option value="newest">Uusimad</Option>
-                 <Option value="asc">Hind (kõrge)</Option>
-                 <Option value="desc">Hind (madal)</Option>
-                </Select>
+              <MobileCategories>
+                <Cat
+                  to="/products/tableware"
+                  style={{ color: cat === "tableware" && "#ff9d1d" }}
+                >
+                  Silikoonist Beebi Nõud
+                </Cat>
+                <Cat
+                  to="/products/educational-toys"
+                  style={{ color: cat === "educational-toys" && "#ff9d1d" }}
+                >
+                  Arendavad Mänguasjad
+                </Cat>
+                <Cat
+                  to="/products/silicone-toys"
+                  style={{ color: cat === "silicone-toys" && "#ff9d1d" }}
+                >
+                  Silikoonist Mänguasjad
+                </Cat>
+              </MobileCategories>
+              <MobileFilters>
+                <Accordion style={{width: "100%"}}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography style={{ color: "#ff9d1d" }}>
+                      Filtreeri / Sorteeri
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails style={{ width: "100%"}}>
+                    <Filter style={{ width: "100%", margin: "0"}}>
+                      <FilterText style={{ fontSize: "1rem" }}>
+                        Sorteeri tooteid:
+                      </FilterText>
+                      <Select style={{ alignSelf: "end" }} onChange={(e) => setSort(e.target.value)}>
+                        <Option value="newest">Uusimad</Option>
+                        <Option value="asc">Hind (kõrge)</Option>
+                        <Option value="desc">Hind (madal)</Option>
+                      </Select>
+                    </Filter>
+                    <Filter style={{ width: "100%", margin: "1rem 0 0 0" }}>
+                        <FilterText style={{ fontSize: "1rem" }}>
+                        Filtreeri värvi järgi: 
+                      </FilterText>
+                      <Select
+                        name="color"
+                        defaultValue={"DEFAULT"}
+                        onChange={handleFilters}
+                      >
+                        <Option value="DEFAULT">Kõik värvid</Option>
+                        <Option value="White">Valge</Option>
+                        <Option value="Blue">Sinine</Option>
+                        <Option value="Green">Roheline</Option>
+                        <Option value="Red">Punane</Option>
+                        <Option value="Black">Must</Option>
+                        <Option value="Beige">Beež</Option>
+                        <Option value="Purple">Lilla</Option>
+                        <Option value="Yellow">Kollane</Option>
+                        <Option value="Orange">Oranž</Option>
+                      </Select>
+                    </Filter>
+                  </AccordionDetails>
+                </Accordion>
+              </MobileFilters>
+              <FilterContainer>
+                <Filter>
+                  <FilterText>Sorteeri tooteid:</FilterText>
+                  <Select onChange={(e) => setSort(e.target.value)}>
+                    <Option value="newest">Uusimad</Option>
+                    <Option value="asc">Hind (kõrge)</Option>
+                    <Option value="desc">Hind (madal)</Option>
+                  </Select>
                 </Filter>
-            </FilterContainer>
-            <Products cat={cat} filters={filters} sort={sort}/>
+              </FilterContainer>
+              <Products cat={cat} filters={filters} sort={sort} />
             </Right>
-            </Cont>
-            <Newsletter />
-            <Footer />
-            <MobileCart />
-            </motion.div>
-        </>
-    )
+          </Cont>
+          <Newsletter />
+          <Footer />
+          <MobileCart />
+        </motion.div>
+      </>
+    );
 }
 
 export default ProductList

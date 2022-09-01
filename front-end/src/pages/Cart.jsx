@@ -122,7 +122,7 @@ border-radius: 10px;
 padding: 20px;
 min-width: 32%;
 max-width: 300px;
-height: 430px;
+min-height: 430px;
 margin: 20px;
 position: relative;
 @media screen and (max-width: 900px) {
@@ -151,15 +151,16 @@ justify-content: space-between;
 `;
 
 const TotalItem = styled.div`
-margin: 40px 15px 60px 15px;
+margin: 40px 15px 10px 15px;
 display: flex;
 justify-content: space-between;
 font-weight: 600;
 font-size: 22px;
+width: 100%;
 `;
 
 const ShippingMessage = styled.div`
-margin: 7px 15px 30px 15px;
+margin: 7px 15px 15px 15px;
 font-size: 15px;
 display: flex;
 color: green;
@@ -192,6 +193,8 @@ const ButtonCont = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
 `;
 
 const Button = styled(Link)`
@@ -203,13 +206,18 @@ const Button = styled(Link)`
     border: 2px solid #c05d00;
     color: white;
     font-weight: 600;
-    position: absolute;
-    bottom: 5%;
     transition: 0.4s all ease;
     &:hover{
         background-color: transparent;
         color: #f87800;
     }
+`;
+
+const TotalCont = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
 `;
 
 const EmptyContainer = styled.div`
@@ -363,6 +371,7 @@ const Cart = () => {
                         <SummaryItemPrice>{cart.total.toFixed(2)} €</SummaryItemPrice>
                     </SummaryItem>
                     {checkShipping()}
+                    <TotalCont>
                     <TotalItem>
                         <SummaryItemText>Kokku</SummaryItemText>
                         <SummaryItemPrice>
@@ -376,6 +385,7 @@ const Cart = () => {
                     <ButtonCont>
                     <Button to="/checkout">JÄTKA BRONEERINGUGA</Button>
                     </ButtonCont>
+                    </TotalCont>
                 </Summary>
             </Bottom>
             </Wrapper>

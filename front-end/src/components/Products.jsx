@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Product from "./Product";
 import axios from "axios";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const Container = styled.div`
     display: grid;
@@ -12,6 +13,14 @@ const Container = styled.div`
     max-width: 1300px;
 `;
 
+const Spinner = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    width: 100%;
+`;  
+
 const NoMatchMessage = styled.div`
     text-align: center;
     margin: 4rem 0;
@@ -20,23 +29,34 @@ const NoMatchMessage = styled.div`
 `;
 
 const Products = ({cat,filters,sort,popular}) => {
+    const [loading, setLoading] = useState(false)
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
 
     useEffect(()=>{
+        const controller = new AbortController();
         const getProducts = async () => {
             try{
+                setLoading(true)
                 const res = await axios.get(
                     cat
                     ? `https://baby-pingviin.herokuapp.com/api/products?category=${cat}`
                     : popular
                     ? "https://baby-pingviin.herokuapp.com/api/products?home=home"
                     : "https://baby-pingviin.herokuapp.com/api/products?new=new"
-                    );
+                    , {
+                        signal: controller.signal,
+                      });
                     setProducts(res.data);
-            }catch(err){}
+                setLoading(false)    
+            }catch(err){
+                
+            }
         };
         getProducts();
+        return () => {
+            controller.abort();
+          };
     },[cat,popular]);
 
     useEffect(() => {
@@ -88,9 +108,21 @@ const Products = ({cat,filters,sort,popular}) => {
     }
 
     return (
+        <>
+        {loading ? 
+        <Spinner> 
+        <BeatLoader 
+        color="#f4a216"
+        margin={2}
+        size={25}
+        />
+        </Spinner>
+            :
         <Container>
             {productsCheck()}
         </Container>
+        }
+        </>
     )
 }
 

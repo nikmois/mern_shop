@@ -122,7 +122,7 @@ export default function User() {
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Статус заказа (pending, approved, declined, shipped)</label>
+                <label>Статус заказа (töötlemisel, vastuvõetud, tühistatud, väljastatud)</label>
                 <input
                   type="text"
                   placeholder={data.status}

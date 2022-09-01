@@ -47,13 +47,23 @@ export default function User() {
           <form className="userUpdateForm">
             <div className="userUpdateLeft">
               <div className="userUpdateItem">
-                <label>Полное имя</label>
+                <label>Имя</label>
                 <input
                   type="text"
-                  placeholder={data.fullname}
+                  placeholder={data.firstName}
                   className="userUpdateInput"
                   onChange={handleChange}
-                  name="fullname"
+                  name="firstName"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Фамилия</label>
+                <input
+                  type="text"
+                  placeholder={data.lastName}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="lastName"
                 />
               </div>
               <div className="userUpdateItem">
@@ -77,22 +87,43 @@ export default function User() {
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Адрес</label>
+                <label>Город</label>
                 <input
                   type="text"
-                  placeholder={data.address || "Не указан"}
+                  placeholder={data.city || "Не указан"}
                   className="userUpdateInput"
                   onChange={handleChange}
-                  name="address"
+                  name="city"
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Заказы</label>
+                <label>Адрес</label>
                 <input
                   type="text"
-                  placeholder={data.orders?.length > 1 ? data.orders : "Нет заказов"}
+                  placeholder={data.street || "Не указан"}
                   className="userUpdateInput"
-                  name="orders"
+                  onChange={handleChange}
+                  name="street"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Почтовый индекс</label>
+                <input
+                  type="text"
+                  placeholder={data.postcode || "Не указан"}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="postcode"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Дата рождения</label>
+                <input
+                  type="text"
+                  placeholder={data.birthday || "Не указан"}
+                  className="userUpdateInput"
+                  onChange={handleChange}
+                  name="birthday"
                 />
               </div>
             </div>

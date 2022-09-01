@@ -36,7 +36,7 @@ const OrderSchema = new mongoose.Schema({
         container: {type:String, required: true},
         message: {type:String},
         street:{type:String},
-        status: {type:String, default: "pending" },
+        status: {type:String, default: "töötlemisel" },
 },{timestamps: true });
 
 module.exports = mongoose.model("Order",OrderSchema);

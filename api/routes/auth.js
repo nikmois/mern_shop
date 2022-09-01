@@ -78,42 +78,47 @@ router.post(
         check('password', 'Enter password').exists()
     ],
     async (req,res)=>{
-    try{
-        const errors = validationResult(req)
-
-        if (!errors.isEmpty()){
-            return res.status(400).json({
-                errors: errors.array(),
-                message: 'Wrong email or password, please try again'
-            })
+        try{
+            const errors = validationResult(req)
+    
+            if (!errors.isEmpty()){
+                return res.status(400).json({
+                    errors: errors.array(),
+                    message: 'Vale salasõna või e-post, palun proovige uuesti'
+                })
+            }
+    
+            const user = await User.findOne({email: req.body.email});
+            if (!user) {
+                return res.status(401).json("Kasutaja selle e-postiga ei leitud!")
+            }
+            if (!req.body.password){
+                return res.status(401).json("Palun sisetage parooli!")
+            }
+    
+            const hashedPassword = CryptoJS.AES.decrypt(
+                user.password,
+                process.env.PASS_SEC
+            );
+            const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8)
+            if (OriginalPassword !== req.body.password) {
+                return res.status(401).json("Vale salasõna või e-post, palun proovige uuesti")
+            }
+            const accessToken = jwt.sign({
+                id:user._id, 
+                isAdmin: user.isAdmin,
+            }, 
+            process.env.JWT_SEC,
+            {expiresIn: "3h"}
+            );
+    
+            const {password, ...others} = user._doc;
+    
+            res.status(200).json({...others, accessToken});
+        }catch(err){
+            res.status(500).json({ message: "Server error!"});
+            console.log(err)
         }
-
-        const user = await User.findOne({email: req.body.email});
-        !user && res.status(401).json("Wrong credentials!")
-
-        const hashedPassword = CryptoJS.AES.decrypt(
-            user.password,
-            process.env.PASS_SEC
-        );
-        const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-
-        OriginalPassword !==req.body.password &&
-         res.status(401).json("Wrong password or email, please try again")
-
-        const accessToken = jwt.sign({
-            id:user._id, 
-            isAdmin: user.isAdmin,
-        }, 
-        process.env.JWT_SEC,
-        {expiresIn: "3h"}
-        );
-
-        const {password, ...others} = user._doc;
-
-        res.status(200).json({...others, accessToken});
-    }catch(err){
-        res.status(500).json(err);
-    }
 });
 
 module.exports = router

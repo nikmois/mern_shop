@@ -315,13 +315,13 @@ const countries = ["Eesti", "Läti", "Leedu", "Soome"];
 const Checkout = () => {
 
     const schema = yup.object().shape({
-        firstName: yup.string().matches(/^([^0-9]*)$/, "Eesnimi ei pea sisaldama numbreid").required("Eesnimi on kohustuslik väli").matches(/^[a-zA-Z]+$/, "Eesnimi väli peab sisaldama ainult ladina tähestiku tähti"),
-        lastName: yup.string().matches(/^([^0-9]*)$/, "Perekonnanimi ei pea sisaldama numbreid").required("Perekonnanimi on kohustuslik väli").matches(/^[a-zA-Z]+$/, "Perekonnanimi väli peab sisaldama ainult ladina tähestiku tähti"),
-        email: yup.string().email("Palun sisestage korrektne email").required("Email on kohustuslik väli"),
+        firstName: yup.string().matches(/^([^0-9]*)$/, "Eesnimi ei pea sisaldama numbreid").required("Eesnimi on kohustuslik väli"),
+        lastName: yup.string().matches(/^([^0-9]*)$/, "Perekonnanimi ei pea sisaldama numbreid").required("Perekonnanimi on kohustuslik väli"),
+        email: yup.string().email("Palun sisestage korrektne email").matches(/^\S*$/, "Email ei tohi sisaldada tühikuid").required("Email on kohustuslik väli"),
         message: yup.string(),
-        street: yup.string(),
+        street: yup.string().required("Aadress on kohustuslik väli"),
         postcode: yup.string(),
-        city: yup.string(),
+        city: yup.string().required("Linn on kohustuslik väli"),
         phone: yup.string().matches(phoneRegExp, 'Palun sisestage korrektne telefoninumber').required("Telefoninumber on kohustuslik väli"),
         country: yup.string().oneOf(countries).required("Palun valige riik"),
         container: yup.string().required("Palun valige postiautomaat"),
@@ -455,9 +455,23 @@ const Checkout = () => {
             console.log(res.message)
             console.log(res)
             emptyAllCart(dispatch)
-            request("https://baby-pingviin.herokuapp.com/send-mail", 'POST', {
-                name: res.firstName
+            const res2 = await axios.get("https://baby-pingviin.herokuapp.com/api/counter")
+            let [arve] = res2.data;
+            try {
+                request("https://baby-pingviin.herokuapp.com/contact", 'POST', {
+                name: res.firstName,
+                arveId: arve.seq_value,
+                lastname: res.lastName,
+                total: res.amount,
+                id: res._id,
+                products: res.products,
+                email: res.email,
+                city: res.city,
+                street: res.street,
+                shipping: res.shipping,
+                post: res.container
             })
+            } catch (e) {}
         } catch (e) {}
     }
 
@@ -533,8 +547,8 @@ const Checkout = () => {
                                     </Select>
                                     {!!errors.country && <FormHelperText>{errors?.country?.message}</FormHelperText>}
                                 </FormControl>
-                                <Input {...register("city")} id="city" type="text" label="Linn (valikuline)" name="city" />
-                                <Input {...register("street")} id="street" type="text" label="Tänava aadress (valikuline)" name="street" />
+                                <Input {...register("city")} id="city" type="text" label="Linn" required name="city" error={!!errors.city} helperText={errors?.city?.message}/>
+                                <Input {...register("street")} id="street" type="text" label="Aadress" required name="street" error={!!errors.street} helperText={errors?.street?.message}/>
                                 <Input {...register("postcode")} id="postcode" type="text" label="ZIP / Postiindeks (valikuline)" name="postcode" error={!!errors.postcode} helperText={errors?.postcode?.message} />
                                 <TextField
                                 {...register("message")}
@@ -610,7 +624,7 @@ const Checkout = () => {
                                                 <MenuItem key={i} value={location.NAME}>{location.NAME}</MenuItem>
                                             )
                                         } else {
-                                            return(<></>)
+                                            return(<p key={i} style={{display: "none"}}></p>);
                                         }
                                     })
                                     : post === "dpd" 
@@ -663,7 +677,7 @@ const Checkout = () => {
                                 <Headers style={{ fontSize: "1.2rem" }}>
                                     <p>Kokku</p>
                                     <Subtotal>
-                                        {Number(endTotal).toFixed(2)} €<br />
+                                        <span style={{textAlignLast: "right", textAlign: "justify"}}>{Number(endTotal).toFixed(2)}</span> €<br />
                                         <Vat>
                                             (sisaldab <VatPrice>
                                                 {(Number(endTotal) * 0.2)?.toFixed(2)}€</VatPrice> KM)
@@ -677,7 +691,7 @@ const Checkout = () => {
                             <Hr style={{ width: "calc(100% - 4rem)", margin: "1rem 0" }} />
                             
                             {!!errors.checkbox ? 
-                            <div style={{border: "1px solid red"}}><Checkbox><input name="checkbox" {...register("checkbox")} type="checkbox" /><label htmlFor="ckbox" style={{ float: "right", padding: "0 1rem" }}>Olen läbi lugenud ja nõustun veebisaidi <PrivLink onClick={() => window.open("/terms-and-conditions", "_blank")}>tingimustega</PrivLink><span style={{ color: "red" }}>*</span></label></Checkbox><div style={{alignSelf: "start", color: "red", padding: "0 2rem 0 3.8rem"}}>You must accept terms and conditions!</div></div> 
+                            <div style={{border: "1px solid red"}}><Checkbox><input name="checkbox" {...register("checkbox")} type="checkbox" /><label htmlFor="ckbox" style={{ float: "right", padding: "0 1rem" }}>Olen läbi lugenud ja nõustun veebisaidi <PrivLink onClick={() => window.open("/terms-and-conditions", "_blank")}>tingimustega</PrivLink><span style={{ color: "red" }}>*</span></label></Checkbox><div style={{alignSelf: "start", color: "red", padding: "0 2rem 0 3.8rem"}}>Peate veebilehe tingimustega nõustuma!</div></div> 
                             :
                             <Checkbox><input name="checkbox" {...register("checkbox")} type="checkbox" /><label htmlFor="ckbox" style={{ float: "right", padding: "0 1rem" }}>Olen läbi lugenud ja nõustun veebisaidi <PrivLink onClick={() => window.open("/terms-and-conditions", "_blank")}>tingimustega </PrivLink><span style={{ color: "red" }}>*</span></label></Checkbox>}
                             <Button type="submit">ESITA TELLIMUS</Button>

@@ -1,9 +1,11 @@
 import { SearchOutlined, ShoppingCartOutlined } from "@material-ui/icons";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartRedux";
+import { Alert, IconButton, Snackbar } from "@material-ui/core";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const Info = styled(Link)`
@@ -43,7 +45,7 @@ const Icons = styled.div`
 `;
 
 const Container = styled.div`
-    max-width: 100%;
+    max-width: 30rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -246,6 +248,7 @@ const Product = ({item}) => {
     const dispatch = useDispatch();
     const [color,setColor] = useState("");
     const [dbColor, setDbColor] = useState([]);
+    const [open, setOpen] = useState(false);
     
 
     useEffect(() => {
@@ -260,7 +263,29 @@ const Product = ({item}) => {
     const handleClick = async (e) =>{
         e.preventDefault()
         dispatch(addProduct({ ...item, quantity, color, dbColor})) 
+        setOpen(true)
     };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+      
+        setOpen(false);
+      };
+
+    const action = (
+        <React.Fragment>
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </React.Fragment>
+      );
 
     const priceCheck = () => {
         if (item.oldPrice) {
@@ -331,6 +356,18 @@ const Product = ({item}) => {
                     <SearchOutlined/>
             </Icon>
             </Icons>
+            <Snackbar
+            open={open}
+            autoHideDuration={5000}
+            onClose={handleClose}
+            style={{zIndex: "99"}}
+            action={action}
+            sx={{ bottom: { xs: 90, sm: 50 } }}
+            >
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            Toode on edukalt lisatud korvi!
+            </Alert>
+            </Snackbar>
         </Container>
     )
 }
