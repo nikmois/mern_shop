@@ -7,6 +7,7 @@ import insta from "../images/insta.svg";
 import wapp from "../images/whatsapp.svg";
 import bg from "../images/menubg.jpg";
 import { useSelector } from 'react-redux';
+import { AiOutlineHome, AiOutlineShoppingCart, AiOutlineHeart, AiOutlinePhone } from "react-icons/ai";
 
 const SidebarContainer = styled.aside`
     position: fixed;
@@ -38,10 +39,15 @@ const Icon = styled.div`
 
 export const SidebarWrapper = styled.div`
     color: #ffbd66;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `;
 
 const SidebarMenu = styled.ul`
     display: grid;
+    width: 50%;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 80px);
     text-align: center;
@@ -52,7 +58,7 @@ const SidebarMenu = styled.ul`
 const SidebarLink = styled(LinkR)`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     font-size: 1.5rem;
     text-decoration: none;
     list-style: none;
@@ -175,15 +181,20 @@ const Sidebar = ({isOpen, toggle}) => {
             <SidebarWrapper>
                 <SidebarMenu>
                     <SidebarLink to="/">
+                    <AiOutlineHome style={{marginRight: "5px"}}/>
                         KODU
                     </SidebarLink>
                     <SidebarLink to="/shop">
+                        <AiOutlineShoppingCart style={{marginRight: "5px"}} />
                         POOD
                     </SidebarLink>
                     <SidebarLink to="/about">
+                        <AiOutlineHeart style={{marginRight: "5px"}} />
                         MEIST
                     </SidebarLink>
                     <SidebarLink to="/contact">
+                    
+                    <AiOutlinePhone style={{marginRight: "5px"}} />
                         KONTAKTID
                     </SidebarLink>
                 </SidebarMenu>

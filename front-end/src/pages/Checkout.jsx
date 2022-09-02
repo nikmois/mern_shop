@@ -20,6 +20,7 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { TextField } from '@material-ui/core';
 import omnivaLocations from "../locations.json";
 import smartLocations from "../places.json";
+import dpdLocations from "../dpdlocations.json";
 import omniva from "../images/omniva.jpg";
 import smartpost from "../images/smartpost.png";
 import dpd from "../images/dpd.jpg";
@@ -628,7 +629,7 @@ const Checkout = () => {
                                         }
                                     })
                                     : post === "dpd" 
-                                    ? smartLocations.map((location, i) => {
+                                    ? dpdLocations.map((location, i) => {
                                             return(
                                                 <MenuItem key={i} value={location.name}>{location.name}</MenuItem>
                                             )

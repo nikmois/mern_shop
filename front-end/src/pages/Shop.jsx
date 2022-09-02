@@ -20,15 +20,37 @@ const Container = styled.div`
     margin-bottom: 20vh;
 `;
 
-
-const Advertise = styled.img`
+const ImageContainer = styled.div`
     width: 90vw;
     display: block;
     margin: 2.5vh 0;
-    
+    position: relative;
     max-width: 1300px; 
     margin-left: auto;
     margin-right: auto;
+`;
+
+const Layer = styled.div`
+    position: absolute;
+    top: 15%;
+    width: 100%;
+    height: 70%;
+    background-color: #00000072;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+`;
+
+const Header = styled.h1`
+    color: white;
+    font-weight: 700;
+    padding: 5%;
+    font-size: 3vw;
+`;
+
+
+const Advertise = styled.img`
+    width: 100%;
 `;
 
 
@@ -51,7 +73,14 @@ const Shop = () => {
             <Alert variant="filled" severity="error">
             Tähelepanu veebileht on testrežiimis. Teie tellimust ei töödelda
             </Alert>
+            <ImageContainer>
             <Advertise src={advert}/>
+            <Layer>
+            <Header>
+            Kõrgeima kvaliteediga tooted sinu lapse jaoks
+            </Header>
+            </Layer>
+            </ImageContainer>
             <Container>
                 <CategoryTitle/>
                 <Categories />

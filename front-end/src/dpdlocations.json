@@ -1,0 +1,773 @@
+[
+ {
+  "name": "Aseri Grossi Kauplus"
+ },
+ {
+  "name": "Abja-Paluoja Konsum"
+ },
+ {
+  "name": "Aegviidu raamatukogu"
+ },
+ {
+  "name": "Ahja Konsum"
+ },
+ {
+  "name": "Ahtme Maxima XX"
+ },
+ {
+  "name": "Ahtme Maleva Grossi kaubad"
+ },
+ {
+  "name": "Alatskivi Konsum"
+ },
+ {
+  "name": "Antsla Konsum"
+ },
+ {
+  "name": "Aruküla Konsum"
+ },
+ {
+  "name": "Avinurme Konsum"
+ },
+ {
+  "name": "DPD Eesti peakontor"
+ },
+ {
+  "name": "Elva Maxima X"
+ },
+ {
+  "name": "Emmaste vallamaja"
+ },
+ {
+  "name": "Haapsalu Kaubamaja Konsum"
+ },
+ {
+  "name": "Haapsalu Kastani keskus"
+ },
+ {
+  "name": "Haljala Grossi kauplus"
+ },
+ {
+  "name": "Häädemeeste Konsum"
+ },
+ {
+  "name": "Ihaste Konsum"
+ },
+ {
+  "name": "Iisaku Grossi kauplus"
+ },
+ {
+  "name": "Imavere Meie kauplus"
+ },
+ {
+  "name": "Jõgeva Pae Konsum"
+ },
+ {
+  "name": "Jõgeva Selver"
+ },
+ {
+  "name": "Jõhvi Maxima XX"
+ },
+ {
+  "name": "Jõhvi Jewe Keskus"
+ },
+ {
+  "name": "Järvakandi Grossi kauplus"
+ },
+ {
+  "name": "Järva-Jaani Grossi kauplus"
+ },
+ {
+  "name": "Jüri Grossi kauplus"
+ },
+ {
+  "name": "Jüri Konsum"
+ },
+ {
+  "name": "Kadrina Grossi kauplus"
+ },
+ {
+  "name": "Kambja Konsum"
+ },
+ {
+  "name": "Kanepi Kauplus"
+ },
+ {
+  "name": "Karksi-Nuia Konsum"
+ },
+ {
+  "name": "Kehra Grossi kauplus"
+ },
+ {
+  "name": "Kehtna kauplus"
+ },
+ {
+  "name": "Keila-Joa kauplus"
+ },
+ {
+  "name": "Keila Maxima X"
+ },
+ {
+  "name": "Keila Selver"
+ },
+ {
+  "name": "Kihelkonna kauplus"
+ },
+ {
+  "name": "Kiili Maxima X"
+ },
+ {
+  "name": "Kilingi-Nõmme Konsum"
+ },
+ {
+  "name": "Kiviõli K5 keskus"
+ },
+ {
+  "name": "Klooga Kultuurikeskus"
+ },
+ {
+  "name": "Koeru Konsum"
+ },
+ {
+  "name": "Kohila Grossi kauplus"
+ },
+ {
+  "name": "Kohtla-Järve mini-Rimi"
+ },
+ {
+  "name": "Kohtla-Järve Vironia keskus"
+ },
+ {
+  "name": "Kohtla-Järve Virula kaubakeskus"
+ },
+ {
+  "name": "Kose Grossi pood"
+ },
+ {
+  "name": "Kose-Uuemõisa Grossi pood"
+ },
+ {
+  "name": "Kunda Grossi pood"
+ },
+ {
+  "name": "Kuressaare mini-Rimi"
+ },
+ {
+  "name": "Kuressaare Rae Konsum"
+ },
+ {
+  "name": "Kuressaare Selver"
+ },
+ {
+  "name": "Kuusalu Konsum"
+ },
+ {
+  "name": "Käina Konsum"
+ },
+ {
+  "name": "Kärdla Selver"
+ },
+ {
+  "name": "Laagri Rimi"
+ },
+ {
+  "name": "Laagri Veskimöldre keskus"
+ },
+ {
+  "name": "Laulasmaa Selver"
+ },
+ {
+  "name": "Leisi kauplus"
+ },
+ {
+  "name": "Lihula Ehituskeskus"
+ },
+ {
+  "name": "Loksa Grossi kauplus"
+ },
+ {
+  "name": "Loo Grossi kauplus"
+ },
+ {
+  "name": "Lähte kauplus"
+ },
+ {
+  "name": "Maardu Maxima XX"
+ },
+ {
+  "name": "Maardu Pärli keskus"
+ },
+ {
+  "name": "Muuga Maxima X"
+ },
+ {
+  "name": "Muhu Liiva Konsum"
+ },
+ {
+  "name": "Muraste Konsum"
+ },
+ {
+  "name": "Mustla Konsum"
+ },
+ {
+  "name": "Mustvee Grossi kauplus"
+ },
+ {
+  "name": "Märja Konsum"
+ },
+ {
+  "name": "Märjamaa Maxima X"
+ },
+ {
+  "name": "Narva Astri keskus"
+ },
+ {
+  "name": "Narva Kangelaste Prisma"
+ },
+ {
+  "name": "Narva Kreenholmi Maxima XX"
+ },
+ {
+  "name": "Narva Tiimanni Maxima"
+ },
+ {
+  "name": "Narva Pähklimäe 6a Grossi kaubad"
+ },
+ {
+  "name": "Narva Megamarket"
+ },
+ {
+  "name": "Narva Fama keskus"
+ },
+ {
+  "name": "Narva-Jõesuu Konsum"
+ },
+ {
+  "name": "Nõo Konsum"
+ },
+ {
+  "name": "Orissaare Konsum"
+ },
+ {
+  "name": "Otepää Maxima X"
+ },
+ {
+  "name": "Paide Konsum"
+ },
+ {
+  "name": "Paide Rimi"
+ },
+ {
+  "name": "Paikuse Konsum"
+ },
+ {
+  "name": "Palamuse Konsum"
+ },
+ {
+  "name": "Paldiski Konsum"
+ },
+ {
+  "name": "Palivere kauplus"
+ },
+ {
+  "name": "Peetri Keskus"
+ },
+ {
+  "name": "Peetri Selver"
+ },
+ {
+  "name": "Puhja Konsum"
+ },
+ {
+  "name": "Puka kauplus"
+ },
+ {
+  "name": "Puurmani Tallinna mnt 2"
+ },
+ {
+  "name": "Põltsamaa Konsum"
+ },
+ {
+  "name": "Põlva Selver"
+ },
+ {
+  "name": "Põlva Bussijaam"
+ },
+ {
+  "name": "Pärnu A1000 Market"
+ },
+ {
+  "name": "Pärnu Kaubamajakas"
+ },
+ {
+  "name": "Pärnu Keskus"
+ },
+ {
+  "name": "Pärnu Maksimarket"
+ },
+ {
+  "name": "Pärnu Maxima XXX"
+ },
+ {
+  "name": "Pärnu Oja Selver"
+ },
+ {
+  "name": "Pärnu Ülejõe Selver"
+ },
+ {
+  "name": "Pärnu-Jaagupi Grossi kauplus"
+ },
+ {
+  "name": "Pärnu Jannseni Rimi"
+ },
+ {
+  "name": "Püssi Kauplus"
+ },
+ {
+  "name": "Raasiku Konsum"
+ },
+ {
+  "name": "Rakke Meie kauplus"
+ },
+ {
+  "name": "Rakvere kesklinna Rimi"
+ },
+ {
+  "name": "Rakvere Põhjakeskus"
+ },
+ {
+  "name": "Rakvere Raja Grossi kaubad"
+ },
+ {
+  "name": "Rapla jaama Hepa"
+ },
+ {
+  "name": "Rapla Selver"
+ },
+ {
+  "name": "Risti Bussijaam"
+ },
+ {
+  "name": "Roobuka Meie kauplus"
+ },
+ {
+  "name": "Rõngu Pagar"
+ },
+ {
+  "name": "Rõuge A ja O"
+ },
+ {
+  "name": "Räpina Maxima X"
+ },
+ {
+  "name": "Riisipere Meie kauplus"
+ },
+ {
+  "name": "Saku Selver"
+ },
+ {
+  "name": "Salme Konsum"
+ },
+ {
+  "name": "Saue Maxima X"
+ },
+ {
+  "name": "Saue Rimi"
+ },
+ {
+  "name": "Sauga Konsum"
+ },
+ {
+  "name": "Sillamäe Maxima XX"
+ },
+ {
+  "name": "Sindi Konsum"
+ },
+ {
+  "name": "Suure-Jaani Konsum"
+ },
+ {
+  "name": "Sõmeru kauplus"
+ },
+ {
+  "name": "Tammiste Konsum"
+ },
+ {
+  "name": "Tamsalu Maxima X"
+ },
+ {
+  "name": "Tabasalu Rimi"
+ },
+ {
+  "name": "Taebla kauplus"
+ },
+ {
+  "name": "Tallinna Akadeemia Konsum"
+ },
+ {
+  "name": "Tallinna Arsenali keskus"
+ },
+ {
+  "name": "Tallinna Balti jaam"
+ },
+ {
+  "name": "Tallinna Haabersti Rimi"
+ },
+ {
+  "name": "Tallinna Hiiu Rimi"
+ },
+ {
+  "name": "Tallinna Idakeskus"
+ },
+ {
+  "name": "Tallinna Jannseni Maxima"
+ },
+ {
+  "name": "Tallinna Järve keskus"
+ },
+ {
+  "name": "Tallinna Kaja Maxima X"
+ },
+ {
+  "name": "Tallinna Kadaka Selver"
+ },
+ {
+  "name": "Tallinna Kalevipoja Rimi"
+ },
+ {
+  "name": "Tallinna Kakumäe Selver"
+ },
+ {
+  "name": "Tallinna Kotka Selver"
+ },
+ {
+  "name": "Tallinna Kolde Selver"
+ },
+ {
+  "name": "Tallinna Kopli Maxima X "
+ },
+ {
+  "name": "Tallinna Kristiine keskus"
+ },
+ {
+  "name": "Tallinna Kärberi keskus"
+ },
+ {
+  "name": "Tallinna Lasnamäe Centrum"
+ },
+ {
+  "name": "Tallinna Lasnamäe Prisma"
+ },
+ {
+  "name": "Tallinna Linnamäe Maxima XXX"
+ },
+ {
+  "name": "Tallinna Läänemere Selver"
+ },
+ {
+  "name": "Tallinna Magdaleena"
+ },
+ {
+  "name": "Tallinna Magistrali keskus"
+ },
+ {
+  "name": "Tallinna Mustamäe keskus"
+ },
+ {
+  "name": "Tallinna Mustakivi keskus"
+ },
+ {
+  "name": "Tallinna Marienthali Selver"
+ },
+ {
+  "name": "Tallinna Mustika keskus"
+ },
+ {
+  "name": "Tallinna Mähe Grossi kaubad"
+ },
+ {
+  "name": "Tallinna Männiku Rimi"
+ },
+ {
+  "name": "Tallinna Narva mnt Selver"
+ },
+ {
+  "name": "Tallinna Nautica keskus"
+ },
+ {
+  "name": "Tallinna Nurmenuku keskus"
+ },
+ {
+  "name": "Tallinna Nõmme tee Maxima"
+ },
+ {
+  "name": "Tallinna Pallasti Maxima X"
+ },
+ {
+  "name": "Tallinna Paasiku Grossi kauplus"
+ },
+ {
+  "name": "Tallinna Paepargi Maxima XX"
+ },
+ {
+  "name": "Tallinna Pelgulinna Selver"
+ },
+ {
+  "name": "Tallinna Pirita keskus"
+ },
+ {
+  "name": "Tallinna Pirita Selver"
+ },
+ {
+  "name": "Tallinna Punane Selver"
+ },
+ {
+  "name": "Tallinna Põhja Rimi"
+ },
+ {
+  "name": "Tallinna Raudalu Konsum"
+ },
+ {
+  "name": "Tallinna Pääsküla Rimi"
+ },
+ {
+  "name": "Tallinna Ristiku Selver"
+ },
+ {
+  "name": "Tallinna Rocca al mare keskus"
+ },
+ {
+  "name": "Tallinna Sikupilli keskus"
+ },
+ {
+  "name": "Tallinna Smuuli Maxima XX"
+ },
+ {
+  "name": "Tallinna Stroomi keskus"
+ },
+ {
+  "name": "Tallinna Stockmann"
+ },
+ {
+  "name": "Tallinna Sõpruse Rimi"
+ },
+ {
+  "name": "Tallinna Telliskivi Rimi"
+ },
+ {
+  "name": "Tallinna Telia WoHo"
+ },
+ {
+  "name": "Tallinna Tehnikaülikool"
+ },
+ {
+  "name": "Tallinna Tondi Selver"
+ },
+ {
+  "name": "Tallinna Torupilli Selver"
+ },
+ {
+  "name": "Tallinna Tähesaju Selver"
+ },
+ {
+  "name": "Tallinna Tööstuse Rimi"
+ },
+ {
+  "name": "Tallinna Vilde tee Maxima XX"
+ },
+ {
+  "name": "Tallinna Vilde tee Rimi"
+ },
+ {
+  "name": "Tallinna Vineeri trammipeatus"
+ },
+ {
+  "name": "Tallinna Viru keskuse bussiterminal"
+ },
+ {
+  "name": "Tallinna Järveotsa Grossi kauplus"
+ },
+ {
+  "name": "Tallinna Keskturu parkla"
+ },
+ {
+  "name": "Tallinna Kivila Grossi kaupluse"
+ },
+ {
+  "name": "Tallinna Linnamäe Konsum"
+ },
+ {
+  "name": "Tallinna Õismäe tee 88 Maxima X"
+ },
+ {
+  "name": "Tallinna Õismäe Maxima XX"
+ },
+ {
+  "name": "Tallinna Õismäe Maxima XXX"
+ },
+ {
+  "name": "Tallinna Ülemiste keskus"
+ },
+ {
+  "name": "Tallinna Ümera keskus"
+ },
+ {
+  "name": "Tapa Konsum"
+ },
+ {
+  "name": "Tapa Maxima X"
+ },
+ {
+  "name": "Tartu Anne Maxima XX"
+ },
+ {
+  "name": "Tartu Anne Prisma"
+ },
+ {
+  "name": "Tartu Aardla Selver"
+ },
+ {
+  "name": "Tartu Eedeni keskus"
+ },
+ {
+  "name": "Tartu Lembitu Konsum"
+ },
+ {
+  "name": "Tartu Kivilinna Konsum"
+ },
+ {
+  "name": "Tartu Sõbrakeskus"
+ },
+ {
+  "name": "Tartu bussijaam"
+ },
+ {
+  "name": "Tartu Lõunakeskus"
+ },
+ {
+  "name": "Tartu Mõisavahe Konsum"
+ },
+ {
+  "name": "Tartu Raadi Maxima XX"
+ },
+ {
+  "name": "Tartu Raadimõisa Konsum"
+ },
+ {
+  "name": "Tartu Rebase Rimi"
+ },
+ {
+  "name": "Tartu Karete Konsum"
+ },
+ {
+  "name": "Tartu Riiamäe Alexela"
+ },
+ {
+  "name": "Tartu Ringtee Selver"
+ },
+ {
+  "name": "Tartu Rukkilille Selver"
+ },
+ {
+  "name": "Tartu Ujula Konsum"
+ },
+ {
+  "name": "Tartu Vahi Selver"
+ },
+ {
+  "name": "Tartu Veeriku Selver"
+ },
+ {
+  "name": "Tõrva Kevade keskus"
+ },
+ {
+  "name": "Tiskre Prisma"
+ },
+ {
+  "name": "Tõrvandi Konsum"
+ },
+ {
+  "name": "Tõstamaa Food Market"
+ },
+ {
+  "name": "Turba Kauplus"
+ },
+ {
+  "name": "Türi Konsum"
+ },
+ {
+  "name": "Türi Rimi"
+ },
+ {
+  "name": "Uuemõisa Konsum"
+ },
+ {
+  "name": "Vaida A ja O"
+ },
+ {
+  "name": "Valga Rimi"
+ },
+ {
+  "name": "Valga Maxima"
+ },
+ {
+  "name": "Varstu kauplus"
+ },
+ {
+  "name": "Vastseliina Konsum"
+ },
+ {
+  "name": "Vasalemma Meie kauplus"
+ },
+ {
+  "name": "Viimsi Maxima X"
+ },
+ {
+  "name": "Viimsi Pärnamäe Keskus"
+ },
+ {
+  "name": "Viimsi Selver"
+ },
+ {
+  "name": "Viiratsi Konsum"
+ },
+ {
+  "name": "Viljandi Männimäe Rimi"
+ },
+ {
+  "name": "Viljandi Maksimarket"
+ },
+ {
+  "name": "Viljandi bussijaam"
+ },
+ {
+  "name": "Virtsu Konsum"
+ },
+ {
+  "name": "Voka Grossi kaubad"
+ },
+ {
+  "name": "Võhma Konsum"
+ },
+ {
+  "name": "Võru Maksimarket"
+ },
+ {
+  "name": "Võru Maxima XX"
+ },
+ {
+  "name": "Väike-Maarja Konsum"
+ },
+ {
+  "name": "Vändra Grossi kauplus"
+ },
+ {
+  "name": "Värska kauplus"
+ },
+ {
+  "name": "Vääna-Jõesuu Meie kauplus"
+ },
+ {
+  "name": "Ülenurme Konsum"
+ }
+]
