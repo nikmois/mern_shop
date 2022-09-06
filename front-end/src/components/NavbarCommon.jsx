@@ -312,7 +312,7 @@ const NavbarCommon = ({ toggle, scrollNav, scrolled }) => {
     <Nav scrollNav={scrollNav} scrolled={scrolled}>
       <NavBarContainer scrollNav={scrollNav}>
           <Left to='/'>
-              <Logo src={logo} />
+              <Logo src={logo} alt="BabyPingviin"/>
           </Left>
           <MobileIcon onClick={toggle}>
                 <FaBars />

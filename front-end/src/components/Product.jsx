@@ -331,7 +331,7 @@ const Product = ({item}) => {
     return (
         <Container>
             <ImgContainer to={`/product/${item._id}`}>
-            <Image src={item.img1}/>
+            <Image src={item.img1} alt={item.title}/>
             {discountCheck()}
             {stockCheck()}
             </ImgContainer>

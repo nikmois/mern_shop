@@ -9,6 +9,7 @@ import { Alert, Button } from '@material-ui/core'
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
 import {motion} from 'framer-motion/dist/framer-motion';
+import { Helmet } from 'react-helmet'
 
 
 const Container = styled.div`
@@ -53,6 +54,13 @@ const SuccessOrder = () => {
     animate={{opacity: 1}} 
     exit={{opacity: 0, transition: {duration: 0.05}}}>
     <Container>
+    <Helmet>
+        <title>Tellimus edukalt saadetud</title>
+        <meta name="description" content="BabyPingviin on 2021. aastal loodud pereettevõte, mis pakub kvaliteetseid lauanõusid nii beebidele kui ka väikelastele ning arendavaid mänguasju mitmes vanuses mudilastele. 
+                Meie tooted sobivad ideaalselt teie lastele, sest need on valitud hoolivate ja armastavate vanemate poolt. Meie visiooniks on pakkuda taskukohase hinnaga laste- ja beebitooteid ning erinevaid tarbeid,
+                mis aitaks säästa pere eelarvet jättes seeläbi ruumi tõeliselt suurte unistuste jaoks." /> 
+        <meta name="keywords" content="lastepood e-pood mänguasjad lastenõud beebitooted babypingviin BabyPingviin kvaliteetsed tooted arendavad mänguasjad nõusid" />
+    </Helmet>
         <Announcement />
         <Alert variant="filled" severity="error">
             Tähelepanu veebileht on testrežiimis. Teie tellimust ei töödelda

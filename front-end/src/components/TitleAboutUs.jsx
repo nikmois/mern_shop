@@ -2,7 +2,7 @@ import React from 'react'
 import styled from "styled-components";
 import { Link as LinkR } from 'react-router-dom';
 import image from "../images/about.png";
-import bgPic from "../images/wall.jpg";
+import bgPic from "../images/wall.webp";
 import {motion} from 'framer-motion/dist/framer-motion';
 
 
@@ -110,7 +110,7 @@ const TitleAboutUs = () => {
           <Button to='/about'>VAATA ROHKEM</Button> 
           </Left>
           <Right>
-          <Image src={image}/>
+          <Image src={image} alt="Liitu uudiskirjadega"/>
           </Right>
           
         </Container>

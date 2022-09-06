@@ -210,13 +210,13 @@ const Sidebar = ({isOpen, toggle}) => {
                 }   
                 <SocialsContainer>
                 <SocialsINST href="https://www.instagram.com/babypingviin/?fbclid=IwAR2rFcMaofIwjZYlZGcOn-Py6FYLiX1Sha-Avzwkrol6xVXQ2HXd1xfxdO0">
-                <Instagram src={insta}/>
+                <Instagram src={insta} alt="instagramm"/>
                 </SocialsINST>
                 <SocialsFB href="https://www.facebook.com/babypingviin/">
                 <SiFacebook />
                 </SocialsFB>
                 <SocialsINST href="https://api.whatsapp.com/send?phone=37253737427&fbclid=IwAR1_XeXAzY51-CENjvLctkD-IG6swb2Z-t-Uswu_DjUK3EudA45GhFbU9C4">
-                <Instagram src={wapp}/>
+                <Instagram src={wapp} alt="whatsapp"/>
                 </SocialsINST>
                 </SocialsContainer>
             </SidebarWrapper>

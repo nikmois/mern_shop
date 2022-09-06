@@ -18,7 +18,7 @@ const Container = styled.div`
    
 `;
 
-const BigContainer = styled.div`
+const BigContainer = styled.footer`
      @media screen and (max-width: 1150px) {
         padding-bottom: 4rem;
     }
@@ -163,7 +163,7 @@ const Footer = () => {
         <Container>
             <Left>
                 <ImgContainer to="/">
-                <Image src={logo} />
+                <Image src={logo} alt="Baby Pingviin"/>
                 </ImgContainer>
                 <Desc>BabyPingviin on 2021. aastal loodud pereettevõte, mis pakub kvaliteetseid lauanõusid nii beebidele kui ka väikelastele ning arendavaid mänguasju mitmes vanuses mudilastele.</Desc>
                 <SocialContainer>

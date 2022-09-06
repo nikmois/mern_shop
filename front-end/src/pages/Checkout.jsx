@@ -30,6 +30,7 @@ import { emptyAllCart } from "../redux/apiCalls";
 import {motion} from 'framer-motion/dist/framer-motion';
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
+import { Helmet } from 'react-helmet'
 
 
 const Container = styled.div`
@@ -577,7 +578,7 @@ const Checkout = () => {
                                             />
                                             <label htmlFor="omniva">Omniva pakiautomaat <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,95</> 
                                             : (shippingSize > 33 && shippingSize <= 66) ? <>3,95</> : (shippingSize > 66) && <>4,85</>} €)</b></label>
-                                            <PostLogo style={{transform: "scale(1.2)"}} src={omniva}></PostLogo>
+                                            <PostLogo style={{transform: "scale(1.2)"}} src={omniva} alt="omniva pakiautomaatid"></PostLogo>
                                         </Label>
                                         <Label>
                                             <input
@@ -589,7 +590,7 @@ const Checkout = () => {
                                             />
                                             <label htmlFor="dpd">DPD pakiautomaat <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,90</> 
                                             : (shippingSize > 33 && shippingSize <= 66) ? <>3,90</> : (shippingSize > 66) && <>4,80</>} €)</b></label>
-                                            <PostLogo src={dpd}></PostLogo>
+                                            <PostLogo src={dpd} alt="dpd pakiautomaatid"></PostLogo>
                                         </Label>
                                         <Label>
                                             <input
@@ -601,7 +602,7 @@ const Checkout = () => {
                                             />
                                             <label htmlFor="smartpost">SmartPost pakiautomaat <b style={{fontSize: "0.8rem", letterSpacing: "-1px"}}>({(shippingSize >= 0 && shippingSize <= 33) ? <>2,99</> 
                                             : (shippingSize > 33 && shippingSize <= 66) ? <>3,99</> : (shippingSize > 66) && <>4,89</>} €)</b></label>
-                                            <PostLogo src={smartpost}></PostLogo>
+                                            <PostLogo src={smartpost} alt="SmartPost pakiautomaatid"></PostLogo>
                                         </Label>
                                     </Automats>
                                     
@@ -708,6 +709,13 @@ const Checkout = () => {
         initial={{opacity: 0}} 
         animate={{opacity: 1}} 
         exit={{opacity: 0, transition: {duration: 0.05}}}>
+            <Helmet>
+        <title>Tellimuse kinnitamine</title>
+        <meta name="description" content="BabyPingviin on 2021. aastal loodud pereettevõte, mis pakub kvaliteetseid lauanõusid nii beebidele kui ka väikelastele ning arendavaid mänguasju mitmes vanuses mudilastele. 
+                Meie tooted sobivad ideaalselt teie lastele, sest need on valitud hoolivate ja armastavate vanemate poolt. Meie visiooniks on pakkuda taskukohase hinnaga laste- ja beebitooteid ning erinevaid tarbeid,
+                mis aitaks säästa pere eelarvet jättes seeläbi ruumi tõeliselt suurte unistuste jaoks." />
+        <meta name="keywords" content="lastepood e-pood mänguasjad lastenõud beebitooted babypingviin BabyPingviin kvaliteetsed tooted arendavad mänguasjad nõusid" />
+    </Helmet>
         <Container>
             <Announcement />
             <Alert variant="filled" severity="error">

@@ -1,0 +1,3 @@
+# https://www.babypingviin.ee/robotstxt.html
+User-Agent: *
+Disallow:

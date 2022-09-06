@@ -59,7 +59,7 @@ const CategoryItem = ({item}) => {
     return (
         <Container>
             <Cont to={`/products/${item.cat}`}>
-            <Image src={item.img}/>
+            <Image src={item.img} alt={item.title} />
             <Button>{item.title}</Button>
             </Cont>
         </Container>

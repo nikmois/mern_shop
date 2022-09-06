@@ -1,4 +1,3 @@
-import sliderPic1 from "./images/image.jpg";
 import cat1 from "./images/cat1.jpg";
 import cat2 from "./images/cat2.jpg";
 import cat3 from "./images/cat3.jpg";
@@ -8,21 +7,18 @@ import slide3 from "./images/slide4.jpg";
 export const sliderItems = [
     {
         id: 1,
-        image: sliderPic1,
         title: "ARENDAVAD MÄNGUASJAD",
         desc: "Arendab visuaal-motoorset koordinatsiooni, kujutlusvõimet ja matemaatika põhitõdesid.", 
         bgImage: slide1,
     },
     {
         id: 2,
-        image:  sliderPic1,
         title: "LASTENÕUD",
         desc: "100% toidukvaliteediga silikoonist valmistatud beebiriistad on suurepärane valik esimeste toitude tutvustamiseks.", 
         bgImage: cat1,
     },
     {
         id: 3,
-        image:  sliderPic1,
         title: "SILIKOONIST MÄNGUASJAD",
         desc: "Silikoonist mänguasjad on 100% keemiavabad ning disainitud kahes osas, et mänguasjad oleks hügieenilised, hästi puhastatavad ja hallitusvabad.", 
         bgImage: slide3,
