@@ -7,7 +7,7 @@ import Footer from '../components/Footer'
 import MobileCart from '../components/MobileCart'
 import NavbarCommon from '../components/NavbarCommon'
 import Sidebar from '../components/Sidebar'
-import advert from "../images/advert.png";
+import advert from "../images/advert.webp";
 import {motion} from 'framer-motion/dist/framer-motion';
 import { Alert } from '@material-ui/core'
 import { Helmet } from 'react-helmet'
@@ -30,25 +30,6 @@ const ImageContainer = styled.div`
     margin-left: auto;
     margin-right: auto;
 `;
-
-const Layer = styled.div`
-    position: absolute;
-    top: 15%;
-    width: 100%;
-    height: 70%;
-    background-color: #00000072;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-`;
-
-const Header = styled.h1`
-    color: white;
-    font-weight: 700;
-    padding: 5%;
-    font-size: 3vw;
-`;
-
 
 const Advertise = styled.img`
     width: 100%;
@@ -83,11 +64,6 @@ const Shop = () => {
             </Alert>
             <ImageContainer>
             <Advertise src={advert} alt="Baby pingviin e-pood"/>
-            <Layer>
-            <Header>
-            Kõrgeima kvaliteediga tooted sinu lapse jaoks
-            </Header>
-            </Layer>
             </ImageContainer>
             <Container>
                 <CategoryTitle/>

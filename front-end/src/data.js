@@ -1,8 +1,8 @@
-import cat1 from "./images/cat1.jpg";
-import cat2 from "./images/cat2.jpg";
-import cat3 from "./images/cat3.jpg";
-import slide1 from "./images/slide3.jpg";
-import slide3 from "./images/slide4.jpg";
+import cat1 from "./images/cat1.webp";
+import cat2 from "./images/cat2.webp";
+import cat3 from "./images/cat3.webp";
+import slide1 from "./images/slide3.webp";
+import slide3 from "./images/slide4.webp";
 
 export const sliderItems = [
     {

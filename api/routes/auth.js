@@ -90,10 +90,10 @@ router.post(
     
             const user = await User.findOne({email: req.body.email});
             if (!user) {
-                return res.status(401).json("Kasutaja selle e-postiga ei leitud!")
+                return res.status(401).json({ message: "Kasutaja selle e-postiga ei leitud!"})
             }
             if (!req.body.password){
-                return res.status(401).json("Palun sisetage parooli!")
+                return res.status(401).json({ message: "Palun sisetage parooli!"})
             }
     
             const hashedPassword = CryptoJS.AES.decrypt(
@@ -102,7 +102,7 @@ router.post(
             );
             const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8)
             if (OriginalPassword !== req.body.password) {
-                return res.status(401).json("Vale salasõna või e-post, palun proovige uuesti")
+                return res.status(401).json({ message: "Vale salasõna või e-post, palun proovige uuesti"})
             }
             const accessToken = jwt.sign({
                 id:user._id, 

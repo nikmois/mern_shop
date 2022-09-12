@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IoHomeOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import regPic from "../images/register.jpg";
+import regPic from "../images/register.webp";
 import { login } from "../redux/apiCalls";
 import '../css/auth.css';
 import {motion} from 'framer-motion/dist/framer-motion';
+import { useHttp } from "../hooks/http.hook";
 
 
 const Container = styled.div`
@@ -80,34 +81,50 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const {clearError, error} = useHttp()
     const dispatch = useDispatch();
-    const {isFetching,error} = useSelector((state)=>state.user);
+    const {isFetching} = useSelector((state)=>state.user);
     const [notice, setNotice] = useState()
 
+    const useMessage = () => {
+        return useCallback(text => {
+            if (text) {
+                myFunction(text)
+            }
+        }, [])
+        }
 
-    
+    const message = useMessage()
 
-    function myFunction() {
+    function myFunction(text) {
 
-        if (error){// Get the snackbar DIV
-            var x = document.getElementById("snackbar");
-            
-            // Add the "show" class to DIV
-            x.className = "show";
-            
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-            
-            setNotice("Wrong email or password, please try again..")}
+         // Get the snackbar DIV
+         var x = document.getElementById("snackbar");
+      
+         // Add the "show" class to DIV
+         x.className = "show";
+       
+         // After 3 seconds, remove the show class from DIV
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+         
+         setNotice(text)
     };
 
 
+    useEffect(() => {
+        message(error)
+        clearError()
+      }, [error, message, clearError])
     
 
     const handleClick = (e) => {
-        e.preventDefault()
-        login(dispatch, {email,password});
-        myFunction();
+        try {
+            e.preventDefault()
+            login(dispatch, {email,password});
+            console.log(error)
+            myFunction(error);
+        } catch (e) {}
+        
     }
 
     return (

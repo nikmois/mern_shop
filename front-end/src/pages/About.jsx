@@ -5,7 +5,7 @@ import NavbarCommon from '../components/NavbarCommon'
 import Sidebar from '../components/Sidebar'
 import styled from 'styled-components'
 import {motion} from 'framer-motion/dist/framer-motion';
-import about from "../images/about.jpeg";
+import about from "../images/about.webp";
 import {Helmet} from "react-helmet"
 
 const Container = styled.div`

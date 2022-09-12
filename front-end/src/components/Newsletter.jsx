@@ -1,4 +1,4 @@
-import newsletter from '../images/newsletter.jpg';
+import newsletter from '../images/newsletter.webp';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useHttp } from '../hooks/http.hook';

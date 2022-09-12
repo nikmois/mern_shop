@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import { Link as LinkR } from 'react-router-dom';
-import image from "../images/about.png";
+import image from "../images/about1.webp";
 import bgPic from "../images/wall.webp";
 import {motion} from 'framer-motion/dist/framer-motion';
 

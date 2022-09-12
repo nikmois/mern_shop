@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { useHttp } from "../hooks/http.hook";
-import regPic from "../images/register.jpg";
+import regPic from "../images/register.webp";
 import { Link, useNavigate } from "react-router-dom";
 import {IoHomeOutline} from 'react-icons/io5';
 import '../css/auth.css';
