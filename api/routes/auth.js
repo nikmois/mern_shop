@@ -74,7 +74,7 @@ router.post(
 router.post(
     "/login", 
     [
-        check('email', 'Enter existing email').normalizeEmail().isEmail(),
+        check('email', 'Enter existing email').isEmail(),
         check('password', 'Enter password').exists()
     ],
     async (req,res)=>{
@@ -89,6 +89,8 @@ router.post(
             }
     
             const user = await User.findOne({email: req.body.email});
+            console.log("user",user)
+            console.log("sent user",req.body.email)
             if (!user) {
                 return res.status(401).json({ message: "Kasutaja selle e-postiga ei leitud!"})
             }
